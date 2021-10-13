@@ -13,6 +13,7 @@ abstract class BaseRepository implements RepositoryInterface{
      * @var Model
      */
     protected $model;
+    protected $modelRalation;
 
     public function getAll($columns = array('*'))
     {

@@ -1,38 +1,80 @@
 <?php
 namespace App\Repositories;
+use App\Models\Farm;
 use App\Models\Field;
+use App\Models\CadastralParcel;
+use App\Models\Crop;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 
 class FieldRepository extends BaseRepository{
-    public function __construct(Field $model)
+
+    private $farmModel;
+
+    public function __construct(Farm $modelFarm, Field $model, CadastralParcel $modelParcel)
     {
-        $this->model = $model;        
+        $this->farmModel = $modelFarm;
+        $this->model = $model;
+        $this->modelRalation = $modelParcel;        
     }
 
-    public function create(array $data, $idFarm=null)
+    public function create(array $data, $idFarm = null)
     {
-        //$field = Field::create($data);
+        $farm = Farm::find($idFarm);
+        $field = $farm->fields()->create($data);
+        $dataParcel = [
+                   'parcel_number' => $data['parcel_number'],
+                    'parcel_area' => $data['parcel_area'],
+             ];
+        $parcel = $field->cadastralParcels()->create($dataParcel);
 
+        $dataCrop = [
+            'name' => $data['crops'],
+        ];
+        $crop = Crop::where('id','=', $dataCrop)->first();
 
-       //if(isset($data['author_id']))
-       //{
-       //    $field->authors()->sync($data['author_id']);
-       //}
-       // return $field;
+        //dodanie samego klucza do relacji normalizacji
+        $field->crops()->attach($crop->id);
+
+        $area = DB::table('cadastral_parcels')->where('field_id', '=', $field->id)->sum('parcel_area');
+        $field->field_area = $area;
+        
+        $field->save();
+        $farm->updateFarmArea($idFarm);
+        $farm->save();
+        return $field;
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, $id, $idFarm = null)
     {
         $field = Field::find($id);
-        //dd($id);
-        $field->fill($data);
-        $field->save();
+        $field->field_name = $data['field_name'];
 
-        if(isset($data['author_id']))
-        {
-            $field->authors()->sync($data['author_id']);
-        }
+        $field->crops()->sync($data['crops']);
+        $field->save();
+        
+        $farm = Farm::find($idFarm);
+
+        $farm->updateFarmArea($idFarm);
+        
+        $farm->save();
+       
         return $field;
+    }
+
+    public function delete($id)
+    {
+        $field = $this->find($id);
+        $idFarm = $field->farm_id;   
+        $farm = Farm::find($field->farm_id);
+        $field->delete();
+        $farm->updateFarmArea($idFarm);
+        $farm->save();
+       
+
     }
     public function cheapest()
     {

@@ -32,7 +32,6 @@ class FieldController extends Controller
     public function index()
     {
         $fieldsList = $this->fieldRepository->getAll();
-        //$fieldsList = $this->$fieldRepository->getAll();
         return view('field.list', ['fieldsList' => $fieldsList]);
     }
 
@@ -43,81 +42,11 @@ class FieldController extends Controller
      */
     public function create($idFarm)
     {
-        //to chyba dobre
-     // $farm = $this->farmRepository->find($idFarm)->firstOrFail();
-     // $data = [
-     //     'field_name' => "ziemniaki47",
-     // ];
-     // $field = $farm->fields()->create($data);
-     // //dd($farm->fields()->create($data));
-     // $dataParcel = [
-     //     'field_id' => $field->id,
-     //     'parcel_number' => '102',
-     //     'parcel_area' => 5.47,
-     // ];
-     // $parcel = $field->cadastralParcels()->create($dataParcel);
-
-
-     // $dataCrop = [
-     //     'name' => 'Wiśnia',
-     // ];
-     // $crop = $field->crops()->create($dataCrop);
-
-//koniec
-
-
-
-        //$crop = new Crop();
-      //$crop->name = 'Porzeczka';
-      //$crop->save();
-
-      //$field->crops()->attach($crop);
-        //$farm = Farm::find(1);
-        //dd($farm);
-       
-
-        //dd($data);
-        //$farm->fields()->save($data);
-        //$fieldsList = $fieldRepo->farm()->create($data);
-
-        //$parcel = new CadastralParcel([
-          //  'field_id' => $fieldsList->id(),
-        //    'parcel_number' => '105',
-        //    'parcel_area' => 1.47,
-       // ]);
-        //$field->cadastralParcels()->save($parcel);
-        
-
-
-
-      //$farm = Farm::find(1);
-      //$field = new Field();
-      //$field->field_name = 'porzeczka hektar';
-      //$farm->fields()->save($field);
-      //dd($farm);
-      //$field->save();
-      //
-      //$parcel = new CadastralParcel();
-      //$parcel->field_id = $field->id;
-      //$parcel->parcel_number = '105';
-      //$parcel->parcel_area = 1.47;
-      //$field->cadastralParcels()->save($parcel);
-      //$parcel->save();
-
-      //$crop = new Crop();
-      //$crop->name = 'Porzeczka';
-      //$crop->save();
-
-      //$field->crops()->attach($crop);
-      //$area =  DB::table('cadastral_parcels')->where('field_id', '=', $field->id)->sum('parcel_area');
-      //$field->field_area = $area;
-      //$field->save();
-        //return redirect('farm');
-        $farmsName = Farm::pluck('name');
-        $farm = Farm::find($idFarm);
+        $farmsName = Farm::getFarmsNames();
+        $farm = $this->farmRepository->find($idFarm);
         $crops = Crop::all();
-      
-        //view('template', ['farmsName' => $farmsName]);
+
+
         return view('field.create',['idFarm' => $idFarm, 'farmsName' => $farmsName, 'crops' => $crops, 'farm' => $farm]);
     }
 
@@ -129,34 +58,10 @@ class FieldController extends Controller
      */
     public function store(StoreField $request, $idFarm)
     {
-        $farm = $this->farmRepository->find($idFarm)->firstOrFail();
-        $data = [
-            "field_name" => $request->input('field_name'),
-        ];
-        $field = $farm->fields()->create($data);
-        $dataParcel = [
-            //     "field_id" => $field->id,
-                   'parcel_number' => $request->input('parcel_number'),
-                    'parcel_area' => $request->input('parcel_area'),
-             ];
-             $parcel = $field->cadastralParcels()->create($dataParcel);
+        $data = $request->all();
+        $field = $this->fieldRepository->create($data, $idFarm);
 
-             $dataCrop = [
-                'name' => $request->input('crops'),
-           ];
-           $crop = Crop::where('id','=', $dataCrop)->first();
-           
-           //dodanie samego klucza do relacji normalizacji
-           $field->crops()->attach($crop->id);
-           
-     $farmModel = Farm::find($idFarm);
-     $farmModel->area = $this->farmArea($farmModel);
-     $farmModel->save();
-     $sum = DB::table('cadastral_parcels')->where('field_id','=', $field->id)->sum('parcel_area');
-     Field::where('id', $field->id)->update(array('field_area' => $sum));
         return redirect('farm');
-    
-
     }
 
     /**
@@ -167,13 +72,12 @@ class FieldController extends Controller
      */
     public function show(FieldRepository $fieldRepo ,$idFarm, $id)
     {
-        $farm = Farm::findOrFail($idFarm);
-
-        $field = $fieldRepo->find($id);
-        //$field = Field::find($id);
-        //dd($field->cadastralParcels());
-        $farmsName = Farm::pluck('name');
-        //dd($field->cadastralParcels());
+        $farm = $this->farmRepository->find($idFarm);
+        
+        $field = $this->fieldRepository->find($id);
+        
+        $farmsName = Farm::getFarmsNames();
+        
         return view('field.show', ['field' => $field, 'farm' => $farm, 'farmsName' => $farmsName]);
     }
 
@@ -187,7 +91,8 @@ class FieldController extends Controller
     {
         $farm = $this->farmRepository->find($idFarm);
 
-        $farmsName = Farm::pluck('name');
+        $farmsName = Farm::getFarmsNames();
+
         $crops = Crop::all();
         
         $field = Field::find($id);
@@ -206,20 +111,9 @@ class FieldController extends Controller
      */
     public function update(UpdateField $request, $idFarm, $id)
     {
-        
-        $field = Field::find($id);
-        $field->field_name = $request->input('field_name');
-        
-        //update
-        //dump($request->all());
-        $dataCrop = $request->input('crops');
-        //dump($dataCrop);
-        //die;
-        $field->crops()->sync([$dataCrop]);
-        $field->save();
-        $farmModel = Farm::find($idFarm);
-        $farmModel->area = $this->farmArea($farmModel);
-        $farmModel->save();
+        $data = $request->all();
+        $this->fieldRepository->update($data, $id, $idFarm);
+
         return redirect('farm');
     }
 
@@ -231,10 +125,8 @@ class FieldController extends Controller
      */
     public function destroy( $idFarm, $id)
     {
+        $this->fieldRepository->delete($id, $idFarm);
         
-        $field = Field::find($id);
-        //dd($field);
-        $field->delete();
         return redirect('farm');
     }
 
@@ -244,9 +136,5 @@ class FieldController extends Controller
         return $fieldArea;
     }
 
-    public function farmArea(Farm $farm)
-    {
-        $farmArea = DB::table('fields')->where('farm_id', '=', $farm->id)->sum('field_area');
-        return $farmArea;
-    }
+    
 }

@@ -97,10 +97,8 @@ return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, '
         //$allParcels = CadastralParcel::all()->where('parcel_number','=', $parcel->parcel_number);
         //dd($allParcels);
         //dd($sum);
-        $farmsName = Farm::pluck('name');
+        $farmsName = Farm::getFarmsNames();
 
-//return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'farmsName' => $farmsName]);
-  
         return view('cadastralparcel.edit', ['parcel' => $parcel, 'farm' => $farm, 'farmsName' => $farmsName, 'fields' => $fields, 'sum' => $sum,]);
     }
 
