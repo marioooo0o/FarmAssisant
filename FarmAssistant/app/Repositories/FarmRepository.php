@@ -1,0 +1,54 @@
+<?php
+namespace App\Repositories;
+use App\Models\Farm;
+
+
+class FarmRepository extends BaseRepository{
+    public function __construct(Farm $model)
+    {
+        $this->model = $model;        
+    }
+
+    public function create(array $data)
+    {
+        $farm = Farm::create($data);
+
+       //if(isset($data['author_id']))
+       //{
+       //    $field->authors()->sync($data['author_id']);
+       //}
+        return $farm;
+    }
+
+    public function update(array $data, $id)
+    {
+        $farm = Farm::find($id);
+        //dd($id);
+        $farm->fill($data);
+        $farm->save();
+
+        //if(isset($data['author_id']))
+        //{
+        //    $farm->authors()->sync($data['author_id']);
+        //}
+        return $farm;
+    }
+    public function cheapest()
+    {
+        $fieldsList = $this->model->orderBy('price', 'asc')->limit(3)->get();
+        return $fieldsList;
+    }
+
+    public function longest()
+    {
+        $fieldsList = $this->model->orderBy('pages', 'desc')->limit(3)->get();
+        return $fieldsList;
+    }
+
+    public function search(String $q)
+    {
+        $fieldsList = $this->model->where('name', 'like', "%" . $q . "%")->get();
+        return $fieldsList;
+    }
+}
+?>
