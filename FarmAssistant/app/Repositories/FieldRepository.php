@@ -6,10 +6,6 @@ use App\Models\CadastralParcel;
 use App\Models\Crop;
 use Illuminate\Support\Facades\DB;
 
-
-
-
-
 class FieldRepository extends BaseRepository{
 
     private $farmModel;
@@ -21,7 +17,7 @@ class FieldRepository extends BaseRepository{
         $this->modelRalation = $modelParcel;        
     }
 
-    public function create(array $data, $idFarm = null)
+    public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
         $farm = Farm::find($idFarm);
         $field = $farm->fields()->create($data);
@@ -48,9 +44,9 @@ class FieldRepository extends BaseRepository{
         return $field;
     }
 
-    public function update(array $data, $id, $idFarm = null)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
     {
-        $field = Field::find($id);
+        $field = Field::find($idField);
         $field->field_name = $data['field_name'];
 
         $field->crops()->sync($data['crops']);
@@ -68,9 +64,11 @@ class FieldRepository extends BaseRepository{
     public function delete($id)
     {
         $field = $this->find($id);
+        //save id farm before delete
         $idFarm = $field->farm_id;   
         $farm = Farm::find($field->farm_id);
         $field->delete();
+        //update farm area after delete a field
         $farm->updateFarmArea($idFarm);
         $farm->save();
        

@@ -38,6 +38,7 @@
                   Wybierz gospodarstwo
                 @endempty
                 </a>
+                
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     @forelse ($farmsName as $name)
                     <a class="dropdown-item" href="/farm/{{ $farm->id }}">{{ $name }}</a>
@@ -51,7 +52,8 @@
           
         </div>
       </nav>
-
+      
+     
       @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
@@ -62,6 +64,8 @@
       </div>
         
       @endif
+
+      
     @yield('content')
 
 

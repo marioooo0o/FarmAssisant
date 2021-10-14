@@ -6,10 +6,15 @@
 
 @section('content')
 
+    <h1>Edytuj działkę ewidencyjną:</h1>
+
+<form action="/farm/{{ $farm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}" method="POST">
+    @csrf
+    @method('PUT')
 
 
 <label for="parcel_number">Numer działki: </label>
-<input type="text" value="{{ $parcel->parcel_number }}">
+<input type="text" name="parcel_number" value="{{ $parcel->parcel_number }}">
 <h4 >Całkowita powierzchnia działki: <h4 id="sum">{{ $sum }}</h4> ha </h4>
 Działka należy do pól: 
 
@@ -17,7 +22,9 @@ Działka należy do pól:
 <ul>
     @foreach ($fields as $field)
         <li>
-            <a href="/farm/{{ $farm->id }}/field/{{ $field->field_id }}">{{ $field->field_name }}</a> Powierzchnia: <input type="number" step="0.01" value="{{ $field->parcel_area }}" id="input-1">ha
+
+            <a href="/farm/{{ $farm->id }}/field/{{ $field->field_id }}">{{ $field->field_name }}</a> Powierzchnia: <input type="number" step="0.01" name="parcel_area[{{ $field->id }}]" value="{{ $field->parcel_area }}" id="input-1">ha
+        </li>    
     @endforeach
 </ul>
 <script>
@@ -31,4 +38,6 @@ Działka należy do pól:
 </script>
 
 <button type="submit" class="btn btn-primary">Zapisz</button>
+
+</form>
 @endsection

@@ -24,7 +24,7 @@ class UpdateField extends FormRequest
     public function rules()
     {
         return [
-            'field_name' => 'required|max:255',
+            'field_name' => 'required|max:15',
             //'parcel_number' => 'required_with:field_name|string|max:255',
             //'parcel_area' => 'required_with:field_name|numeric|min:0.01',
             'crops' => 'required'

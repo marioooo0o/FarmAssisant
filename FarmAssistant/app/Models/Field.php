@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Field extends Model
 {
@@ -26,5 +28,12 @@ class Field extends Model
     public function crops()
     {
         return $this->belongsToMany(Crop::class);
+    }
+
+    public function updateFieldArea($id)
+    {
+        $area = DB::table('cadastral_parcels')->where('field_id', '=', $id)->sum('parcel_area');
+        
+        return $area;
     }
 }

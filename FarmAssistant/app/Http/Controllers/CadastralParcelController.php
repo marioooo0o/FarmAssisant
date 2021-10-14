@@ -6,11 +6,25 @@ use App\Models\CadastralParcel;
 use App\Models\Crop;
 use App\Models\Farm;
 use App\Models\Field;
+use App\Repositories\FieldRepository;
+use App\Repositories\FarmRepository;
+use App\Repositories\CadastralParcelRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CadastralParcelController extends Controller
 {
+
+    private $fieldRepository;
+    private $farmRepository;
+    private $cadastralParcelRepository;
+
+    public function __construct(FarmRepository $farmRepo, FieldRepository $fieldRepo, CadastralParcelRepository $parcelRepo )
+    {
+        $this->farmRepository = $farmRepo;
+        $this->fieldRepository = $fieldRepo;
+        $this->cadastralParcelRepository = $parcelRepo;        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,27 +64,17 @@ class CadastralParcelController extends Controller
      */
     public function show($idFarm, $idField, $id)
     {
+        $parcel = $this->cadastralParcelRepository->find($id);
        
-       // $field = Field::findOrFail($idField);
-        $parcel = CadastralParcel::find($id);
-        $farm = Farm::findOrFail($idFarm);
+        $farm = $this->farmRepository->find($idFarm);
         
-        $fields = DB::table('fields')
-        ->leftJoin('cadastral_parcels', 'cadastral_parcels.field_id', '=', 'fields.id')
-        ->where('parcel_number','=', $parcel->parcel_number)->get();
-//
-        $sum = DB::table('cadastral_parcels')->where('parcel_number','=', $parcel->parcel_number)->sum('parcel_area');
+        $fields = CadastralParcel::getAllFieldsForParcel($parcel);
 
+        $sum = CadastralParcel::getTotalParcelArea($parcel);
+        
+        $farmsName = Farm::getFarmsNames();
 
-        //dd($fields);
-        //$fields = DB::table('cadastral_parcels')->leftJoin('fields', 'fields.');
-        //$allParcels = CadastralParcel::all()->where('parcel_number','=', $parcel->parcel_number);
-        //dd($allParcels);
-        //dd($sum);
-        $farmsName = Farm::pluck('name');
-
-return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'farmsName' => $farmsName]);
-        //return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'field' => $field]);
+        return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'farmsName' => $farmsName]);
     }
 
     /**
@@ -81,25 +85,19 @@ return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, '
      */
     public function edit($idFarm, $idField, $id)
     {
-        $parcel = CadastralParcel::find($id);
-        $farm = Farm::findOrFail($idFarm);
+        $parcel = $this->cadastralParcelRepository->find($id);
+  
+        $farm = $this->farmRepository->find($idFarm);
         
-        $fields = DB::table('fields')
-        ->leftJoin('cadastral_parcels', 'cadastral_parcels.field_id', '=', 'fields.id')
-        ->where('parcel_number','=', $parcel->parcel_number)->get();
-//
-        $sum = DB::table('cadastral_parcels')->where('parcel_number','=', $parcel->parcel_number)->sum('parcel_area');
+        $field = $this->fieldRepository->find($idField);
 
+        $fields = CadastralParcel::getAllFieldsForParcel($parcel);
         
-
-        //dd($fields);
-        //$fields = DB::table('cadastral_parcels')->leftJoin('fields', 'fields.');
-        //$allParcels = CadastralParcel::all()->where('parcel_number','=', $parcel->parcel_number);
-        //dd($allParcels);
-        //dd($sum);
+        $sum = CadastralParcel::getTotalParcelArea($parcel);
+        
         $farmsName = Farm::getFarmsNames();
 
-        return view('cadastralparcel.edit', ['parcel' => $parcel, 'farm' => $farm, 'farmsName' => $farmsName, 'fields' => $fields, 'sum' => $sum,]);
+        return view('cadastralparcel.edit', ['parcel' => $parcel, 'farm' => $farm, 'farmsName' => $farmsName, 'field' => $field, 'fields' => $fields, 'sum' => $sum,]);
     }
 
     /**
@@ -109,9 +107,12 @@ return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, '
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idFarm, $idField, $id)
     {
-        //
+        $data = $request->all();
+        //dd($data['parcel_area']);
+        $parcel = $this->cadastralParcelRepository->update($data, $idFarm, $idField, $id);
+        return redirect('farm');
     }
 
     /**

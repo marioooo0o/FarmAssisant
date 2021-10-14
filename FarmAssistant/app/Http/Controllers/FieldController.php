@@ -70,12 +70,12 @@ class FieldController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(FieldRepository $fieldRepo ,$idFarm, $id)
+    public function show($idFarm, $id)
     {
         $farm = $this->farmRepository->find($idFarm);
         
         $field = $this->fieldRepository->find($id);
-        
+        //dd($field);
         $farmsName = Farm::getFarmsNames();
         
         return view('field.show', ['field' => $field, 'farm' => $farm, 'farmsName' => $farmsName]);
@@ -90,12 +90,13 @@ class FieldController extends Controller
     public function edit($idFarm, $id)
     {
         $farm = $this->farmRepository->find($idFarm);
-
+       
         $farmsName = Farm::getFarmsNames();
 
         $crops = Crop::all();
-        
-        $field = Field::find($id);
+        $field = $this->fieldRepository->find($id);
+
+        //$field = Field::find($id);
         $parcels = $field->cadastralParcels->all();
         $cropActive = $field->crops->first();
       
@@ -112,8 +113,7 @@ class FieldController extends Controller
     public function update(UpdateField $request, $idFarm, $id)
     {
         $data = $request->all();
-        $this->fieldRepository->update($data, $id, $idFarm);
-
+        $this->fieldRepository->update($data, $idFarm, $id);
         return redirect('farm');
     }
 
@@ -123,17 +123,11 @@ class FieldController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $idFarm, $id)
+    public function destroy($idFarm, $id)
     {
-        $this->fieldRepository->delete($id, $idFarm);
+        $this->fieldRepository->delete($id);
         
         return redirect('farm');
-    }
-
-    public function fieldArea(Field $field)
-    {
-        $fieldArea = DB::table('cadastral_parcels')->where('field_id', '=', $field->id)->sum('parcel_area');
-        return $fieldArea;
     }
 
     

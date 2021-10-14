@@ -9,7 +9,7 @@ class FarmRepository extends BaseRepository{
         $this->model = $model;        
     }
 
-    public function create(array $data)
+    public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
         $farm = Farm::create($data);
 
@@ -20,9 +20,9 @@ class FarmRepository extends BaseRepository{
         return $farm;
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
     {
-        $farm = Farm::find($id);
+        $farm = Farm::find($idFarm);
         //dd($id);
         $farm->fill($data);
         $farm->save();

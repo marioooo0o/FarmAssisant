@@ -20,14 +20,14 @@ abstract class BaseRepository implements RepositoryInterface{
         return $this->model->get($columns);
     }
 
-    public function create(array $data)
+    public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
         return $this->model->create($data);
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
     {
-        return $this->model->where("id", '=', $id)->update($data);
+        return $this->model->where("id", '=', $idFarm)->update($data);
     }
 
     public function delete($id){
