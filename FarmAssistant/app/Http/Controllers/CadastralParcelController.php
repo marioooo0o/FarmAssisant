@@ -67,6 +67,8 @@ class CadastralParcelController extends Controller
         $parcel = $this->cadastralParcelRepository->find($id);
        
         $farm = $this->farmRepository->find($idFarm);
+
+        $field = $this->fieldRepository->find($idField);
         
         $fields = CadastralParcel::getAllFieldsForParcel($parcel);
 
@@ -74,7 +76,7 @@ class CadastralParcelController extends Controller
         
         $farmsName = Farm::getFarmsNames();
 
-        return view('cadastralparcel.show', ['parcel' => $parcel, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'farmsName' => $farmsName]);
+        return view('cadastralparcel.show', ['parcel' => $parcel, 'field' => $field, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'farmsName' => $farmsName]);
     }
 
     /**
@@ -96,8 +98,7 @@ class CadastralParcelController extends Controller
         $sum = CadastralParcel::getTotalParcelArea($parcel);
         
         $farmsName = Farm::getFarmsNames();
-
-        return view('cadastralparcel.edit', ['parcel' => $parcel, 'farm' => $farm, 'farmsName' => $farmsName, 'field' => $field, 'fields' => $fields, 'sum' => $sum,]);
+        return view('cadastralparcel.edit', [ 'field' => $field,'parcel' => $parcel, 'farm' => $farm, 'farmsName' => $farmsName, 'fields' => $fields, 'sum' => $sum,]);
     }
 
     /**

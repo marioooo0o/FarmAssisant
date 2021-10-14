@@ -6,7 +6,8 @@
 
 @section('content')
 
-<h1>{{ $parcel->parcel_number }}</h1>
+<h1>{{ $parcel->parcel_number }}
+<a href="{{ route('parcel.edit', [$farm->id, $field->id, $parcel->id]) }}"><i class="material-icons">mode_edit</i></a> </h1>
 <h4>Całkowita powierzchnia działki: {{ $sum }} ha</h4>
 Działka należy do pól: 
 
