@@ -11,6 +11,12 @@
                     <a href="{{ route('dashboard') }}" class="nav-name">
                     {{ config('app.name')}}
                     </a>
+                    <input list="farms" class="farms-input" placeholder="Wybierz farmę...">
+                    <datalist id="farms">
+                        <option value="Farma 1">
+                        <option value="Farma 2">
+                        <option value="Farma 3">
+                    </datalist>
                 </div>
 
                 <!-- Navigation Links -->
