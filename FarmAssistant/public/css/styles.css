@@ -4,11 +4,24 @@
   font-weight: 600;
 }
 
+@media screen and (max-width: 600px) {
+  .nav-name {
+    display: none;
+  }
+}
+
 .farms-input {
   border: 1px solid black;
   border-radius: 3px;
   margin-left: 20px;
   padding: 0 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .farms-input {
+    width: 40vw;
+    font-size: 14px;
+  }
 }
 
 .dashboard-container {
@@ -97,10 +110,19 @@
   .dashboard-container {
     font-size: 14px;
     grid-auto-rows: 210px;
+    padding: 0 5%;
+  }
+  .dashboard-container > * {
+    padding: 10px 10px 50px 10px;
   }
   .dashboard-container h2 {
     font-size: 24px;
     margin-bottom: 10px;
+  }
+  .dashboard-container button {
+    left: 0;
+    right: 0;
+    margin: auto;
   }
 }
 /*# sourceMappingURL=styles.css.map */
