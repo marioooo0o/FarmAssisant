@@ -1,4 +1,4 @@
-@extends('template', ['farmsName'=>$farmsName])
+@extends('templateOLD', ['farmsName'=>$farmsName])
 
 @section('title')
     {{ $farm->name }} <span class="material-icons">

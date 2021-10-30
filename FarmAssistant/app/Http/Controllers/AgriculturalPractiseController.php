@@ -4,30 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Farm;
-use Illuminate\Support\Facades\Schema;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\PlantProtectionProduct;
+use App\Repositories\FieldRepository;
+use App\Repositories\FarmRepository;
+use App\Repositories\PractiseRepository;
 
-
-class FarmController extends Controller
+class AgriculturalPractiseController extends Controller
 {
+    private $fieldRepository;
+    private $farmRepository;
+    private $practiseRepository;
+
+    public function __construct(FieldRepository $fieldRepo, FarmRepository $farmRepo, PractiseRepository $practiseRepo)
+    {
+        $this->farmRepository= $farmRepo;
+        $this->fieldRepository = $fieldRepo;
+        $this->practiseRepository = $practiseRepo;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Farm $farm)
+    public function index()
     {
-        $farmList = $farm->all();
-        $farmsName = Farm::pluck('name');
-        //foreach ($farmList as $farm)
-        
-
-        //dd($farmList->name);
-        view('template', ['farmsName' => $farmsName]);
-        return view('dashboard', ['farmList' => $farmList,
-                                    'farmsName' => $farmsName,
-                                    ]);
+        //
     }
 
     /**
@@ -35,13 +36,13 @@ class FarmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idFarm)
     {
-        $id = Auth::id();
-        $user = User::find($id);
-        $farms = $user->farms;
-
-        return view('farms.create', ['farms' => $farms]);
+        $farm = $this->farmRepository->find($idFarm);
+        $fields = $farm->fields;
+        $plantProtectionProducts = PlantProtectionProduct::all();
+        //dd($plantProtectionProduct);
+        return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'plantProtectionProducts' => $plantProtectionProducts]);
     }
 
     /**
@@ -50,18 +51,12 @@ class FarmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $idFarm)
     {
         $data = $request->all();
-        $user = User::find(Auth::id());
-        //dd($data);
-        $farm = $user->farms()->create($data);
-
-        $magazine = $farm->magazine()->create();
-
-        $farm->save();
+        dd($data);
+        //$practise = $this->practiseRepository->create($data, $idFarm);
         return redirect('home');
-        
     }
 
     /**
@@ -70,16 +65,9 @@ class FarmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idFarm)
+    public function show($id)
     {
-        $farm = Farm::find($idFarm);
-
-        $farmsName = Farm::pluck('name');
-
-      
-        view('template', ['farmsName' => $farmsName]);
-        return view('farms.show', ['farm' => $farm,
-        'farmsName' => $farmsName]);
+        //
     }
 
     /**

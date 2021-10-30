@@ -1,4 +1,4 @@
-@extends('template')
+@extends('templateOLD')
 
 @section('title')
     Dodaj pole

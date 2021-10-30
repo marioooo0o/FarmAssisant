@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCropsTable extends Migration
+class CreateMagazineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateCropsTable extends Migration
      */
     public function up()
     {
-        Schema::create('crops', function (Blueprint $table) {
+        Schema::create('magazines', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->float('area')->default(0.00);
+            $table->unsignedBigInteger('farm_id');
+            $table->string('magazine_name');
             $table->timestamps();
+
+            $table->foreign('farm_id')
+                ->references('id')
+                ->on('farms')
+                ->onDelete('cascade');
         });
     }
 
@@ -28,6 +33,6 @@ class CreateCropsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crops');
+        Schema::dropIfExists('magazine');
     }
 }

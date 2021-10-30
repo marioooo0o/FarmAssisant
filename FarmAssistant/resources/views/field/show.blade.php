@@ -1,8 +1,5 @@
-@extends('template')
+@extends('layouts.app')
 
-@section('title')
-    {{ $field->field_name }}
-@endsection
 
 @section('content')
     

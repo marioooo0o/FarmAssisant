@@ -3,31 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Farm;
-use Illuminate\Support\Facades\Schema;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-
-class FarmController extends Controller
+class Dashboard extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Farm $farm)
+    public function __construct()
     {
-        $farmList = $farm->all();
-        $farmsName = Farm::pluck('name');
-        //foreach ($farmList as $farm)
-        
+        $this->middleware('auth');
+    }
 
-        //dd($farmList->name);
-        view('template', ['farmsName' => $farmsName]);
-        return view('dashboard', ['farmList' => $farmList,
-                                    'farmsName' => $farmsName,
-                                    ]);
+    public function index()
+    {
+        //$user = Auth::user();
+        //dd($user);
+        return view('dashboard');
     }
 
     /**
@@ -37,11 +31,7 @@ class FarmController extends Controller
      */
     public function create()
     {
-        $id = Auth::id();
-        $user = User::find($id);
-        $farms = $user->farms;
-
-        return view('farms.create', ['farms' => $farms]);
+        //
     }
 
     /**
@@ -52,16 +42,7 @@ class FarmController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $user = User::find(Auth::id());
-        //dd($data);
-        $farm = $user->farms()->create($data);
-
-        $magazine = $farm->magazine()->create();
-
-        $farm->save();
-        return redirect('home');
-        
+        //
     }
 
     /**
@@ -70,16 +51,9 @@ class FarmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idFarm)
+    public function show($id)
     {
-        $farm = Farm::find($idFarm);
-
-        $farmsName = Farm::pluck('name');
-
-      
-        view('template', ['farmsName' => $farmsName]);
-        return view('farms.show', ['farm' => $farm,
-        'farmsName' => $farmsName]);
+        //
     }
 
     /**

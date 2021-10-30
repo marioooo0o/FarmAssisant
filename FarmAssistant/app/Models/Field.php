@@ -30,6 +30,11 @@ class Field extends Model
         return $this->belongsToMany(Crop::class);
     }
 
+    public function agriculturalPractises()
+    {
+        return $this->belongsToMany(AgriculturalPractise::class);
+    }
+
     public function updateFieldArea($id)
     {
         $area = DB::table('cadastral_parcels')->where('field_id', '=', $id)->sum('parcel_area');

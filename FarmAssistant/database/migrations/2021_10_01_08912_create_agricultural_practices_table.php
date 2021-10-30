@@ -15,13 +15,8 @@ class CreateAgriculturalPracticesTable extends Migration
     {
         Schema::create('agricultural_practices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('field_id');
             $table->string('name');
             $table->timestamps();
-            $table->foreign('field_id')
-                    ->references('id')
-                    ->on('fields')
-                    ->onDelete('cascade');
         });
     }
 
