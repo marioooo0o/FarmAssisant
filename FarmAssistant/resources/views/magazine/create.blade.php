@@ -17,6 +17,7 @@ Dodaj środek do magazynu:
     
     <br>
     <p>Tu powinien być przycisk który daje możliwość dodania kolejnego środka z jego ilością</p>
+    <br>
     <button type="submit">Dodaj</button>
 </form>
 <button type="button" name="add" id="dynamic-ar" >Dodaj nowy produkt</button>
