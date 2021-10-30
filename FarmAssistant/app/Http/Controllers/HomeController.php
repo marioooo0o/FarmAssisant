@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgriculturalPractise;
 use App\Models\Farm;
 use App\Models\Field;
 use App\Models\Magazine;
@@ -31,45 +32,13 @@ class HomeController extends Controller
         
         $crops = $farm->getSumCrops($data);
         $fields = Field::where('farm_id', $data)->orderBy('field_area', 'desc')->limit(5)->get();
-
+        $fields = Field::getFields($activeFarm->id, 5, 'desc');
         $productsData = $farm->getSumProducts($data);
 
-        //dd($productsData);
-        
-        //Zabiegi do zmiany przez możliwość wykonywania zabiegów na wielu polach
-        /*
-        if($farm->practices)
-        {
-            $practises = $farm->practices;
-            $formatPractises = array();
-        
-        //get from practise only important values name, date with format and field name
-        foreach ($practises as $practise) {
-            $temp = array();
-            $temp['name'] = $practise['name'];
-            //dd($practise);
-            /*
-            "id" => 12
-            "field_id" => 1
-            "name" => "nowy zabieg"
-            "created_at" => "2021-10-24 16:53:41"
-            "updated_at" => "2021-10-24 16:53:41"
-            "laravel_through_key" => 1
-            
-            //get only date from timestamp
-            $date = \Carbon\Carbon::parse($practise['updated_at'])->format('d-m-Y');
-            $temp['date'] = $date;
-            $tempField = Field::find($practise['field_id']);
-            $temp['field_name'] = $tempField->field_name;
-            array_push($formatPractises, $temp);
-            $temp = array();
-        }
-        }
+        $practises = AgriculturalPractise::all();
 
-        */
-        
         //$productsData = Magazine::getSortedProducts($farm->id, 5);
-        return view('home', ['data' => $data, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops, 'idFarm' => $idFarm]);
+        return view('home', ['data' => $data, 'practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops, 'idFarm' => $idFarm]);
     }
 
     /**

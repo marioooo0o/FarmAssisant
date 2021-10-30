@@ -15,9 +15,9 @@ class CreateAgriculturalPractiseFieldTable extends Migration
     {
         Schema::create('agricultural_practise_field', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('practise_id');
+            $table->unsignedBigInteger('agricultural_practise_id');
             $table->unsignedBigInteger('field_id');
-            $table->foreign('practise_id')
+            $table->foreign('agricultural_practise_id')
                     ->references('id')
                     ->on('agricultural_practices')
                     ->onDelete('cascade');

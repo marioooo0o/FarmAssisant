@@ -6,12 +6,12 @@
     <div class="procedures">
         <h2>Zabiegi</h2>
         <ol>     
-            @isset($formatPractises)
-               @if ($formatPractises)
-               @foreach ($formatPractises as $practise)
+            @isset($practises)
+               @if ($practises)
+               @foreach ($practises as $practise)
                 <li>
 
-                    <a class="procedure-name">{{ $practise['name'] }}</a> <a class="field-name">{{ $practise['field_name'] }}</a> <span class="date">{{ $practise['date'] }}</span>
+                    <a class="procedure-name">{{ $practise->name }}</a> <span class="date">{{ $practise->created_at }}</span>
                 </li>
                 @endforeach
                 @else

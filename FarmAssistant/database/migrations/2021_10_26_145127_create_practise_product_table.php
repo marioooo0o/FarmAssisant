@@ -14,12 +14,12 @@ class CreatePractiseProductTable extends Migration
     public function up()
     {
         
-        Schema::create('practise_plant_protection_product', function (Blueprint $table) {
+        Schema::create('agricultural_practise_plant_protection_product', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('practise_id');
+            $table->unsignedBigInteger('agricultural_practise_id');
             $table->unsignedBigInteger('plant_protection_product_id');
             
-            $table->foreign('practise_id')
+            $table->foreign('agricultural_practise_id')
                     ->references('id')
                     ->on('agricultural_practices')
                     ->onDelete('cascade');

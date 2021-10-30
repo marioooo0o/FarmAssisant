@@ -29,7 +29,7 @@
             <label for="">Maksymalna dawka środka: tutaj bierzemy z js wartość</label>    
             <br>
             <label for="">Ilość środka: </label>
-            <input type="numeric" id="protectionproduct[0][quantity]"> l
+            <input type="numeric" name="protectionproduct[0][quantity]"> l
     <br>
         </div>
     <br>
@@ -71,7 +71,7 @@
                 </select>
                 <br>
                 <label for="">Ilość środka: </label>
-                <input type="numeric" id="protectionproduct[${productsId}][quantity]"> l
+                <input type="numeric" name="protectionproduct[${productsId}][quantity]"> l
                 <br>
             `
         }
