@@ -1,12 +1,8 @@
-@extends('templateOLD')
-
-@section('title')
-    Dodaj pole
-@endsection
+@extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
 
 @section('content')
     <h1>Utwórz pole:</h1>
-    <form action="{{ route('field.store', [$idFarm]) }}" method="POST">
+    <form action="{{ route('field.store', [$activeFarm->id]) }}" method="POST">
         @csrf
         <input type="text" name="field_name" placeholder="Nazwa pola">
         <h3>Dodaj działki na których znjaduje się pole:</h3>
