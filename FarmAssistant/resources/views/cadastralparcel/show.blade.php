@@ -1,8 +1,4 @@
-@extends('template')
-
-@section('title')
-    Działka ewidenyjna 
-@endsection
+@extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
 
 @section('content')
 

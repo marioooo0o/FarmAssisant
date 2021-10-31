@@ -1,14 +1,10 @@
-@extends('template')
-
-@section('title')
-    {{ $field->field_name }} Edycja
-@endsection
+@extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
 
 @section('content')
 
     <h1>Edytuj pole:</h1>
 
-    <form action="/farm/{{ $farm->id}}/field/{{ $field->id }}" method="POST">
+    <form action="/farm/{{ $activeFarm->id}}/field/{{ $field->id }}" method="POST">
         @csrf
         @method('PUT')
         <label for="field_name">Nazwa pola: </label>
@@ -23,10 +19,10 @@
             <ul>
                 @foreach ($field->cadastralParcels as $parcel)
                     <li>
-                        <a href="/farm/{{ $farm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}/edit">{{ $parcel->parcel_number }}</a>
+                        <a href="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}/edit">{{ $parcel->parcel_number }}</a>
                     </li>
                 @endforeach
-                <a href="/farm/{{ $farm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}/create"><i class="material-icons">add_circle</i></a>
+                <a href="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}/parcel/create"><i class="material-icons">add_circle</i></a>
             </ul>
         </td>
             
@@ -35,13 +31,12 @@
         Uprawa:
         <select name="crops" id="crops">
             @foreach ($crops as $crop)
-            @if ($cropActive->id == $crop->id ))
-            <option value="{{ $crop->id}}" selected>{{ $crop->name }}</option>
-               <p>dump({{ $crop->id}})</p> 
-            @else
-                <option value="{{ $crop->id }}">{{ $crop->name }}</option>
-            @endif
-            
+                @isset($cropActive)
+                    @if ($cropActive->id == $crop->id ))
+                        <option value="{{ $crop->id}}" selected>{{ $crop->name }}</option>
+                    @endif
+                @endisset
+                <option value="{{ $crop->id }}">{{ $crop->name }}</option>            
             @endforeach
         </select>
 
