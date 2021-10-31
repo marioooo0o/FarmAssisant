@@ -21,24 +21,18 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $id = Auth::id();
-        $user = User::find($id);
+        $user = auth()->user();
+ 
         $farms = $user->farms;
         $activeFarm = Farm::find($farms->first()->id);
-        //dd($activeFarm);
-        $data = 1;
-        $idFarm = $data;
-        $farm = Farm::find($data);
-        
-        $crops = $farm->getSumCrops($data);
-        $fields = Field::where('farm_id', $data)->orderBy('field_area', 'desc')->limit(5)->get();
-        $fields = Field::getFields($activeFarm->id, 5, 'desc');
-        $productsData = $farm->getSumProducts($data);
+        $farm = Farm::find($activeFarm->id);
+        $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
+        $fields = Field::getFields($activeFarm->id, 3, 'desc');
+        $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
 
-        $practises = AgriculturalPractise::all();
-
-        //$productsData = Magazine::getSortedProducts($farm->id, 5);
-        return view('home', ['data' => $data, 'practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops, 'idFarm' => $idFarm]);
+        $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
+    
+        return view('home', ['practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops]);
     }
 
     /**
@@ -70,17 +64,17 @@ class HomeController extends Controller
      */
     public function show($idFarm)
     {
+        $user = auth()->user();
         
-        $id = Auth::id();
-        $user = User::find($id);
         $farms = $user->farms;
-        $acriveFarm = Farm::find($idFarm);
-        $firstFarm = $user->farms->first();
-        //dd($firstFarm);
-        $farm = Farm::find($idFarm);
-        $fields = $farm->fields;
-        //view('layouts.app', ['farms' => $farms]);
-        return view('home', ['farms' => $farms, 'fields' => $fields, 'firstFarm' => $firstFarm, 'farm' => $farm, 'activeFarm' => $acriveFarm]);
+        $activeFarm = Farm::find($idFarm);
+        $farm = Farm::find($activeFarm->id);
+        $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
+        $fields = Field::getFields($activeFarm->id, 3, 'desc');
+        $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
+
+        $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
+        return view('home', ['farms' => $farms, 'crops' => $crops, 'productsData' => $productsData, 'fields' => $fields, 'farm' => $farm, 'activeFarm' => $activeFarm]);
     }
 
     /**

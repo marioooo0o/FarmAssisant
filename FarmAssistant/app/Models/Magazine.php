@@ -33,7 +33,8 @@ class Magazine extends Model
         $farm = Farm::find($idFarm);
         $magazine = $farm->magazine;
 
-        if($farm->magazine->products != null){
+        if($farm->magazine->products != null)
+        {
             $sortedProducts = $magazine->products()->orderBy('quantity', 'asc')->limit($limit)->get();
             
         $productsData = array();

@@ -42,12 +42,14 @@ class FieldController extends Controller
      */
     public function create($idFarm)
     {
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
         $farmsName = Farm::getFarmsNames();
-        $farm = $this->farmRepository->find($idFarm);
         $crops = Crop::all();
+        
 
 
-        return view('field.create',['idFarm' => $idFarm, 'farmsName' => $farmsName, 'crops' => $crops, 'farm' => $farm]);
+        return view('field.create',['idFarm' => $idFarm, 'farms'=> $farms, 'farmsName' => $farmsName, 'crops' => $crops, 'activeFarm' => $activeFarm]);
     }
 
     /**

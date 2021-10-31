@@ -11,7 +11,7 @@
                @foreach ($practises as $practise)
                 <li>
 
-                    <a class="procedure-name">{{ $practise->name }}</a> <span class="date">{{ $practise->created_at }}</span>
+                    <a class="procedure-name">{{ $practise->name }}</a> <a href="">{{ $practise->field_name }}</a><span class="date">{{\Carbon\Carbon::parse($practise->updated_at)->format('d-m-Y') }}</span>
                 </li>
                 @endforeach
                 @else
@@ -30,13 +30,13 @@
             
             @isset($fields)
                 @foreach ($fields as $field)
-                <a href="/farm/{{ $field->farm_id }}/field/{{ $field->id }}"><li>{{ $field->field_name }}    {{ $field->field_area }}ha</li></a> 
+                <li><a href="/farm/{{ $field->farm_id }}/field/{{ $field->id }}"> {{ $field->field_name }}    {{ $field->field_area }}ha</a> </li>
                 @endforeach
             @endisset
             
             
         </ol>
-        <button>+</button>
+        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"><button>+</button></a>
     </div>
     <div class="magazine">
         <h2>Magazyn</h2>

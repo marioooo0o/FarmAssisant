@@ -35,10 +35,11 @@ class Farm extends Model
         return $this->hasOne(Magazine::class);
     }
     
-    public function practices()
-    {
-        return $this->hasManyThrough(AgriculturalPractise::class, Field::class, 'farm_id', 'field_id', 'id', 'id');
-    }
+    //niewykorzystywane przez zmianę struktury bazy danych
+    //public function practices()
+    //{
+      //  return $this->hasManyThrough(AgriculturalPractise::class, Field::class, 'farm_id', 'field_id', 'id', 'id');
+    //}
 
     public function sumFarmArea($id)
     {
@@ -57,31 +58,62 @@ class Farm extends Model
         return $farmsNames;
     }
 
-    public function getSumCrops($id)
+    public function getSumCrops($id, $limit=null, $sorting = 'asc')
     {
-        $query = DB::table('crops')
-        ->leftJoin('crop_field', 'crops.id', '=', 'crop_field.crop_id')
-        ->leftJoin('fields', 'fields.id', '=', 'crop_field.field_id')
-        ->where('fields.farm_id', '=', $id)
-        ->select('name', DB::raw('SUM(fields.field_area) as crop_area'))
-        ->groupBy('name')
-        ->orderBy('crop_area', 'desc')
-        ->get();
+        if ($sorting == 'asc')
+        {
+            $query = DB::table('crops')
+            ->leftJoin('crop_field', 'crops.id', '=', 'crop_field.crop_id')
+            ->leftJoin('fields', 'fields.id', '=', 'crop_field.field_id')
+            ->where('fields.farm_id', '=', $id)
+            ->select('name', DB::raw('SUM(fields.field_area) as crop_area'))
+            ->groupBy('name')
+            ->orderBy('crop_area', 'desc')
+            ->limit($limit)
+            ->get();
+        }
+        else
+        {
+            $query = DB::table('crops')
+            ->leftJoin('crop_field', 'crops.id', '=', 'crop_field.crop_id')
+            ->leftJoin('fields', 'fields.id', '=', 'crop_field.field_id')
+            ->where('fields.farm_id', '=', $id)
+            ->select('name', DB::raw('SUM(fields.field_area) as crop_area'))
+            ->groupBy('name')
+            ->orderByDesc('crop_area')
+            ->limit($limit)
+            ->get();
+        }
+     
         return $query;
     }
 
-    public function getSumProducts($id)
+    public function getSumProducts($id, $limit=null, $sorting = 'asc')
     {
-        $query = DB::table('plant_protection_products')
-        ->leftJoin('magazine_plant_protection_product', 'plant_protection_products.id', '=', 'plant_protection_product_id')
-        ->leftJoin('magazines', 'magazines.id', '=', 'magazine_plant_protection_product.magazine_id')
-        ->where('magazines.farm_id', '=', $id)
-        ->select('name', DB::raw('SUM(magazine_plant_protection_product.quantity) as quantity'))
-        ->groupBy('name')
-        ->orderBy('quantity', 'asc')
-        ->get();
-        
-        //dd($query);
+        if($sorting == 'asc')
+        {
+            $query = DB::table('plant_protection_products')
+            ->leftJoin('magazine_plant_protection_product', 'plant_protection_products.id', '=', 'plant_protection_product_id')
+            ->leftJoin('magazines', 'magazines.id', '=', 'magazine_plant_protection_product.magazine_id')
+            ->where('magazines.farm_id', '=', $id)
+            ->select('name', DB::raw('SUM(magazine_plant_protection_product.quantity) as quantity'))
+            ->groupBy('name')
+            ->orderBy('quantity', 'asc')
+            ->limit($limit)
+            ->get();
+        }
+        else 
+        {
+            $query = DB::table('plant_protection_products')
+            ->leftJoin('magazine_plant_protection_product', 'plant_protection_products.id', '=', 'plant_protection_product_id')
+            ->leftJoin('magazines', 'magazines.id', '=', 'magazine_plant_protection_product.magazine_id')
+            ->where('magazines.farm_id', '=', $id)
+            ->select('name', DB::raw('SUM(magazine_plant_protection_product.quantity) as quantity'))
+            ->groupBy('name')
+            ->orderByDesc('quantity')
+            ->limit($limit)
+            ->get();
+        }
         return $query;
     }
 }
