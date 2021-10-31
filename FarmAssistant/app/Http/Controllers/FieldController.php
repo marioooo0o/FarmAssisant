@@ -63,7 +63,7 @@ class FieldController extends Controller
         $data = $request->all();
         $field = $this->fieldRepository->create($data, $idFarm);
 
-        return redirect('farm');
+        return redirect('home');
     }
 
     /**

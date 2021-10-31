@@ -13,7 +13,7 @@
                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
             </select>
-            <label>Ilość: <input type="number" name="addProtectionProduct[0][quantity]" step="0.01" value="1"></label>
+            <label>Ilość: <input type="number" name="addProtectionProduct[0][quantity]" step="0.01" value="1"> {{ $product->unit }}</label>
             <br>
         </div>
         

@@ -38,7 +38,7 @@ class HomeController extends Controller
 
             $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
             //dd($practises);
-        
+            //dd($productsData);
             return view('home', ['practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops]);
         }
         

@@ -43,7 +43,7 @@
         @if (!$productsData->isEmpty())
             <ul>
                 @foreach ($productsData as $product)
-                    <li>{{ $product->name}}  {{ $product->quantity}} todo:units</li>
+                    <li>{{ $product->name}}  {{ $product->quantity}} {{ $product->unit }}</li>
                 @endforeach
                 
             </ul>

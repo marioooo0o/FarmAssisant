@@ -96,7 +96,7 @@ class Farm extends Model
             ->leftJoin('magazine_plant_protection_product', 'plant_protection_products.id', '=', 'plant_protection_product_id')
             ->leftJoin('magazines', 'magazines.id', '=', 'magazine_plant_protection_product.magazine_id')
             ->where('magazines.farm_id', '=', $id)
-            ->select('name', DB::raw('SUM(magazine_plant_protection_product.quantity) as quantity', 'plant_protection_products.unit'))
+            ->select('name', 'plant_protection_products.unit', DB::raw('SUM(magazine_plant_protection_product.quantity) as quantity'))
             ->groupBy('name')
             ->orderBy('quantity', 'asc')
             ->limit($limit)

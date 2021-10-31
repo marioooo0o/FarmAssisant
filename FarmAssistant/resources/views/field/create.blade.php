@@ -11,6 +11,7 @@
         <br>
         <label for="">Uprawa:</label>
         <select name="crops" id="crops">
+            <option value="" selected disabled hidden>Wybierz uprawe</option>
             @foreach ($crops as $crop)
                 <option value="{{ $crop->id }}">{{ $crop->name }}</option>
             @endforeach
