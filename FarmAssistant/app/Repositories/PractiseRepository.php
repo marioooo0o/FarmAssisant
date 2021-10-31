@@ -4,6 +4,7 @@ use App\Models\Farm;
 use App\Models\Field;
 use App\Models\CadastralParcel;
 use App\Models\Crop;
+use App\Models\AgriculturalPractise;
 use Illuminate\Support\Facades\DB;
 
 class PractiseRepository extends BaseRepository{
@@ -18,14 +19,23 @@ class PractiseRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
-        
+        //dd($data);
         $farm = Farm::find($idFarm);
-        $field = Field::find($data['field']);
-        $dataPractise = [
-            'name' => $data['practise_name'],
-        ];
-        $practise = $field->agriculturalPractises()->create($dataPractise);
-        $practise->plantProtectionProducts()->attach($data['protectionproduct']);
+
+        $practise = AgriculturalPractise::create(['name' => $data['practise_name']]);
+        //dd($practise);
+        foreach($data['fields'] as $field)
+        {
+          //  dd($field);
+            $practise->field()->attach($field);
+        }
+
+        foreach($data['protectionproduct'] as $protectionProduct)
+        {
+            $productId = $protectionProduct['name'];
+            $practise->plantProtectionProducts()->attach($productId);
+        }
+        
         $practise->save();
         return $practise;
         //dd($field);

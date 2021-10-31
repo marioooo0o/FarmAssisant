@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Farm;
 use Illuminate\Http\Request;
 use App\Models\PlantProtectionProduct;
+use App\Models\Field;
 use App\Repositories\MagazineRepository;
 use App\Repositories\FarmRepository;
 use App\Repositories\PractiseRepository;
+
 
 class MagazineController extends Controller
 {
@@ -38,7 +41,12 @@ class MagazineController extends Controller
     public function create($idFarm)
     {   
         $plantProtectionProducts = PlantProtectionProduct::all();
-        return view('magazine.create', ['idFarm' => $idFarm, 'plantProtectionProducts' => $plantProtectionProducts]);
+        $user = auth()->user();
+        
+        $farms = $user->farms;
+        $activeFarm = Farm::find($idFarm);
+        
+        return view('magazine.create', ['idFarm' => $idFarm, 'plantProtectionProducts' => $plantProtectionProducts, 'farms' => $farms, 'activeFarm' => $activeFarm]);
     }
 
     /**

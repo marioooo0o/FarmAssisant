@@ -40,8 +40,10 @@ class FarmController extends Controller
         $id = Auth::id();
         $user = User::find($id);
         $farms = $user->farms;
+        $activeFarm = $farms->first();
 
-        return view('farms.create', ['farms' => $farms]);
+
+        return view('farms.create', ['farms' => $farms, 'activeFarm' => $activeFarm]);
     }
 
     /**

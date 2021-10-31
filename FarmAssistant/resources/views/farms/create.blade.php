@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['farms' => $farms])
 
 @section('content')
     <h1>Dodaj Gospodarstwo</h1>

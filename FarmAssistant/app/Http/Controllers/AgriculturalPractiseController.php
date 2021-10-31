@@ -38,11 +38,11 @@ class AgriculturalPractiseController extends Controller
      */
     public function create($idFarm)
     {
-        $farm = $this->farmRepository->find($idFarm);
-        $fields = $farm->fields;
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+        $fields = $activeFarm->fields;
         $plantProtectionProducts = PlantProtectionProduct::all();
-        //dd($plantProtectionProduct);
-        return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'plantProtectionProducts' => $plantProtectionProducts]);
+        return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'farms'=> $farms, 'activeFarm'=>$activeFarm, 'plantProtectionProducts' => $plantProtectionProducts]);
     }
 
     /**
@@ -54,8 +54,7 @@ class AgriculturalPractiseController extends Controller
     public function store(Request $request, $idFarm)
     {
         $data = $request->all();
-        dd($data);
-        //$practise = $this->practiseRepository->create($data, $idFarm);
+        $practise = $this->practiseRepository->create($data, $idFarm);
         return redirect('home');
     }
 
