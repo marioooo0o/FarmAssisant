@@ -62,6 +62,8 @@ class FarmController extends Controller
         $magazine = $farm->magazine()->create();
 
         $farm->save();
+        $magazine->save();
+        
         return redirect('home');
         
     }
