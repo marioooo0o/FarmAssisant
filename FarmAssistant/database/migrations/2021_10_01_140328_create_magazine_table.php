@@ -16,7 +16,6 @@ class CreateMagazineTable extends Migration
         Schema::create('magazines', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('farm_id');
-            $table->string('magazine_name');
             $table->timestamps();
 
             $table->foreign('farm_id')

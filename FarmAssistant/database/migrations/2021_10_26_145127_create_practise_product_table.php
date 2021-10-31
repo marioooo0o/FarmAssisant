@@ -19,7 +19,7 @@ class CreatePractiseProductTable extends Migration
             $table->unsignedBigInteger('agricultural_practise_id');
             $table->unsignedBigInteger('plant_protection_product_id');
             
-            $table->foreign('agricultural_practise_id')
+            $table->foreign('agricultural_practise_id', 'ap_id_foreign')
                     ->references('id')
                     ->on('agricultural_practices')
                     ->onDelete('cascade');

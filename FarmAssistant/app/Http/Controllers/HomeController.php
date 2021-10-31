@@ -24,15 +24,24 @@ class HomeController extends Controller
         $user = auth()->user();
  
         $farms = $user->farms;
-        $activeFarm = Farm::find($farms->first()->id);
-        $farm = Farm::find($activeFarm->id);
-        $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
-        $fields = Field::getFields($activeFarm->id, 3, 'desc');
-        $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
+        if($farms->isEmpty())
+        {
+            return view('farms.create', ['farms' => $farms]);
+        }
+        else
+        {
+            $activeFarm = Farm::find($farms->first()->id);
+            $farm = Farm::find($activeFarm->id);
+            $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
+            $fields = Field::getFields($activeFarm->id, 3, 'desc');
+            $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
 
-        $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
-    
-        return view('home', ['practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops]);
+            $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
+            //dd($practises);
+        
+            return view('home', ['practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops]);
+        }
+        
     }
 
     /**
@@ -67,6 +76,7 @@ class HomeController extends Controller
         $user = auth()->user();
         
         $farms = $user->farms;
+        
         $activeFarm = Farm::find($idFarm);
         $farm = Farm::find($activeFarm->id);
         $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
@@ -74,7 +84,15 @@ class HomeController extends Controller
         $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
 
         $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
-        return view('home', ['farms' => $farms, 'crops' => $crops, 'productsData' => $productsData, 'fields' => $fields, 'farm' => $farm, 'activeFarm' => $activeFarm]);
+        
+        return view('home', [
+            'farms' => $farms, 
+            'practises' => $practises,
+            'crops' => $crops, 
+            'productsData' => $productsData, 
+            'fields' => $fields, 
+            'farm' => $farm, 
+            'activeFarm' => $activeFarm]);
     }
 
     /**

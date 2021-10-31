@@ -38,7 +38,7 @@ class AgriculturalPractise extends Model
             ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
             ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
             ->where('fields.farm_id', '=', $idFarm)
-            ->select('agricultural_practices.name', 'fields.field_name', 'agricultural_practices.updated_at')
+            ->select('agricultural_practices.name', 'fields.id as field_id','fields.field_name', 'agricultural_practices.updated_at')
             ->orderBy('updated_at')
             ->limit($limit)
             ->get();
@@ -49,7 +49,7 @@ class AgriculturalPractise extends Model
             ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
             ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
             ->where('fields.farm_id', '=', $idFarm)
-            ->select('agricultural_practices.name', 'fields.field_name', 'agricultural_practices.updated_at')
+            ->select('agricultural_practices.name', 'fields.id as field_id', 'fields.field_name', 'agricultural_practices.updated_at')
             ->orderByDesc('updated_at')
             ->limit($limit)
             ->get();

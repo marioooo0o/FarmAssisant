@@ -28,12 +28,22 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
-                                <a href="/home/{{ $activeFarm->id }}">
-                                    <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
-                                </a>
-                                <a href="/home/{{ $activeFarm->id }}" class="nav-name">
-                                {{ config('app.name')}}
-                                </a>
+                                @if (@isset($activeFarm))
+                                    <a href="/home/{{ $activeFarm->id }}">
+                                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                                    </a>
+                                    <a href="/home/{{ $activeFarm->id }}" class="nav-name">
+                                    {{ config('app.name')}}
+                                    </a>
+                                @else
+                                    <a href="{{ route('farm.create') }}">
+                                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                                    </a>
+                                    <a href="{{ route('farm.create') }}}}" class="nav-name">
+                                    {{ config('app.name')}}
+                                    </a>
+                                @endif
+                                
                                     
                                     <script>
                                         function redirectClick(id) {
