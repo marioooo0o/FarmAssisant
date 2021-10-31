@@ -74,13 +74,18 @@ class FieldController extends Controller
      */
     public function show($idFarm, $id)
     {
-        $farm = $this->farmRepository->find($idFarm);
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
         
         $field = $this->fieldRepository->find($id);
         //dd($field);
         $farmsName = Farm::getFarmsNames();
         
-        return view('field.show', ['field' => $field, 'farm' => $farm, 'farmsName' => $farmsName]);
+        return view('field.show', [
+            'field' => $field, 
+            'activeFarm' => $activeFarm, 
+            'farms' => $farms,
+            'farmsName' => $farmsName]);
     }
 
     /**
@@ -91,8 +96,6 @@ class FieldController extends Controller
      */
     public function edit($idFarm, $id)
     {
-        $farm = $this->farmRepository->find($idFarm);
-       
         $farmsName = Farm::getFarmsNames();
 
         $crops = Crop::all();
@@ -101,8 +104,18 @@ class FieldController extends Controller
         //$field = Field::find($id);
         $parcels = $field->cadastralParcels->all();
         $cropActive = $field->crops->first();
+
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
       
-        return view('field.edit', ['farm' => $farm, 'cropActive' => $cropActive, 'field' => $field, 'farmsName' => $farmsName, 'crops' => $crops, 'parcels' => $parcels]);
+        return view('field.edit', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'cropActive' => $cropActive, 
+            'field' => $field, 
+            'farmsName' => $farmsName, 
+            'crops' => $crops, 
+            'parcels' => $parcels]);
     }
 
     /**

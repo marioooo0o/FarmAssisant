@@ -23,6 +23,7 @@ class CreatePlantProtectionProductTable extends Migration
             $table->string('plant')->nullable();         //uprawa
             $table->string('pest')->nullable();          //agrofag
             $table->string('dose')->nullable();         //dawka
+            $table->string('unit', 2);
             $table->string('deadline')->nullable();     //termin
             $table->string('group_name');                //nazwa grupy
             $table->string('small_area')->nullable();  //mało obszarowe

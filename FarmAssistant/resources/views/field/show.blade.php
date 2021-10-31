@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
 
 
 @section('content')
     
     <h1>{{ $field->field_name }} 
-        <a href="{{ route('field.edit', [$farm->id, $field->id]) }}"><i class="material-icons">mode_edit</i></a> </h1>
-        <form action="/farm/{{ $farm->id }}/field/{{ $field->id }}" method="POST">
+        <a href="{{ route('field.edit', [$activeFarm->id, $field->id]) }}">edit</a> </h1>
+        <form action="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}" method="POST">
             @csrf
             @method('delete')
             <button type="submit" class="btn btn-link">
@@ -25,7 +25,7 @@
             @foreach ($field->cadastralParcels as $parcel)
                 <li>
 
-                    <a href="/farm/{{ $farm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}">{{ $parcel->parcel_number }}</a>
+                    <a href="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}">{{ $parcel->parcel_number }}</a>
                 </li>
             @endforeach
         </ul>

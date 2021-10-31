@@ -40,9 +40,14 @@ class CadastralParcelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idFarm, $idField)
     {
-        //
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+        return view('cadastralparcel.create',[
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+        ]);
     }
 
     /**
@@ -64,6 +69,10 @@ class CadastralParcelController extends Controller
      */
     public function show($idFarm, $idField, $id)
     {
+        
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+
         $parcel = $this->cadastralParcelRepository->find($id);
        
         $farm = $this->farmRepository->find($idFarm);
@@ -73,10 +82,15 @@ class CadastralParcelController extends Controller
         $fields = CadastralParcel::getAllFieldsForParcel($parcel);
 
         $sum = CadastralParcel::getTotalParcelArea($parcel);
-        
-        $farmsName = Farm::getFarmsNames();
 
-        return view('cadastralparcel.show', ['parcel' => $parcel, 'field' => $field, 'fields' => $fields, 'sum' => $sum, 'farm' => $farm, 'farmsName' => $farmsName]);
+        return view('cadastralparcel.show', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'parcel' => $parcel, 
+            'field' => $field, 
+            'fields' => $fields, 
+            'sum' => $sum, 
+            'farm' => $farm,]);
     }
 
     /**
