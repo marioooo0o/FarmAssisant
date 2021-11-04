@@ -33,13 +33,22 @@ class HomeController extends Controller
             $activeFarm = Farm::find($farms->first()->id);
             $farm = Farm::find($activeFarm->id);
             $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
-            $fields = Field::getFields($activeFarm->id, 3, 'desc');
+            $fields = Field::getFields($activeFarm->id, 5, 'desc');
+            $has5Fields = Field::hasMinElements($activeFarm->id, 5);
             $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
 
             $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
             //dd($practises);
             //dd($productsData);
-            return view('home', ['practises'=>$practises, 'activeFarm' => $activeFarm, 'productsData' => $productsData, 'farms' => $farms, 'farm' => $farm, 'fields' => $fields, 'crops' => $crops]);
+            return view('home', [
+                'practises'=>$practises, 
+                'activeFarm' => $activeFarm, 
+                'productsData' => $productsData, 
+                'farms' => $farms, 
+                'farm' => $farm, 
+                'fields' => $fields, 
+                'crops' => $crops,
+                'has5Fields' => $has5Fields,]);
         }
         
     }

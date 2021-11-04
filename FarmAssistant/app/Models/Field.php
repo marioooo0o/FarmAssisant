@@ -58,4 +58,17 @@ class Field extends Model
         }
         return $query;
     }
+
+    public static function hasMinElements($idFarm, $numberOfElements)
+    {
+        $query = Field::where('farm_id', $idFarm)->get();
+        if( $query->count() > $numberOfElements)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
 }
