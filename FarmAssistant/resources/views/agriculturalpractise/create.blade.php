@@ -1,83 +1,100 @@
 @extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
-
 @section('content')
+<div class="create-container practise">
+  <div class="content">
     <h1>Dodaj zabieg</h1>
 
     <form action="{{ route('practise.store', [$idFarm]) }}" method="POST">
-        @csrf
-        <div id="practise-container">
-            <label for="">Nazwa zabiegu:</label>
-            <input type="text" name="practise_name">
-            <br>
-            <div id="field-container">
-                <label for="">Pole</label>
-                <select name="fields[]">
+      @csrf
+      <input
+        type="text"
+        name="practise_name"
+        placeholder="Nazwa zabiegu"
+        class="input-name"
+      />
+      <h2>Wybrane pola:</h2>
+      <div id="fields-container">
+        <select name="fields[]" class="input-field">
+          @foreach ($fields as $field)
+          <option value="{{ $field->id }}">
+            {{ $field->field_name }} {{ $field->field_area }} ha
+          </option>
+          @endforeach
+        </select>
+      </div>
+      <button type="button" name="addFieldButton" id="addField">
+        Dodaj pole
+      </button>
+      <h2>Wybrane środki:</h2>
+      <div id="products-container">
+        <div class="product">
+          <select name="protectionproduct[0][name]" class="input-protection">
+            @foreach ($plantProtectionProducts as $product)
+            <option value="{{ $product->id }}">
+              {{ $product->name }}
+            </option>
+            @endforeach
+          </select>
+          <div class="info-text">Maksymalna dawka środka: 0</div>
+          <label
+            >Ilość środka:<input
+              class="input-quantity"
+              type="number"
+              name="protectionproduct[0][quantity]"
+          /></label>
+          l
+        </div>
+      </div>
+      <button type="button" name="addProductButton" id="addProduct">
+        Dodaj środek
+      </button>
+      <label>Ilość wody: <input type="number" step="10" value="1000" /> </label>
+      l
+      <button type="submit" class="submit">Dodaj zabieg</button>
+      <script>
+        let productsId = 0;
+        let fieldForm = document.getElementById("fields-container");
+        let practiseForm = document.getElementById("products-container");
+        function addField() {
+          fieldForm.innerHTML += `
+                <select name="fields[]" class="input-field">
                     @foreach ($fields as $field)
-                        <option value="{{ $field->id }}">{{ $field->field_name }}  <label for="">{{ $field->field_area }} ha</label></option>
+                    <option value="{{ $field->id }}">
+                      {{ $field->field_name }} {{ $field->field_area }} ha
+                    </option>
                     @endforeach
                 </select>
-            <button type="button" name="addFieldButton" id="addField">Dodaj pole</button>
-            <br>
-            </div>
-            <div id="product-container">
-                <label for="">Nazwa środka:</label>
-                <select name="protectionproduct[0][name]">
-                    @foreach ($plantProtectionProducts as $product)
-                        <option value="{{ $product->id }}">{{ $product->name }}</option>
-                    @endforeach
-                </select>
-                <button type="button" name="addProductButton" id="addProduct">Dodaj pole</button>
-                <br>
-                <label for="">Maksymalna dawka środka: tutaj bierzemy z js wartość</label>    
-                <br>
-                <label for="">Ilość środka: </label>
-                <input type="numeric" name="protectionproduct[0][quantity]"> l
-        <br>
-            </div>
-        <br>
-        
-        <label for="">Ilość wody: </label>
-        <input type="numeric" step="10" value="1000"> l
-        <br>
-            </div>
-            
-        <button type="submit">Dodaj</button>
-        <script>
-            let productsId = 0;
-            let fieldForm = document.getElementById("field-container");
-            let practiseForm = document.getElementById("product-container");
-            function addField()
-            {
-                fieldForm.innerHTML += `
-                <label for="">Pole</label>
-                <select name="fields[]">
-                @foreach ($fields as $field)
-                    <option value="{{ $field->id }}">{{ $field->field_name }}  <label for="">{{ $field->field_area }} ha</label></option>
-                @endforeach
-                </select>
-                <br>
-            
-                `
-            }
-            document.getElementById("addField").addEventListener("click", addField);
+                `;
+        }
+        document.getElementById("addField").addEventListener("click", addField);
 
-            function addProduct()
-            {
-                productsId++;
-                practiseForm.innerHTML += `
-                    <label for="">Nazwa środka:</label>
-                    <select name="protectionproduct[${productsId}][name]">
-                        @foreach ($plantProtectionProducts as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                        @endforeach
-                    </select>
-                    <br>
-                    <label for="">Ilość środka: </label>
-                    <input type="numeric" name="protectionproduct[${productsId}][quantity]"> l
-                    <br>
-                `
-            }
-            document.getElementById("addProduct").addEventListener("click", addProduct);
-        </script>
-    </form>    
+        function addProduct() {
+          productsId++;
+          practiseForm.innerHTML += `
+					<div class="product">
+          <select name="protectionproduct[${productsId}][name]" class="input-protection">
+            @foreach ($plantProtectionProducts as $product)
+            <option value="{{ $product->id }}">
+              {{ $product->name }}
+            </option>
+            @endforeach
+          </select>
+					<div class="info-text">Maksymalna dawka środka: 0</div>
+          <label
+            >Ilość środka:<input
+              class="input-quantity"
+              type="number"
+              name="protectionproduct[${productsId}][quantity]"
+          /></label>
+          l
+        </div>
+          `;
+        }
+        document
+          .getElementById("addProduct")
+          .addEventListener("click", addProduct);
+      </script>
+    </form>
+  </div>
+</div>
 @endsection

@@ -1,3 +1,7 @@
+input {
+  border: #6b7280 solid 1px;
+}
+
 .nav-name {
   margin-left: 10px;
   font-size: 20px;
@@ -60,6 +64,7 @@
   bottom: 20px;
   font-size: 30px;
   line-height: 30px;
+  display: block;
 }
 
 .dashboard-container button:hover {
@@ -124,5 +129,176 @@
     right: 0;
     margin: auto;
   }
+}
+
+.create-container {
+  max-width: 1280px;
+  margin: 50px auto 50px auto;
+  padding: 0 32px;
+}
+
+.create-container .content {
+  -webkit-box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+          box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.create-container h1 {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.create-container h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+
+.create-container .info-text {
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+
+.create-container .input-name {
+  width: 500px;
+}
+
+.create-container .input-number {
+  width: 400px;
+  margin-right: 21px;
+}
+
+.create-container .input-area {
+  width: 75px;
+}
+
+.create-container .input-crops {
+  margin-top: 30px;
+  width: 500px;
+}
+
+.create-container .input-field {
+  width: 500px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.create-container .input-protection {
+  width: 500px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.create-container button {
+  width: 500px;
+  background-color: #f3f4f6;
+  border-radius: 20px;
+  font-size: 20px;
+  display: block;
+  margin-top: 30px;
+}
+
+.create-container button:hover {
+  -webkit-transform: scale(105%);
+          transform: scale(105%);
+}
+
+.create-container button.submit {
+  font-size: 24px;
+}
+
+.create-container form {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+.create-container .product {
+  margin-bottom: 40px;
+}
+
+.create-container .product:last-of-type {
+  margin: 0;
+}
+
+.create-container .product .info-text {
+  margin-top: 10px;
+}
+
+.create-container .parcel {
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 720px) {
+  .create-container {
+    padding: 0 5%;
+  }
+  .create-container h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .create-container .content {
+    padding: 30px;
+  }
+  .create-container .input-name {
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container .input-number {
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container .input-area {
+    min-width: 100px;
+    margin-top: 10px;
+  }
+  .create-container .input-crops {
+    margin-top: 30px;
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container .input-field {
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container .input-protection {
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container button {
+    width: 100%;
+  }
+  .create-container form {
+    width: 100%;
+  }
+}
+
+.create-container.practise button {
+  margin: 20px 0 40px 0;
+}
+
+.create-container.practise button.submit {
+  margin-top: 40px;
+}
+
+.create-container.practise input[type="number"] {
+  padding: 0 5px;
+  margin-left: 10px;
+  width: 75px;
+}
+
+.create-container.field button {
+  margin: 20px 0 10px 0;
+}
+
+.create-container.field button.submit {
+  margin-top: 40px;
 }
 /*# sourceMappingURL=styles.css.map */
