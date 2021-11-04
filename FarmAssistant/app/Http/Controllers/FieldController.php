@@ -32,6 +32,7 @@ class FieldController extends Controller
     public function index()
     {
         $fieldsList = $this->fieldRepository->getAll();
+        //dd($fieldsList);
         return view('field.list', ['fieldsList' => $fieldsList]);
     }
 

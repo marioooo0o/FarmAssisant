@@ -30,6 +30,7 @@
                 @foreach ($fields as $field)
                     <li><a href="/farm/{{ $field->farm_id }}/field/{{ $field->id }}"> {{ $field->field_name }}    {{ $field->field_area }}ha</a> </li>
                 @endforeach
+                <a href="{{ route('field.index', [$activeFarm->id]) }}" class="link-to-many">Zobacz wszystkie pola</a>
             @else
                 Brak pól, dodaj swoje pierwsze pole!      
             @endif
