@@ -8,6 +8,7 @@ use App\Models\Farm;
 use App\Models\Field;
 use App\Repositories\FieldRepository;
 use App\Repositories\FarmRepository;
+use App\Repositories\CropRepository;
 use App\Http\Requests\StoreField;
 use App\Http\Requests\UpdateField;
 use Illuminate\Support\Facades\DB;
@@ -18,11 +19,16 @@ class FieldController extends Controller
 {
     private $fieldRepository;
     private $farmRepository;
+    private $cropRepository;
 
-    public function __construct(FieldRepository $fieldRepo, FarmRepository $farmRepo)
+    public function __construct(
+        FieldRepository $fieldRepo, 
+        FarmRepository $farmRepo,
+        CropRepository $cropRepo)
     {
         $this->fieldRepository = $fieldRepo;
         $this->farmRepository = $farmRepo;
+        $this->cropRepository = $cropRepo;
     }
     /**
      * Display a listing of the resource.
@@ -51,10 +57,8 @@ class FieldController extends Controller
     {
         $farms = auth()->user()->farms;
         $activeFarm = $this->farmRepository->find($idFarm);
-        $crops = Crop::all();
-        
-
-
+        $crops = $this->cropRepository->getAll();
+    
         return view('field.create',[
             'idFarm' => $idFarm, 
             'farms'=> $farms, 
@@ -88,7 +92,7 @@ class FieldController extends Controller
         $activeFarm = $this->farmRepository->find($idFarm);
         
         $field = $this->fieldRepository->find($id);
-        //dd($field);
+        
         $farmsName = Farm::getFarmsNames();
         
         return view('field.show', [
@@ -108,7 +112,7 @@ class FieldController extends Controller
     {
         $farmsName = Farm::getFarmsNames();
 
-        $crops = Crop::all();
+        $crops = $this->cropRepository->getAll();
         $field = $this->fieldRepository->find($id);
 
         //$field = Field::find($id);
