@@ -71,8 +71,18 @@ class FieldRepository extends BaseRepository{
         //update farm area after delete a field
         $farm->updateFarmArea($idFarm);
         $farm->save();
-       
+    }
 
+    public function getAllForId($id)
+    {
+        $farm = $this->farmModel->find($id);
+        $fields = $farm->fields;
+        foreach($fields as $field)
+        {
+            $crops = $field->crops;
+            $parcels = $field->cadastralParcels;
+        }
+        return $fields;
     }
     public function cheapest()
     {

@@ -29,11 +29,17 @@ class FieldController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($idFarm)
     {
-        $fieldsList = $this->fieldRepository->getAll();
-        //dd($fieldsList);
-        return view('field.list', ['fieldsList' => $fieldsList]);
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+
+        $fields = $this->fieldRepository->getAllForId($idFarm);
+    
+        return view('field.list', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'fields' => $fields]);
     }
 
     /**
@@ -45,12 +51,15 @@ class FieldController extends Controller
     {
         $farms = auth()->user()->farms;
         $activeFarm = $this->farmRepository->find($idFarm);
-        $farmsName = Farm::getFarmsNames();
         $crops = Crop::all();
         
 
 
-        return view('field.create',['idFarm' => $idFarm, 'farms'=> $farms, 'farmsName' => $farmsName, 'crops' => $crops, 'activeFarm' => $activeFarm]);
+        return view('field.create',[
+            'idFarm' => $idFarm, 
+            'farms'=> $farms, 
+            'crops' => $crops, 
+            'activeFarm' => $activeFarm]);
     }
 
     /**
