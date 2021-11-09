@@ -7,6 +7,11 @@ use App\Models\Farm;
 use App\Models\Field;
 use App\Models\Magazine;
 use App\Models\User;
+use App\Repositories\FarmRepository;
+use App\Repositories\FieldRepository;
+use App\Repositories\CropRepository;
+use App\Repositories\MagazineRepository;
+use App\Repositories\PractiseRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +19,23 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     protected $layout = 'layouts.app';
+
+    private $fieldRepository;
+    private $farmRepository;
+    private $magazineRepository;
+    private $practiseRepository;
+
+    public function __construct(
+        FieldRepository $fieldRepo, 
+        FarmRepository $farmRepo,
+        MagazineRepository $magazineRepo,
+        PractiseRepository $practiseRepo)
+    {
+        $this->fieldRepository = $fieldRepo;
+        $this->farmRepository = $farmRepo;
+        $this->magazineRepository = $magazineRepo;
+        $this->practiseRepository = $practiseRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,25 +52,21 @@ class HomeController extends Controller
         }
         else
         {
-            $activeFarm = Farm::find($farms->first()->id);
-            $farm = Farm::find($activeFarm->id);
-            $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
-            $fields = Field::getFields($activeFarm->id, 5, 'desc');
-            $has5Fields = Field::hasMinElements($activeFarm->id, 5);
-            $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
-
-            $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
-            //dd($practises);
-            //dd($productsData);
+            $activeFarm = $this->farmRepository->find($farms->first()->id);
+            
+            $crops = $this->farmRepository->getCrops($activeFarm->id);
+            $fields = $this->fieldRepository->getFields($activeFarm->id, 'desc', 5);
+            $productsInMagazine = $this->magazineRepository->getProductsInMagazine($activeFarm->id);
+            $practises =  $this->practiseRepository->getAllPractises($activeFarm->id);
+            
             return view('home', [
                 'practises'=>$practises, 
                 'activeFarm' => $activeFarm, 
-                'productsData' => $productsData, 
+                'productsInMagazine' => $productsInMagazine, 
                 'farms' => $farms, 
-                'farm' => $farm, 
                 'fields' => $fields, 
                 'crops' => $crops,
-                'has5Fields' => $has5Fields,]);
+            ]);
         }
         
     }
@@ -88,7 +106,7 @@ class HomeController extends Controller
         
         $activeFarm = Farm::find($idFarm);
         $farm = Farm::find($activeFarm->id);
-        $crops = $farm->getSumCrops($activeFarm->id, 5, 'desc');
+        $crops = $this->farmRepository->getCrops($activeFarm->id);
         $fields = Field::getFields($activeFarm->id, 3, 'desc');
         $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
 

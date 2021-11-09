@@ -101,5 +101,19 @@ class FieldRepository extends BaseRepository{
         $fieldsList = $this->model->where('name', 'like', "%" . $q . "%")->get();
         return $fieldsList;
     }
+
+    public function getFields($idFarm, $sorting = 'asc', $limit = null)
+    {
+        if( $sorting == 'desc')
+        {
+            $fields = $this->model->where('farm_id', '=', $idFarm)->orderByDesc('field_area')->limit($limit)->get();
+        }
+        else
+        {
+            $fields = $this->model->where('farm_id', '=', $idFarm)->orderBy('field_area')->limit($limit)->get();
+        }
+
+        return $fields;        
+    }
 }
 ?>
