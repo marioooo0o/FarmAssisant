@@ -18,7 +18,7 @@ class Magazine extends Model
 
     public function products()
     {
-        return $this->belongsToMany(PlantProtectionProduct::class)->withPivot('quantity');
+        return $this->belongsToMany(PlantProtectionProduct::class)->withPivot('quantity', 'id');
     }
 
     public static function hasProducts($idFarm)

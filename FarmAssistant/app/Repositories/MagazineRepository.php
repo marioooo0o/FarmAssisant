@@ -21,43 +21,30 @@ class MagazineRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
+        //dd($data);
         $farm = Farm::find($idFarm);
 
         $magazine = Magazine::find($farm->magazine->id);
-
+        //dd($magazine->products);
+      
         foreach($data['addProtectionProduct'] as $protectionProduct)
         {
-            $product = PlantProtectionProduct::find($protectionProduct['product_name']);
-            $magazine->products()->attach($product->id, ['quantity' => $protectionProduct['quantity']]);
-            $magazine->save();
-        }
-        
+            //checks if the product from the form is in magazine
+            if($magazine->products->where('id', '=', $protectionProduct["product_name"])->isNotEmpty())
+            {
+                $quantityOld = $magazine->products->where('id', '=', $protectionProduct["product_name"])->first()->pivot->quantity;
+                $quantityNew = $protectionProduct["quantity"];
+                $quantitySum = $quantityOld + $quantityNew;
+                $magazine->products()->updateExistingPivot($protectionProduct["product_name"], ['quantity' => $quantitySum,]);
+            }
+            else
+            {
+                $product = PlantProtectionProduct::find($protectionProduct['product_name']);
+                $magazine->products()->attach($product->id, ['quantity' => $protectionProduct['quantity']]);
+                $magazine->save();
+            }
+        }        
         return $magazine;
-        /*
-        $farm = Farm::find($idFarm);
-        $field = $farm->fields()->create($data);
-        $dataParcel = [
-                   'parcel_number' => $data['parcel_number'],
-                    'parcel_area' => $data['parcel_area'],
-             ];
-        $parcel = $field->cadastralParcels()->create($dataParcel);
-
-        $dataCrop = [
-            'name' => $data['crops'],
-        ];
-        $crop = Crop::where('id','=', $dataCrop)->first();
-
-        //dodanie samego klucza do relacji normalizacji
-        $field->crops()->attach($crop->id);
-
-        $area = DB::table('cadastral_parcels')->where('field_id', '=', $field->id)->sum('parcel_area');
-        $field->field_area = $area;
-        
-        $field->save();
-        $farm->updateFarmArea($idFarm);
-        $farm->save();
-        return $field;
-        */
     }
 
     public function update(array $data, $idFarm, $idField=null, $idParcel=null)
@@ -93,6 +80,20 @@ class MagazineRepository extends BaseRepository{
        */
 
     }
+
+    public function getProductsInMagazine($idFarm)
+    {
+        $query = DB::table('plant_protection_products')
+            ->leftJoin('magazine_plant_protection_product', 'plant_protection_products.id', '=', 'plant_protection_product_id')
+            ->leftJoin('magazines', 'magazines.id', '=', 'magazine_plant_protection_product.magazine_id')
+            ->where('magazines.farm_id', '=', $idFarm)
+            ->select('name', 'plant_protection_products.unit', DB::raw('SUM(magazine_plant_protection_product.quantity) as quantity'))
+            ->groupBy('name')
+            ->orderBy('quantity', 'asc')
+            ->get();
+        return $query;
+    }
+
     public function cheapest()
     {
         $fieldsList = $this->model->orderBy('price', 'asc')->limit(3)->get();

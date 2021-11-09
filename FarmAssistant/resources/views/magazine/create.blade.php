@@ -25,7 +25,7 @@
             <input
               type="number"
               name="addProtectionProduct[0][quantity]"
-              step="0.01"
+              step="0.1"
               value="1"
             />
             {{ $product->unit }}</label
@@ -46,7 +46,7 @@
     productForm.innerHTML += `
     <div class="product">
           <select
-            name="addProtectionProduct[0][product_name]"
+            name="addProtectionProduct[${productsId}][product_name]"
             class="input-protection"
           >
             @foreach ($plantProtectionProducts as $product)
@@ -58,7 +58,7 @@
             <input
               type="number"
               name="addProtectionProduct[${productsId}][quantity]"
-              step="0.01"
+              step="0.1"
               value="1"
             />
             {{ $product->unit }}</label
