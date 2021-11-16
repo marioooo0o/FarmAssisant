@@ -33,9 +33,9 @@ input {
   margin: 50px auto 50px auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 250px;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 300px;
   gap: 20px;
   padding: 0 32px;
 }
@@ -68,8 +68,8 @@ input {
 }
 
 .dashboard-container button:hover {
-  -webkit-transform: scale(105%);
-          transform: scale(105%);
+  -webkit-transform: scale(102%);
+          transform: scale(102%);
 }
 
 .dashboard-container ol {
@@ -87,7 +87,7 @@ input {
   opacity: 0.8;
 }
 
-.dashboard-container .weather {
+.dashboard-container .magazine {
   -ms-grid-column: 1;
       grid-column-start: 1;
   grid-column-end: 3;
@@ -96,7 +96,7 @@ input {
 .dashboard-container .calendar {
   -ms-grid-column: 1;
       grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
 }
 
 .dashboard-container .procedure-name {

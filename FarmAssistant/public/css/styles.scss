@@ -27,8 +27,8 @@ input {
   max-width: 1280px;
   margin: 50px auto 50px auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 250px;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 300px;
   gap: 20px;
   padding: 0 32px;
 
@@ -58,7 +58,7 @@ input {
     display: block;
 
     &:hover {
-      transform: scale(105%);
+      transform: scale(102%);
     }
   }
 
@@ -77,14 +77,14 @@ input {
     opacity: 0.8;
   }
 
-  .weather {
+  .magazine {
     grid-column-start: 1;
     grid-column-end: 3;
   }
 
   .calendar {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 3;
   }
 
   .procedure-name {
