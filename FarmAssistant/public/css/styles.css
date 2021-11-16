@@ -195,6 +195,12 @@ input {
   display: block;
 }
 
+.create-container .input-farm {
+  margin-top: 30px;
+  width: 500px;
+  display: block;
+}
+
 .create-container button {
   width: 500px;
   background-color: #f3f4f6;
@@ -269,6 +275,10 @@ input {
     width: 100%;
   }
   .create-container .input-protection {
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container .input-farm {
     min-width: 150px;
     width: 100%;
   }
