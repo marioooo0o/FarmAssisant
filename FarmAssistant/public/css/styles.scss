@@ -26,11 +26,11 @@ input {
 
 .dashboard-container {
     max-width: 1280px;
-    margin: 50px auto 50px auto;
+    margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    padding: 0 32px;
+    padding: 50px 32px;
 
     > * {
         box-sizing: content-box;
