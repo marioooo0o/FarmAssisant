@@ -72,6 +72,21 @@ input {
           transform: scale(102%);
 }
 
+.dashboard-container button.more {
+  background-color: #4294ff;
+  bottom: 60px;
+  font-size: 18px;
+  color: white;
+  width: 200px;
+  margin: 0 0 0 auto;
+  left: 0;
+  right: 25px;
+}
+
+.dashboard-container button.more--down {
+  bottom: 20px;
+}
+
 .dashboard-container ol {
   list-style: decimal;
   list-style-position: inside;
@@ -114,7 +129,7 @@ input {
 @media screen and (max-width: 600px) {
   .dashboard-container {
     font-size: 14px;
-    grid-auto-rows: 210px;
+    grid-auto-rows: 300px;
     padding: 0 5%;
   }
   .dashboard-container > * {
@@ -128,6 +143,14 @@ input {
     left: 0;
     right: 0;
     margin: auto;
+  }
+  .dashboard-container button.more {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 25px;
   }
 }
 

@@ -18,6 +18,7 @@
             </li>
             @endforeach @else Brak zabiegów, dodaj swój pierwszy zabieg! @endif
         </ol>
+        <a href="#"><button class="more">Pokaż wszystkie</button></a>
         <a href="/home/{{ $farm->id}}/practise/create"><button>+</button></a>
     </div>
     <div class="fields">
@@ -32,6 +33,7 @@
             </li>
             @endforeach @else Brak pól, dodaj swoje pierwsze pole! @endif
         </ol>
+        <a href="#"><button class="more">Pokaż wszystkie</button></a>
         <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"
             ><button>+</button></a
         >
@@ -45,7 +47,8 @@
                 {{ $product->name}} {{ $product->quantity}} {{ $product->unit }}
             </li>
             @endforeach
-        </ul>
+        </ul>        
+        <a href="#"><button class="more">Pokaż wszystkie</button></a>
         <a href="/home/{{ $farm->id }}/magazine/create"><button>+</button></a>
 
         @else Brak środków w magazynie!
@@ -63,6 +66,7 @@
             <li>{{ $crop->name }} {{ $crop->crop_area }} ha</li>
             @endforeach @endisset
         </ol>
+        <a href="#"><button class="more more--down">Pokaż wszystkie</button></a>
     </div>
     <div class="calendar">
         <h2>Kalendarz</h2>
