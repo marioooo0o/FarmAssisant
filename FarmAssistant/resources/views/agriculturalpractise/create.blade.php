@@ -40,6 +40,7 @@
             >Ilość środka:<input
               class="input-quantity"
               type="number"
+              min="0"
               name="protectionproduct[0][quantity]"
           /></label>
           l
@@ -48,7 +49,7 @@
       <button type="button" name="addProductButton" id="addProduct">
         Dodaj środek
       </button>
-      <label>Ilość wody: <input type="number" step="10" value="1000" /> </label>
+      <label>Ilość wody: <input type="number" step="10" value="1000" min="0"/> </label>
       l
       <button type="submit" class="submit">Dodaj zabieg</button>
       <script>
@@ -84,6 +85,7 @@
             >Ilość środka:<input
               class="input-quantity"
               type="number"
+              min="0"
               name="protectionproduct[${productsId}][quantity]"
           /></label>
           l
