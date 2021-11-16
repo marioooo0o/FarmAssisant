@@ -17,13 +17,20 @@ input {
 .farms-input {
   border: 1px solid black;
   border-radius: 3px;
-  margin-left: 20px;
-  padding: 0 10px;
+  padding: 0 30px 0 5px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 @media screen and (max-width: 600px) {
   .farms-input {
-    width: 40vw;
     font-size: 14px;
   }
 }

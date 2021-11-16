@@ -58,24 +58,7 @@
                                         @endforeach
                                         
                                     </datalist> --}}
-                                    <select name="companies" class="farms-input"  onChange="redirectClick(this.options[this.options.selectedIndex].value)">
-                                        <option value="0">Dodaj gospodarstwo</option>
-                                        @isset($activeFarm)
-                                            <option value="{{ $activeFarm->id }}" selected>{{ $activeFarm->name }}</option>
 
-                                            @foreach ($farms as $farm)
-                                                @if ($farm->id == $activeFarm->id)
-                                                    
-                                                @else
-                                                    <option value="{{ $farm->id }}">{{ $farm->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        @endisset
-                                        
-                                        
-
-                                       
-                                    </select>
                                
                                 
                             
@@ -88,6 +71,25 @@
                                 </x-nav-link>
                             </div> -->
                         </div>
+
+                        <select name="companies" class="farms-input"  onChange="redirectClick(this.options[this.options.selectedIndex].value)">
+                            <option value="0">Dodaj gospodarstwo</option>
+                            @isset($activeFarm)
+                                <option value="{{ $activeFarm->id }}" selected>{{ $activeFarm->name }}</option>
+
+                                @foreach ($farms as $farm)
+                                    @if ($farm->id == $activeFarm->id)
+                                        
+                                    @else
+                                        <option value="{{ $farm->id }}">{{ $farm->name }}</option>
+                                    @endif
+                                @endforeach
+                            @endisset
+                            
+                            
+
+                           
+                        </select>
             
                         <!-- Settings Dropdown -->
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

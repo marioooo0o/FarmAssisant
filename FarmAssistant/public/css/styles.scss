@@ -15,10 +15,12 @@ input {
 .farms-input {
     border: 1px solid black;
     border-radius: 3px;
-    margin-left: 20px;
-    padding: 0 10px;
+    padding: 0 30px 0 5px;
+    height: fit-content;
+    align-self: center;
+    width: fit-content;
     @media screen and (max-width: 600px) {
-        width: 40vw;
+
         font-size: 14px;
     }
 }
