@@ -1,10 +1,10 @@
 @extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
-
 @section('content')
 
 <div class="dashboard-container">
     <div class="procedures">
         <h2>Zabiegi</h2>
+
         <ol>     
             @if (!$practises->isEmpty())
                 @for ($i=0; $i < 5; $i++)
@@ -23,8 +23,9 @@
     </div>
     <div class="fields">
         <h2>Pola</h2>
-        
+
         <ol>
+
             @if (!$fields->isEmpty())
                 @for ($i = 0; $i < 4; $i++)
                     @isset($fields[$i])
@@ -35,26 +36,44 @@
             @else
                 Brak pól, dodaj swoje pierwsze pole!      
             @endif
+
         </ol>
-        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"><button>+</button></a>
+        <a href="#"><button class="more">Pokaż wszystkie</button></a>
+        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"
+            ><button>+</button></a
+        >
     </div>
     <div class="magazine">
         <h2>Magazyn</h2>
-        @if (!$productsInMagazine->isEmpty())
-            <ul>
-                @for ($i = 0; $i<5; $i++)
-                    @isset($productsInMagazine[$i])
-                        <li>{{ $productsInMagazine[$i]->name}}  {{ $productsInMagazine[$i]->quantity}} {{ $productsInMagazine[$i]->unit }}</li>
-                    @endisset
-                @endfor                
-            </ul>
-            <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
 
-        @else
-            Brak środków w magazynie!
-            <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
+        @if (!$productsData->isEmpty())
+        <ul>
+            @foreach ($productsData as $product)
+            <li id="product-{{ $loop->iteration }}">
+                {{ $product->name}} {{ $product->quantity}} {{ $product->unit }}
+                <script>
+                    if("{{ $product->quantity}}" < 5) {
+                        document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--red" id="product-bar-{{ $loop->iteration }}"></div>`
+                    }
+                    else if("{{ $product->quantity}}" < 10) {
+                        document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--orange" id="product-bar-{{ $loop->iteration }}"></div>`
+                    }
+                    else {
+                        document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar-green" id="product-bar-{{ $loop->iteration }}"></div>`
+                    }
+                    document.getElementById("product-bar-{{ $loop->iteration }}").style.width = `${"{{ $loop->iteration }}"*10}%`
+                </script>
+            </li>
+            @endforeach
+        </ul>        
+        <a href="#"><button class="more">Pokaż wszystkie</button></a>
+        <a href="/home/{{ $farm->id }}/magazine/create"><button>+</button></a>
 
-        @endif        
+        @else Brak środków w magazynie!
+        <a href="/home/{{ $farm->id }}/magazine/create"><button>+</button></a>
+
+
+        @endif
     </div>
     <div class="weather">
         <h2>Pogoda</h2>
@@ -62,6 +81,7 @@
     <div class="ranking">
         <h2>Ranking upraw</h2>
         <ol>
+
             @isset($crops)
                 @foreach ($crops as $crop)
                     <li>{{ $crop->name }} {{ $crop->crop_area }} ha</li>
@@ -69,6 +89,7 @@
             @endisset
 
         </ol>
+        <a href="#"><button class="more more--down">Pokaż wszystkie</button></a>
     </div>
     <div class="calendar">
         <h2>Kalendarz</h2>
