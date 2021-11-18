@@ -25,7 +25,7 @@ Route::get('/dashboard', function () { return view('dashboard');})->middleware([
 //Route::resource('dashboard', 'App\Http\Controllers\DashboardController')->middleware(['auth']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
 Route::get('/home/{idFarm}', [App\Http\Controllers\HomeController::class, 'show'])->middleware('auth');
-Route::resource('home/{idFarm}/practise', 'App\Http\Controllers\AgriculturalPractiseController')->middleware('auth');
+Route::resource('farm/{idFarm}/practise', 'App\Http\Controllers\AgriculturalPractiseController')->middleware('auth');
 Route::resource('home/{idFarm}/magazine', 'App\Http\Controllers\MagazineController')->middleware('auth');
 
 Route::resource('farm', 'App\Http\Controllers\FarmController');
