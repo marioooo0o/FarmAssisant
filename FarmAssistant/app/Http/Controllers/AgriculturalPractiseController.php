@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePractise;
+use App\Models\AgriculturalPractise;
 use Illuminate\Http\Request;
 use App\Models\Farm;
 use App\Models\Magazine;
@@ -29,9 +30,23 @@ class AgriculturalPractiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($idFarm)
     {
-        //
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+        //$practises = AgriculturalPractise::all();
+        $practises =  $this->practiseRepository->getAllPractisesGrouped($idFarm);
+        $fields = $this->fieldRepository->getAllForId($idFarm);
+        $temp = AgriculturalPractise::all();
+        //dd($practises);
+        //dd($temp[0]->fields()->get()->all());
+
+        return view('agriculturalpractise.index', [
+            'activeFarm' => $activeFarm,
+            'practises' => $practises,
+            'farms' => $farms,
+            'fields'=> $fields,
+        ]);
     }
 
     /**

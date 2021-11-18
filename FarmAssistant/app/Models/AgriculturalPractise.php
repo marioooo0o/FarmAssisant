@@ -15,7 +15,7 @@ class AgriculturalPractise extends Model
         'name',
     ];
 
-    public function field()
+    public function fields()
     {
         return $this->belongsToMany(Field::class);
     }
