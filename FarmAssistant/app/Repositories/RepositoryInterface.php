@@ -8,5 +8,7 @@ interface RepositoryInterface{
     public function update(array $data, $idFarm, $idField=null, $idParcel=null);
     public function delete($id);
     public function find($id);
+
+    public function getAllForId($id);
 }
 ?>

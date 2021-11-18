@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePractise;
 use Illuminate\Http\Request;
 use App\Models\Farm;
+use App\Models\Magazine;
 use App\Models\PlantProtectionProduct;
 use App\Repositories\FieldRepository;
 use App\Repositories\FarmRepository;
 use App\Repositories\PractiseRepository;
+
 
 class AgriculturalPractiseController extends Controller
 {
@@ -41,20 +44,24 @@ class AgriculturalPractiseController extends Controller
         $farms = auth()->user()->farms;
         $activeFarm = $this->farmRepository->find($idFarm);
         $fields = $activeFarm->fields;
-        $plantProtectionProducts = PlantProtectionProduct::all();
+        //only products available from magazine
+        $plantProtectionProducts = $activeFarm->magazine->first()->products;
+        
+        //$plantProtectionProducts = PlantProtectionProduct::all();
         return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'farms'=> $farms, 'activeFarm'=>$activeFarm, 'plantProtectionProducts' => $plantProtectionProducts]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StorePractise  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $idFarm)
+    public function store(StorePractise $request, $idFarm)
     {
         $data = $request->all();
-        $practise = $this->practiseRepository->create($data, $idFarm);
+      //  $practise = $this->practiseRepository->create($data, $idFarm);
+        
         return redirect('home');
     }
 

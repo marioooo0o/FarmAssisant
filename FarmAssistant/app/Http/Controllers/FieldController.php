@@ -8,6 +8,7 @@ use App\Models\Farm;
 use App\Models\Field;
 use App\Repositories\FieldRepository;
 use App\Repositories\FarmRepository;
+use App\Repositories\CropRepository;
 use App\Http\Requests\StoreField;
 use App\Http\Requests\UpdateField;
 use Illuminate\Support\Facades\DB;
@@ -18,21 +19,33 @@ class FieldController extends Controller
 {
     private $fieldRepository;
     private $farmRepository;
+    private $cropRepository;
 
-    public function __construct(FieldRepository $fieldRepo, FarmRepository $farmRepo)
+    public function __construct(
+        FieldRepository $fieldRepo, 
+        FarmRepository $farmRepo,
+        CropRepository $cropRepo)
     {
         $this->fieldRepository = $fieldRepo;
         $this->farmRepository = $farmRepo;
+        $this->cropRepository = $cropRepo;
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($idFarm)
     {
-        $fieldsList = $this->fieldRepository->getAll();
-        return view('field.list', ['fieldsList' => $fieldsList]);
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+
+        $fields = $this->fieldRepository->getAllForId($idFarm);
+    
+        return view('field.list', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'fields' => $fields]);
     }
 
     /**
@@ -44,12 +57,13 @@ class FieldController extends Controller
     {
         $farms = auth()->user()->farms;
         $activeFarm = $this->farmRepository->find($idFarm);
-        $farmsName = Farm::getFarmsNames();
-        $crops = Crop::all();
-        
-
-
-        return view('field.create',['idFarm' => $idFarm, 'farms'=> $farms, 'farmsName' => $farmsName, 'crops' => $crops, 'activeFarm' => $activeFarm]);
+        $crops = $this->cropRepository->getAll();
+    
+        return view('field.create',[
+            'idFarm' => $idFarm, 
+            'farms'=> $farms, 
+            'crops' => $crops, 
+            'activeFarm' => $activeFarm]);
     }
 
     /**
@@ -78,7 +92,7 @@ class FieldController extends Controller
         $activeFarm = $this->farmRepository->find($idFarm);
         
         $field = $this->fieldRepository->find($id);
-        //dd($field);
+        
         $farmsName = Farm::getFarmsNames();
         
         return view('field.show', [
@@ -98,7 +112,7 @@ class FieldController extends Controller
     {
         $farmsName = Farm::getFarmsNames();
 
-        $crops = Crop::all();
+        $crops = $this->cropRepository->getAll();
         $field = $this->fieldRepository->find($id);
 
         //$field = Field::find($id);

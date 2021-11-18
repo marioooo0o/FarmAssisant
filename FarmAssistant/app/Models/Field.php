@@ -42,20 +42,6 @@ class Field extends Model
         return $area;
     }
 
-    public static function getFields($idFarm, $limit=null, $sorting='asc')
-    {
-        if ($sorting == 'asc')
-        {
-            $query = Field::where('farm_id', $idFarm)->orderBy('field_area', 'asc')->limit($limit)->get();   
-        }
-        else if( $sorting == 'desc')
-        {
-            $query = Field::where('farm_id', $idFarm)->orderBy('field_area', 'desc')->limit($limit)->get();
-        }
-        else
-        {
-            $query = 'Coś poszło nie tak :(';
-        }
-        return $query;
-    }
+    
+   
 }

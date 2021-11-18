@@ -5,6 +5,7 @@ use App\Models\Field;
 use App\Models\CadastralParcel;
 use App\Models\Crop;
 use App\Models\AgriculturalPractise;
+use App\Models\Magazine;
 use Illuminate\Support\Facades\DB;
 
 class PractiseRepository extends BaseRepository{
@@ -22,21 +23,39 @@ class PractiseRepository extends BaseRepository{
         //dd($data);
         $farm = Farm::find($idFarm);
 
+        $magazine = Magazine::find($farm->magazine->id);
+        //dd($magazine->products);
         $practise = AgriculturalPractise::create(['name' => $data['practise_name']]);
         //dd($practise);
         foreach($data['fields'] as $field)
         {
-          //  dd($field);
             $practise->field()->attach($field);
         }
 
         foreach($data['protectionproduct'] as $protectionProduct)
         {
-            $productId = $protectionProduct['name'];
-            $practise->plantProtectionProducts()->attach($productId);
+            //dd($protectionProduct);
+            $productInMagazine = $magazine->products->where('id', "=", $protectionProduct["name"])->first()->pivot;
+            if($productInMagazine->quantity >= $protectionProduct["quantity"])
+            {
+                $productId = $protectionProduct['name'];
+
+                $quantityOld = $productInMagazine->quantity;
+                $quantityNew = $protectionProduct["quantity"];
+                $finalQuantity = $quantityOld - $quantityNew;
+
+                $magazine->products()->updateExistingPivot($protectionProduct["name"], ['quantity' => $finalQuantity,]);
+                $practise->plantProtectionProducts()->attach($productId);
+            }
+            else
+            {
+                return "Chcesz użyć więcej środka niż posiadasz w magazynie";
+            }
+            //dd($productInMagazine);
+            
         }
         
-        $practise->save();
+       // $practise->save();
         return $practise;
         //dd($field);
         //dd($practise);
@@ -99,6 +118,31 @@ class PractiseRepository extends BaseRepository{
         $farm->save();
        
 */
+    }
+
+    public function getAllPractises($idFarm, $sorting='desc')
+    {
+        if( $sorting == 'asc')
+        {
+            $query = DB::table('agricultural_practices')
+            ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
+            ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
+            ->where('fields.farm_id', '=', $idFarm)
+            ->select('agricultural_practices.name', 'fields.id as field_id','fields.field_name', 'agricultural_practices.updated_at')
+            ->orderBy('updated_at')
+            ->get();
+        }
+        else
+        {
+            $query = DB::table('agricultural_practices')
+            ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
+            ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
+            ->where('fields.farm_id', '=', $idFarm)
+            ->select('agricultural_practices.name', 'fields.id as field_id', 'fields.field_name', 'agricultural_practices.updated_at')
+            ->orderByDesc('updated_at')
+            ->get();
+        }
+            return $query;
     }
     public function cheapest()
     {

@@ -50,5 +50,12 @@ class FarmRepository extends BaseRepository{
         $fieldsList = $this->model->where('name', 'like', "%" . $q . "%")->get();
         return $fieldsList;
     }
+
+    public function getCrops($id)
+    {
+        $result = $this->model->getSumCrops($id, 5, 'desc');
+        return $result;
+    }
+
 }
 ?>

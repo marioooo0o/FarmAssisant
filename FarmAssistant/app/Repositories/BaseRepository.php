@@ -38,5 +38,10 @@ abstract class BaseRepository implements RepositoryInterface{
     {
         return $this->model->find($id, $columns);
     }
+
+    public function getAllForId($id)
+    {
+        return $this->model->find($id);
+    }
 }
 ?>
