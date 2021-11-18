@@ -12,6 +12,8 @@
                         <li><a class="procedure-name">{{ $practises[$i]->name }}</a> <a href="{{ route('field.show',[$activeFarm->id, $practises[$i]->field_id]) }}">{{ $practises[$i]->field_name }}</a><span class="date">{{\Carbon\Carbon::parse($practises[$i]->updated_at)->format('d-m-Y') }}</span></li>
                     @endisset
                 @endfor
+                <a href="{{ route('practise.index', [$activeFarm->id]) }}" ><button class="more">Pokaż wszystkie</button></a>
+
             @else
                 Brak zabiegów, dodaj swój pierwszy zabieg!
             @endif
@@ -32,23 +34,20 @@
                         <li><a href="/farm/{{ $fields[$i]->farm_id }}/field/{{ $fields[$i]->id }}"> {{ $fields[$i]->field_name }}    {{ $fields[$i]->field_area }}ha</a> </li>
                     @endisset
                 @endfor
-                <a href="{{ route('field.index', [$activeFarm->id]) }}" class="link-to-many">Zobacz wszystkie pola</a>
+                <a href="{{ route('field.index', [$activeFarm->id]) }}" ><button class="more">Pokaż wszystkie</button></a>
             @else
                 Brak pól, dodaj swoje pierwsze pole!      
             @endif
 
         </ol>
-        <a href="#"><button class="more">Pokaż wszystkie</button></a>
-        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"
-            ><button>+</button></a
-        >
+        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"><button>+</button></a>
     </div>
     <div class="magazine">
         <h2>Magazyn</h2>
 
-        @if (!$productsData->isEmpty())
+        @if (!$productsInMagazine->isEmpty())
         <ul>
-            @foreach ($productsData as $product)
+            @foreach ($productsInMagazine as $product)
             <li id="product-{{ $loop->iteration }}">
                 {{ $product->name}} {{ $product->quantity}} {{ $product->unit }}
                 <script>
@@ -67,10 +66,10 @@
             @endforeach
         </ul>        
         <a href="#"><button class="more">Pokaż wszystkie</button></a>
-        <a href="/home/{{ $farm->id }}/magazine/create"><button>+</button></a>
+        <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
 
         @else Brak środków w magazynie!
-        <a href="/home/{{ $farm->id }}/magazine/create"><button>+</button></a>
+        <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
 
 
         @endif

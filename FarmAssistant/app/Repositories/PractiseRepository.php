@@ -128,7 +128,7 @@ class PractiseRepository extends BaseRepository{
             ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
             ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
             ->where('fields.farm_id', '=', $idFarm)
-            ->select('agricultural_practices.name', 'fields.id as field_id','fields.field_name', 'agricultural_practices.updated_at')
+            ->select('agricultural_practices.name', 'fields.id as field_id','fields.field_name', 'agricultural_practices.updated_at', 'agricultural_practise_field.agricultural_practise_id')
             ->orderBy('updated_at')
             ->get();
         }
@@ -138,11 +138,31 @@ class PractiseRepository extends BaseRepository{
             ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
             ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
             ->where('fields.farm_id', '=', $idFarm)
-            ->select('agricultural_practices.name', 'fields.id as field_id', 'fields.field_name', 'agricultural_practices.updated_at')
+            ->select('agricultural_practices.name', 'fields.id as field_id', 'fields.field_name', 'agricultural_practices.updated_at', 'agricultural_practise_field.agricultural_practise_id')
             ->orderByDesc('updated_at')
             ->get();
         }
             return $query;
+    }
+
+    public function getAllPractisesGrouped($idFarm)
+    {
+        
+        $allPractises = AgriculturalPractise::all();
+        $data = collect();
+        $i=0;
+        foreach ($allPractises as $practise) {
+            
+            if($practise->fields()->first()->farm_id == $idFarm)
+            {
+                $data->push($practise);
+                $data[$i]->push($practise->fields);
+            }
+            
+           $i++;
+        }
+
+        return $data;
     }
     public function cheapest()
     {
