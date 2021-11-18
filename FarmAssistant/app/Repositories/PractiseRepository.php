@@ -5,6 +5,7 @@ use App\Models\Field;
 use App\Models\CadastralParcel;
 use App\Models\Crop;
 use App\Models\AgriculturalPractise;
+use App\Models\Magazine;
 use Illuminate\Support\Facades\DB;
 
 class PractiseRepository extends BaseRepository{
@@ -19,9 +20,11 @@ class PractiseRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
-        dd($data);
+        //dd($data);
         $farm = Farm::find($idFarm);
 
+        $magazine = Magazine::find($farm->magazine->id);
+        //dd($magazine->products);
         $practise = AgriculturalPractise::create(['name' => $data['practise_name']]);
         //dd($practise);
         foreach($data['fields'] as $field)
@@ -31,11 +34,28 @@ class PractiseRepository extends BaseRepository{
 
         foreach($data['protectionproduct'] as $protectionProduct)
         {
-            $productId = $protectionProduct['name'];
-            $practise->plantProtectionProducts()->attach($productId);
+            //dd($protectionProduct);
+            $productInMagazine = $magazine->products->where('id', "=", $protectionProduct["name"])->first()->pivot;
+            if($productInMagazine->quantity >= $protectionProduct["quantity"])
+            {
+                $productId = $protectionProduct['name'];
+
+                $quantityOld = $productInMagazine->quantity;
+                $quantityNew = $protectionProduct["quantity"];
+                $finalQuantity = $quantityOld - $quantityNew;
+
+                $magazine->products()->updateExistingPivot($protectionProduct["name"], ['quantity' => $finalQuantity,]);
+                $practise->plantProtectionProducts()->attach($productId);
+            }
+            else
+            {
+                return "Chcesz użyć więcej środka niż posiadasz w magazynie";
+            }
+            //dd($productInMagazine);
+            
         }
         
-        $practise->save();
+       // $practise->save();
         return $practise;
         //dd($field);
         //dd($practise);
