@@ -21,7 +21,7 @@
                         
             
         </ol>
-        <a href="/home/{{ $activeFarm->id}}/practise/create"><button>+</button></a>
+        <a href="{{ route('practise.create', [$activeFarm->id]) }}"><button>+</button></a>
     </div>
     <div class="fields">
         <h2>Pola</h2>
