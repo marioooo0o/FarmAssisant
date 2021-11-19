@@ -28,8 +28,8 @@ class StorePractise extends FormRequest
             'practise_name' => 'required|max:255',
             'fields.*' => 'required|distinct',
             'protectionproduct.*.name' => 'required|distinct',
-            'protectionproduct.*.quantity' => 'required|min:0.01|', 
-            'water' => 'required|min:1'
+            'protectionproduct.*.quantity' => 'required|min:0.01|numeric', 
+            'water' => 'required|min:1|numeric'
         ];
     }
     /**

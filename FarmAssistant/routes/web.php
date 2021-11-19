@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/dashboard', function () { return view('dashboard');})->middleware(['auth'])->name('dashboard');
 //Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 //Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 //Route::resource('dashboard', 'App\Http\Controllers\DashboardController')->middleware(['auth']);
@@ -31,5 +29,9 @@ Route::resource('home/{idFarm}/magazine', 'App\Http\Controllers\MagazineControll
 Route::resource('farm', 'App\Http\Controllers\FarmController');
 Route::resource('farm/{idFarm}/field', 'App\Http\Controllers\FieldController')->middleware('auth');
 Route::resource('farm/{idFarm}/field/{idField}/parcel', 'App\Http\Controllers\CadastralParcelController');
+
+
+
+Route::get('/dashboard', function () { return view('dashboard');})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
