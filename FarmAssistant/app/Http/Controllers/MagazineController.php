@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMagazine;
 use App\Models\Farm;
 use Illuminate\Http\Request;
 use App\Models\PlantProtectionProduct;
@@ -52,10 +53,10 @@ class MagazineController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreMagazine  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $idFarm)
+    public function store(StoreMagazine $request, $idFarm)
     {
         $data = $request->all();
         //dd($data);
