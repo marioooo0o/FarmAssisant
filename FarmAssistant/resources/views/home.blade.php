@@ -65,7 +65,7 @@
             </li>
             @endforeach
         </ul>        
-        <a href="#"><button class="more">Pokaż wszystkie</button></a>
+        <a href="{{  route('magazine.index', [$activeFarm->id]) }}"><button class="more">Pokaż wszystkie</button></a>
         <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
 
         @else Brak środków w magazynie!

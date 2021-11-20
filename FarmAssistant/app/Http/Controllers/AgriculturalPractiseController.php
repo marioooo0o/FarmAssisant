@@ -75,7 +75,7 @@ class AgriculturalPractiseController extends Controller
     public function store(StorePractise $request, $idFarm)
     {
         $data = $request->all();
-      //  $practise = $this->practiseRepository->create($data, $idFarm);
+        $practise = $this->practiseRepository->create($data, $idFarm);
         
         return redirect('home');
     }
