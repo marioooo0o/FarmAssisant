@@ -74,7 +74,7 @@
         area += Number(element.value);
       });
       console.log(area)
-      document.getElementById("field-area").innerHTML = `${area} ha`;
+      document.getElementById("field-area").innerHTML = `${area.toFixed(1)} ha`;
     }
     document.getElementById("addParcel").addEventListener("click", addParcel);
     document.querySelectorAll(".input-area").forEach((element) => {
