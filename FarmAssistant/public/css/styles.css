@@ -17,33 +17,41 @@ input {
 .farms-input {
   border: 1px solid black;
   border-radius: 3px;
-  margin-left: 20px;
-  padding: 0 10px;
+  padding: 0 30px 0 5px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 @media screen and (max-width: 600px) {
   .farms-input {
-    width: 40vw;
     font-size: 14px;
   }
 }
 
 .dashboard-container {
   max-width: 1280px;
-  margin: 50px auto 50px auto;
+  margin: auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 250px;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
   gap: 20px;
-  padding: 0 32px;
+  padding: 50px 32px;
 }
 
 .dashboard-container > * {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   background-color: white;
   border-radius: 20px;
-  padding: 10px 25px 50px 25px;
+  padding: 10px 25px 120px 25px;
   -webkit-box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
           box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
   position: relative;
@@ -68,8 +76,23 @@ input {
 }
 
 .dashboard-container button:hover {
-  -webkit-transform: scale(105%);
-          transform: scale(105%);
+  -webkit-transform: scale(102%);
+          transform: scale(102%);
+}
+
+.dashboard-container button.more {
+  background-color: #4294ff;
+  bottom: 60px;
+  font-size: 18px;
+  color: white;
+  width: 200px;
+  margin: 0 0 0 auto;
+  left: 0;
+  right: 25px;
+}
+
+.dashboard-container button.more--down {
+  bottom: 20px;
 }
 
 .dashboard-container ol {
@@ -87,16 +110,36 @@ input {
   opacity: 0.8;
 }
 
-.dashboard-container .weather {
+.dashboard-container .magazine {
   -ms-grid-column: 1;
       grid-column-start: 1;
   grid-column-end: 3;
 }
 
+.dashboard-container .magazine li {
+  margin-top: 20px;
+}
+
+.dashboard-container .magazine .bar {
+  height: 30px;
+}
+
+.dashboard-container .magazine .bar--green {
+  background-color: #00c700;
+}
+
+.dashboard-container .magazine .bar--orange {
+  background-color: orange;
+}
+
+.dashboard-container .magazine .bar--red {
+  background-color: red;
+}
+
 .dashboard-container .calendar {
   -ms-grid-column: 1;
       grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
 }
 
 .dashboard-container .procedure-name {
@@ -114,11 +157,10 @@ input {
 @media screen and (max-width: 600px) {
   .dashboard-container {
     font-size: 14px;
-    grid-auto-rows: 210px;
     padding: 0 5%;
   }
   .dashboard-container > * {
-    padding: 10px 10px 50px 10px;
+    padding: 10px 10px 120px 10px;
   }
   .dashboard-container h2 {
     font-size: 24px;
@@ -128,6 +170,14 @@ input {
     left: 0;
     right: 0;
     margin: auto;
+  }
+  .dashboard-container button.more {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 25px;
   }
 }
 
@@ -192,6 +242,12 @@ input {
 .create-container .input-protection {
   width: 500px;
   margin-bottom: 15px;
+  display: block;
+}
+
+.create-container .input-farm {
+  margin-top: 30px;
+  width: 500px;
   display: block;
 }
 
@@ -269,6 +325,10 @@ input {
     width: 100%;
   }
   .create-container .input-protection {
+    min-width: 150px;
+    width: 100%;
+  }
+  .create-container .input-farm {
     min-width: 150px;
     width: 100%;
   }

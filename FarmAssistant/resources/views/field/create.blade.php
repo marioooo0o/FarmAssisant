@@ -23,7 +23,8 @@
           <input
             type="number"
             name="parcel_area"
-            step="0.01"
+            step="0.1"
+            min="0"
             class="input-area"
             value="0"
           />
@@ -55,7 +56,8 @@
 					<input
 						type="number"
 						name="parcel_area"
-						step="0.01"
+						step="0.1"
+            min="0"
 						class="input-area"
             value="0"
 					/>

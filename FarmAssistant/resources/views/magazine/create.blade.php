@@ -27,6 +27,7 @@
               name="addProtectionProduct[0][quantity]"
               step="0.1"
               value="1"
+              min="0"
             />
             {{ $product->unit }}</label
           >

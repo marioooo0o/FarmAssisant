@@ -42,7 +42,7 @@ class FieldController extends Controller
 
         $fields = $this->fieldRepository->getAllForId($idFarm);
     
-        return view('field.list', [
+        return view('field.index', [
             'farms' => $farms,
             'activeFarm' => $activeFarm,
             'fields' => $fields]);
