@@ -25,10 +25,12 @@
             name="parcel_area"
             step="0.01"
             class="input-area"
+            value="0"
           />
           ha
         </div>
       </div>
+      Całkowity rozmiar pola: <span id="field-area">0 ha</span>
       <button type="button" id="addParcel">Dodaj działkę</button>
       <select name="crops" id="crops" class="input-crops">
         <option value="" selected disabled hidden>Wybierz uprawę</option>
@@ -55,12 +57,27 @@
 						name="parcel_area"
 						step="0.01"
 						class="input-area"
+            value="0"
 					/>
 					ha
 				</div>
         `;
+        document.querySelectorAll(".input-area").forEach((element) => {
+          element.addEventListener("change", evaluateArea);
+        });
+    }
+    function evaluateArea() {
+      let area = 0;
+      document.querySelectorAll(".input-area").forEach((element) => {
+        area += Number(element.value);
+      });
+      console.log(area)
+      document.getElementById("field-area").innerHTML = `${area} ha`;
     }
     document.getElementById("addParcel").addEventListener("click", addParcel);
+    document.querySelectorAll(".input-area").forEach((element) => {
+      element.addEventListener("change", evaluateArea);
+    });
   </script>
 </div>
 @endsection
