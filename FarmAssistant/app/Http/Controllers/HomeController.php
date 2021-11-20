@@ -101,6 +101,32 @@ class HomeController extends Controller
     public function show($idFarm)
     {
         $user = auth()->user();
+ 
+        $farms = $user->farms;
+        if($farms->isEmpty())
+        {
+            return view('farms.create', ['farms' => $farms]);
+        }
+        else
+        {
+            $activeFarm = $this->farmRepository->find($farms->first()->id);
+            
+            $crops = $this->farmRepository->getCrops($activeFarm->id);
+            $fields = $this->fieldRepository->getFields($activeFarm->id, 'desc', 5);
+            $productsInMagazine = $this->magazineRepository->getProductsInMagazine($activeFarm->id);
+            $practises =  $this->practiseRepository->getAllPractises($activeFarm->id);
+            
+            return view('home', [
+                'practises'=>$practises, 
+                'activeFarm' => $activeFarm, 
+                'productsInMagazine' => $productsInMagazine, 
+                'farms' => $farms, 
+                'fields' => $fields, 
+                'crops' => $crops,
+            ]);
+        }
+        /*
+        $user = auth()->user();
         
         $farms = $user->farms;
         
@@ -120,6 +146,7 @@ class HomeController extends Controller
             'fields' => $fields, 
             'farm' => $farm, 
             'activeFarm' => $activeFarm]);
+            */
     }
 
     /**

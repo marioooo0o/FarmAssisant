@@ -29,9 +29,18 @@ class MagazineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($idFarm)
     {
-        //
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+
+        $productsInMagazine = $this->magazineRepository->getProductsInMagazine($activeFarm->id);
+
+        return view('magazine.index', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'productsInMagazine' => $productsInMagazine,
+        ]);
     }
 
     /**
