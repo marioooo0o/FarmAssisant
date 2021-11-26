@@ -109,12 +109,13 @@ class HomeController extends Controller
         }
         else
         {
-            $activeFarm = $this->farmRepository->find($farms->first()->id);
+            $activeFarm = $this->farmRepository->find($idFarm);
             
             $crops = $this->farmRepository->getCrops($activeFarm->id);
             $fields = $this->fieldRepository->getFields($activeFarm->id, 'desc', 5);
             $productsInMagazine = $this->magazineRepository->getProductsInMagazine($activeFarm->id);
             $practises =  $this->practiseRepository->getAllPractises($activeFarm->id);
+            
             
             return view('home', [
                 'practises'=>$practises, 
@@ -125,28 +126,6 @@ class HomeController extends Controller
                 'crops' => $crops,
             ]);
         }
-        /*
-        $user = auth()->user();
-        
-        $farms = $user->farms;
-        
-        $activeFarm = Farm::find($idFarm);
-        $farm = Farm::find($activeFarm->id);
-        $crops = $this->farmRepository->getCrops($activeFarm->id);
-        $fields = Field::getFields($activeFarm->id, 3, 'desc');
-        $productsData = $farm->getSumProducts($activeFarm->id, 5, 'asc');
-
-        $practises = AgriculturalPractise::getPractises($activeFarm->id, 5, 'desc');
-        
-        return view('home', [
-            'farms' => $farms, 
-            'practises' => $practises,
-            'crops' => $crops, 
-            'productsData' => $productsData, 
-            'fields' => $fields, 
-            'farm' => $farm, 
-            'activeFarm' => $activeFarm]);
-            */
     }
 
     /**

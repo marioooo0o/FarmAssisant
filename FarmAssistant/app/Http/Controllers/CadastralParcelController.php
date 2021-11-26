@@ -76,7 +76,7 @@ class CadastralParcelController extends Controller
         $parcel = $this->cadastralParcelRepository->find($id);
        
         $farm = $this->farmRepository->find($idFarm);
-
+        
         $field = $this->fieldRepository->find($idField);
         
         $fields = CadastralParcel::getAllFieldsForParcel($parcel);
@@ -125,7 +125,7 @@ class CadastralParcelController extends Controller
     public function update(Request $request, $idFarm, $idField, $id)
     {
         $data = $request->all();
-        //dd($data['parcel_area']);
+        
         $parcel = $this->cadastralParcelRepository->update($data, $idFarm, $idField, $id);
         return redirect('farm');
     }

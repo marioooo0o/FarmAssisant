@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MagazineController;
 use App\Models\User;
 /*
@@ -30,6 +31,9 @@ Route::resource('farm', 'App\Http\Controllers\FarmController');
 Route::resource('farm/{idFarm}/field', 'App\Http\Controllers\FieldController')->middleware('auth');
 Route::resource('farm/{idFarm}/field/{idField}/parcel', 'App\Http\Controllers\CadastralParcelController');
 
+
+Route::get('/home/{idFarm}/calender', [EventController::class, 'index']);
+Route::post('fullcalenderAjax', [EventController::class, 'ajax']);
 
 
 Route::get('/dashboard', function () { return view('dashboard');})->middleware(['auth'])->name('dashboard');

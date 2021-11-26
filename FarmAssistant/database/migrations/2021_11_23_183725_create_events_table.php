@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgriculturalPracticesTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAgriculturalPracticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('agricultural_practices', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('start');
-            $table->date('end');
+            $table->string('title');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAgriculturalPracticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agricultural_practices');
+        Schema::dropIfExists('events');
     }
 }

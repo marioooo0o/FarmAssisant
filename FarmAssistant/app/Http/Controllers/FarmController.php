@@ -20,10 +20,7 @@ class FarmController extends Controller
     {
         $farmList = $farm->all();
         $farmsName = Farm::pluck('name');
-        //foreach ($farmList as $farm)
         
-
-        //dd($farmList->name);
         view('template', ['farmsName' => $farmsName]);
         return view('dashboard', ['farmList' => $farmList,
                                     'farmsName' => $farmsName,
@@ -56,7 +53,7 @@ class FarmController extends Controller
     {
         $data = $request->all();
         $user = User::find(Auth::id());
-        //dd($data);
+        
         $farm = $user->farms()->create($data);
 
         $magazine = $farm->magazine()->create();

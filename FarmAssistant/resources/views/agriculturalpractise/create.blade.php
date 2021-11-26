@@ -23,6 +23,12 @@
         value="{{ old('practise_name') }}"
         class="input-name"
       />
+      @error('practise_name')
+        <div>{{ $message }}</div>
+      @enderror
+      <br>
+      <label>Data zabigu: <input type="datetime-local" name="start"/></label>
+      
       <h2>Wybrane pola:</h2>
       <div id="fields-container">
         <select name="fields[]" class="input-field">

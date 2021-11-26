@@ -12,7 +12,7 @@ class MagazineRepository extends BaseRepository{
 
     private $farmModel;
 
-    public function __construct(Farm $modelFarm, Field $model, CadastralParcel $modelParcel)
+    public function __construct(Farm $modelFarm, Magazine $model, CadastralParcel $modelParcel)
     {
         $this->farmModel = $modelFarm;
         $this->model = $model;

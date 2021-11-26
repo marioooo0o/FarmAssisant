@@ -115,7 +115,6 @@ class FieldController extends Controller
         $crops = $this->cropRepository->getAll();
         $field = $this->fieldRepository->find($id);
 
-        //$field = Field::find($id);
         $parcels = $field->cadastralParcels->all();
         $cropActive = $field->crops->first();
 

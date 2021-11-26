@@ -33,14 +33,14 @@ class AgriculturalPractiseController extends Controller
     public function index($idFarm)
     {
         $farms = auth()->user()->farms;
+        
         $activeFarm = $this->farmRepository->find($idFarm);
-        //$practises = AgriculturalPractise::all();
+        
+        $events = $this->practiseRepository->getEvents($idFarm);
+        
         $practises =  $this->practiseRepository->getAllPractisesGrouped($idFarm);
-        $fields = $this->fieldRepository->getAllForId($idFarm);
-        $temp = AgriculturalPractise::all();
-        //dd($practises);
-        //dd($temp[0]->fields()->get()->all());
-
+        $fields = $this->fieldRepository->getAllForId($idFarm);  
+        
         return view('agriculturalpractise.index', [
             'activeFarm' => $activeFarm,
             'practises' => $practises,
@@ -62,7 +62,6 @@ class AgriculturalPractiseController extends Controller
         //only products available from magazine
         $plantProtectionProducts = $activeFarm->magazine->first()->products;
         
-        //$plantProtectionProducts = PlantProtectionProduct::all();
         return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'farms'=> $farms, 'activeFarm'=>$activeFarm, 'plantProtectionProducts' => $plantProtectionProducts]);
     }
 
@@ -75,6 +74,7 @@ class AgriculturalPractiseController extends Controller
     public function store(StorePractise $request, $idFarm)
     {
         $data = $request->all();
+        
         $practise = $this->practiseRepository->create($data, $idFarm);
         
         return redirect('home');
@@ -86,9 +86,17 @@ class AgriculturalPractiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idFarm, $id)
     {
-        //
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+        
+        $practise = $this->practiseRepository->find($id);
+        return view('agriculturalpractise.show', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'practise' => $practise,
+        ]);
     }
 
     /**
