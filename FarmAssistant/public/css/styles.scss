@@ -457,4 +457,25 @@ button:focus {
     margin-bottom: 30px;
   }
 
+  .field-icons-container {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      gap: 40px;
+      margin-top: 20px;
+
+      svg {
+          width: 40px;
+          height: 40px;
+      }
+
+      button:hover {
+          color: red;
+      }
+
+      a:hover {
+          color: rgb(0, 162, 255);
+      }
+  }
+
 }

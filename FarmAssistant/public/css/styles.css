@@ -481,4 +481,31 @@ button:focus {
   text-align: center;
   margin-bottom: 30px;
 }
+
+.wrapper .field-icons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.wrapper .field-icons-container svg {
+  width: 40px;
+  height: 40px;
+}
+
+.wrapper .field-icons-container button:hover {
+  color: red;
+}
+
+.wrapper .field-icons-container a:hover {
+  color: #00a2ff;
+}
 /*# sourceMappingURL=styles.css.map */
