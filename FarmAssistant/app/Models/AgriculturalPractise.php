@@ -12,7 +12,7 @@ class AgriculturalPractise extends Model
     protected $table = 'agricultural_practices';
 
     protected $fillable = [
-        'name',
+        'name', 'start', 'end'
     ];
 
     public function fields()
@@ -22,7 +22,7 @@ class AgriculturalPractise extends Model
     
     public function plantProtectionProducts()
     {
-        return $this->belongsToMany(plantProtectionProduct::class);
+        return $this->belongsToMany(plantProtectionProduct::class)->withPivot('id', 'quantity');
     }
 
     public function farm()

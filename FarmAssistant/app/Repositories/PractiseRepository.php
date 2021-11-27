@@ -12,7 +12,7 @@ class PractiseRepository extends BaseRepository{
 
     
 
-    public function __construct(Farm $modelFarm, Field $model)
+    public function __construct(Farm $modelFarm, AgriculturalPractise $model)
     {
         $this->farmModel = $modelFarm;
         $this->model = $model;        
@@ -20,21 +20,21 @@ class PractiseRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
-        //dd($data);
         $farm = Farm::find($idFarm);
 
         $magazine = Magazine::find($farm->magazine->id);
-        //dd($magazine->products);
-        $practise = AgriculturalPractise::create(['name' => $data['practise_name']]);
-        //dd($practise);
+        
+        $practise = AgriculturalPractise::create(['name' => $data['practise_name'], 'water' => $data['water'], 'start' => str_replace(' ', 'T', $data['start']), 'end' => str_replace('T', ' ', $data['start'])]);
+        $practise->water = $data['water'];
+        $practise->save();
+        
         foreach($data['fields'] as $field)
         {
-            $practise->field()->attach($field);
+            $practise->fields()->attach($field);
         }
 
         foreach($data['protectionproduct'] as $protectionProduct)
         {
-            //dd($protectionProduct);
             $productInMagazine = $magazine->products->where('id', "=", $protectionProduct["name"])->first()->pivot;
             if($productInMagazine->quantity >= $protectionProduct["quantity"])
             {
@@ -45,44 +45,16 @@ class PractiseRepository extends BaseRepository{
                 $finalQuantity = $quantityOld - $quantityNew;
 
                 $magazine->products()->updateExistingPivot($protectionProduct["name"], ['quantity' => $finalQuantity,]);
-                $practise->plantProtectionProducts()->attach($productId);
+                $practise->plantProtectionProducts()->attach($productId, array('quantity' => $protectionProduct["quantity"]));
             }
             else
             {
                 return "Chcesz użyć więcej środka niż posiadasz w magazynie";
             }
-            //dd($productInMagazine);
             
         }
         
-       // $practise->save();
         return $practise;
-        //dd($field);
-        //dd($practise);
-        /*
-        $field = $farm->fields()->create($data);
-        $dataParcel = [
-                   'parcel_number' => $data['parcel_number'],
-                    'parcel_area' => $data['parcel_area'],
-             ];
-        $parcel = $field->cadastralParcels()->create($dataParcel);
-
-        $dataCrop = [
-            'name' => $data['crops'],
-        ];
-        $crop = Crop::where('id','=', $dataCrop)->first();
-
-        //dodanie samego klucza do relacji normalizacji
-        $field->crops()->attach($crop->id);
-
-        $area = DB::table('cadastral_parcels')->where('field_id', '=', $field->id)->sum('parcel_area');
-        $field->field_area = $area;
-        
-        $field->save();
-        $farm->updateFarmArea($idFarm);
-        $farm->save();
-        return $field;
-        */
     }
 
     public function update(array $data, $idFarm, $idField=null, $idParcel=null)
@@ -128,7 +100,7 @@ class PractiseRepository extends BaseRepository{
             ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
             ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
             ->where('fields.farm_id', '=', $idFarm)
-            ->select('agricultural_practices.name', 'fields.id as field_id','fields.field_name', 'agricultural_practices.updated_at', 'agricultural_practise_field.agricultural_practise_id')
+            ->select('agricultural_practices.id','agricultural_practices.name', 'fields.id as field_id','fields.field_name', 'agricultural_practices.updated_at', 'agricultural_practise_field.agricultural_practise_id')
             ->orderBy('updated_at')
             ->get();
         }
@@ -138,7 +110,7 @@ class PractiseRepository extends BaseRepository{
             ->leftJoin('agricultural_practise_field', 'agricultural_practices.id', '=', 'agricultural_practise_id')
             ->leftJoin('fields', 'fields.id', '=', 'agricultural_practise_field.field_id')
             ->where('fields.farm_id', '=', $idFarm)
-            ->select('agricultural_practices.name', 'fields.id as field_id', 'fields.field_name', 'agricultural_practices.updated_at', 'agricultural_practise_field.agricultural_practise_id')
+            ->select('agricultural_practices.id','agricultural_practices.name', 'fields.id as field_id', 'fields.field_name', 'agricultural_practices.updated_at', 'agricultural_practise_field.agricultural_practise_id')
             ->orderByDesc('updated_at')
             ->get();
         }
@@ -147,23 +119,40 @@ class PractiseRepository extends BaseRepository{
 
     public function getAllPractisesGrouped($idFarm)
     {
-        
         $allPractises = AgriculturalPractise::all();
         $data = collect();
         $i=0;
+        
         foreach ($allPractises as $practise) {
             
-            if($practise->fields()->first()->farm_id == $idFarm)
+            if($practise->fields->isNotEmpty() && $practise->fields()->first()->farm_id == $idFarm)
             {
                 $data->push($practise);
                 $data[$i]->push($practise->fields);
             }
-            
            $i++;
         }
-
         return $data;
     }
+
+    public function getEvents($idFarm)
+    {
+        $allPractises = $this->getAllPractisesGrouped($idFarm);
+        $data = collect();
+        
+        foreach ($allPractises as $practise)
+        {
+            $prepare = array();
+            $prepare['allDay'] = " ";
+            $prepare['title'] = $practise->name;
+            $prepare['id'] = $practise->id;
+            $prepare['start'] = $practise->start;
+            $prepare['end'] = $practise->end;
+            $data->push($prepare);
+        }
+        return $data;
+    }
+
     public function cheapest()
     {
         $fieldsList = $this->model->orderBy('price', 'asc')->limit(3)->get();

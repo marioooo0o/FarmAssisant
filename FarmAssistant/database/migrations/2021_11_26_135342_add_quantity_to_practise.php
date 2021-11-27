@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgriculturalPracticesTable extends Migration
+class AddQuantityToPractise extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateAgriculturalPracticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('agricultural_practices', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->date('start');
-            $table->date('end');
-            $table->timestamps();
+        Schema::table('agricultural_practise_plant_protection_product', function (Blueprint $table) {
+            $table->float('quantity');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateAgriculturalPracticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agricultural_practices');
+        Schema::table('agricultural_practise_plant_protection_product', function (Blueprint $table) {
+            $table->dropColumn('quantity');
+        });
     }
 }
