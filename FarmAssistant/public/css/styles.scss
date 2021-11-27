@@ -235,7 +235,7 @@ button:focus {
       width: 500px;
       display: block;
       &--first{
-        width: calc(100% - 40px) !important;
+        margin-right: 40px;
       }
     }
 
@@ -365,6 +365,7 @@ button:focus {
       &-protection {
         min-width: 150px;
         width: 100%;
+        width: calc(100% - 40px) !important;
       }
 
       &-farm {

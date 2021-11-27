@@ -259,7 +259,7 @@ button:focus {
 }
 
 .create-container .input-protection--first {
-  width: calc(100% - 40px) !important;
+  margin-right: 40px;
 }
 
 .create-container .input-farm {
@@ -387,6 +387,7 @@ button:focus {
   .create-container .input-protection {
     min-width: 150px;
     width: 100%;
+    width: calc(100% - 40px) !important;
   }
   .create-container .input-farm {
     min-width: 150px;
