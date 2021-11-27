@@ -10,6 +10,12 @@ button:focus {
   outline: none;
 }
 
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .nav-name {
   margin-left: 10px;
   font-size: 20px;
@@ -174,12 +180,12 @@ button:focus {
     font-size: 24px;
     margin-bottom: 10px;
   }
-  .dashboard-container button {
+  .dashboard-container .button {
     left: 0;
     right: 0;
     margin: auto;
   }
-  .dashboard-container button.more {
+  .dashboard-container .button.more {
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
@@ -191,8 +197,8 @@ button:focus {
 
 .create-container {
   max-width: 1280px;
-  margin: 50px auto 50px auto;
-  padding: 0 32px;
+  margin: auto;
+  padding: 50px 32px;
 }
 
 .create-container .content {
@@ -225,6 +231,7 @@ button:focus {
 
 .create-container .input-name {
   width: 500px;
+  margin-right: 40px;
 }
 
 .create-container .input-number {
@@ -243,20 +250,28 @@ button:focus {
 
 .create-container .input-field {
   width: 500px;
-  margin-bottom: 15px;
   display: block;
 }
 
 .create-container .input-protection {
   width: 500px;
-  margin-bottom: 15px;
   display: block;
+}
+
+.create-container .input-protection--first {
+  width: calc(100% - 40px) !important;
 }
 
 .create-container .input-farm {
   margin-top: 30px;
   width: 500px;
   display: block;
+}
+
+.create-container .input-data {
+  width: 500px;
+  display: block;
+  margin-right: 40px;
 }
 
 .create-container button {
@@ -275,6 +290,18 @@ button:focus {
 
 .create-container button.submit {
   font-size: 24px;
+}
+
+.create-container button.remove-button {
+  width: auto;
+  margin: 0 !important;
+  background: none;
+}
+
+.create-container button.remove-button:hover {
+  color: red;
+  -webkit-transform: none;
+          transform: none;
 }
 
 .create-container form {
@@ -300,6 +327,31 @@ button:focus {
   margin-bottom: 20px;
 }
 
+.create-container .removable-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.create-container .removable-input-container--first svg {
+  visibility: hidden;
+}
+
+.create-container .removable-input-container--products {
+  margin-bottom: 40px;
+  display: block !important;
+}
+
+.create-container .removable-input-container svg {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  height: 40px;
+  min-width: 40px;
+  padding: 5px;
+}
+
 @media screen and (max-width: 720px) {
   .create-container {
     padding: 0 5%;
@@ -313,7 +365,7 @@ button:focus {
   }
   .create-container .input-name {
     min-width: 150px;
-    width: 100%;
+    width: calc(100% - 40px);
   }
   .create-container .input-number {
     min-width: 150px;
@@ -339,6 +391,10 @@ button:focus {
   .create-container .input-farm {
     min-width: 150px;
     width: 100%;
+  }
+  .create-container .input-data {
+    min-width: 150px;
+    width: calc(100% - 40px);
   }
   .create-container button {
     width: 100%;
