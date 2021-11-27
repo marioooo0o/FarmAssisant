@@ -235,7 +235,7 @@ button:focus {
     &-protection {
       width: 500px;
       display: block;
-      &--first{
+      &--first {
         margin-right: 40px;
       }
     }
@@ -303,8 +303,8 @@ button:focus {
     margin-bottom: 20px;
     align-items: center;
     &--first {
-        margin-right: 40px;
-        margin-bottom: 35px;
+      margin-right: 40px;
+      margin-bottom: 35px;
     }
   }
 
@@ -420,4 +420,41 @@ button:focus {
       }
     }
   }
+}
+
+.wrapper {
+  max-width: 1280px;
+  margin: 50px auto 50px auto;
+  padding: 0 32px;
+
+  .field {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .field > * {
+    flex-basis: 25%;
+    min-width: 225px;
+  }
+
+  .content {
+    box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+    position: relative;
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+
+    @media screen and (max-width: 719px) {
+        padding: 30px;
+    }
+  }
+
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
 }

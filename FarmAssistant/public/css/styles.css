@@ -438,4 +438,47 @@ button:focus {
 .create-container.field button.submit {
   margin-top: 40px;
 }
+
+.wrapper {
+  max-width: 1280px;
+  margin: 50px auto 50px auto;
+  padding: 0 32px;
+}
+
+.wrapper .field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.wrapper .field > * {
+  -ms-flex-preferred-size: 25%;
+      flex-basis: 25%;
+  min-width: 225px;
+}
+
+.wrapper .content {
+  -webkit-box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+          box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+@media screen and (max-width: 719px) {
+  .wrapper .content {
+    padding: 30px;
+  }
+}
+
+.wrapper h1 {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
 /*# sourceMappingURL=styles.css.map */
