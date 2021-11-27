@@ -241,6 +241,7 @@ button:focus {
 
 .create-container .input-area {
   width: 75px;
+  margin-right: 10px;
 }
 
 .create-container .input-crops {
@@ -324,7 +325,18 @@ button:focus {
 }
 
 .create-container .parcel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin-bottom: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.create-container .parcel--first {
+  margin-right: 40px;
+  margin-bottom: 35px;
 }
 
 .create-container .removable-input-container {
