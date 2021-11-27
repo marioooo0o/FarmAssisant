@@ -6,6 +6,10 @@ a:hover {
   color: inherit;
 }
 
+button:focus {
+  outline: none;
+}
+
 .nav-name {
   margin-left: 10px;
   font-size: 20px;
