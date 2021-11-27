@@ -64,7 +64,7 @@ input {
   margin-bottom: 20px;
 }
 
-.dashboard-container button {
+.dashboard-container .button {
   width: calc(100% - 50px);
   background-color: #f3f4f6;
   border-radius: 20px;
@@ -75,12 +75,12 @@ input {
   display: block;
 }
 
-.dashboard-container button:hover {
+.dashboard-container .button:hover {
   -webkit-transform: scale(102%);
           transform: scale(102%);
 }
 
-.dashboard-container button.more {
+.dashboard-container .button.more {
   background-color: #4294ff;
   bottom: 60px;
   font-size: 18px;
@@ -91,7 +91,7 @@ input {
   right: 25px;
 }
 
-.dashboard-container button.more--down {
+.dashboard-container .button.more--down {
   bottom: 20px;
 }
 

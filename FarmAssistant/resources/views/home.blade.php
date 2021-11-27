@@ -12,7 +12,7 @@
                         <li><a href="{{ route('practise.show',[$activeFarm->id, $practises[$i]->id]) }}" class="procedure-name">{{ $practises[$i]->name }}</a> <a href="{{ route('field.show',[$activeFarm->id, $practises[$i]->field_id]) }}">{{ $practises[$i]->field_name }}</a><span class="date">{{\Carbon\Carbon::parse($practises[$i]->updated_at)->format('d-m-Y') }}</span></li>
                     @endisset
                 @endfor
-                <a href="{{ route('practise.index', [$activeFarm->id]) }}" ><button class="more">Pokaż wszystkie</button></a>
+                <a href="{{ route('practise.index', [$activeFarm->id]) }}" ><button class="more button">Pokaż wszystkie</button></a>
 
             @else
                 Brak zabiegów, dodaj swój pierwszy zabieg!
@@ -21,7 +21,7 @@
                         
             
         </ol>
-        <a href="{{ route('practise.create', [$activeFarm->id]) }}"><button>+</button></a>
+        <a href="{{ route('practise.create', [$activeFarm->id]) }}"><button class="button">+</button></a>
     </div>
     <div class="fields">
         <h2>Pola</h2>
@@ -34,13 +34,13 @@
                         <li><a href="/farm/{{ $fields[$i]->farm_id }}/field/{{ $fields[$i]->id }}"> {{ $fields[$i]->field_name }}    {{ $fields[$i]->field_area }}ha</a> </li>
                     @endisset
                 @endfor
-                <a href="{{ route('field.index', [$activeFarm->id]) }}" ><button class="more">Pokaż wszystkie</button></a>
+                <a href="{{ route('field.index', [$activeFarm->id]) }}" ><button class="more button">Pokaż wszystkie</button></a>
             @else
                 Brak pól, dodaj swoje pierwsze pole!      
             @endif
 
         </ol>
-        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"><button>+</button></a>
+        <a href="{{ route('field.create', ['idFarm'=> $activeFarm->id ]) }}"><button class="button">+</button></a>
     </div>
     <div class="magazine">
         <h2>Magazyn</h2>
@@ -68,11 +68,11 @@
             </li>
             @endforeach
         </ul>        
-        <a href="{{  route('magazine.index', [$activeFarm->id]) }}"><button class="more">Pokaż wszystkie</button></a>
-        <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
+        <a href="{{  route('magazine.index', [$activeFarm->id]) }}"><button class="more button">Pokaż wszystkie</button></a>
+        <a href="/home/{{ $activeFarm->id }}/magazine/create"><button class="button">+</button></a>
 
         @else Brak środków w magazynie!
-        <a href="/home/{{ $activeFarm->id }}/magazine/create"><button>+</button></a>
+        <a href="/home/{{ $activeFarm->id }}/magazine/create"><button class="button">+</button></a>
 
 
         @endif
@@ -88,7 +88,7 @@
                     <li>{{ $crop->name }} {{ $crop->crop_area }} ha</li>
                 @endforeach
 
-                <a href="#"><button class="more more--down">Pokaż wszystkie</button></a>
+                <a href="#"><button class="more more--down button">Pokaż wszystkie</button></a>
             @else
                 Nie posiadasz żadnych upraw!
             @endif
