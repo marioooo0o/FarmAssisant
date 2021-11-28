@@ -2,6 +2,20 @@ input {
   border: #6b7280 solid 1px;
 }
 
+a:hover {
+  color: inherit;
+}
+
+button:focus {
+  outline: none;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .nav-name {
   margin-left: 10px;
   font-size: 20px;
@@ -64,7 +78,7 @@ input {
   margin-bottom: 20px;
 }
 
-.dashboard-container button {
+.dashboard-container .button {
   width: calc(100% - 50px);
   background-color: #f3f4f6;
   border-radius: 20px;
@@ -75,12 +89,12 @@ input {
   display: block;
 }
 
-.dashboard-container button:hover {
+.dashboard-container .button:hover {
   -webkit-transform: scale(102%);
           transform: scale(102%);
 }
 
-.dashboard-container button.more {
+.dashboard-container .button.more {
   background-color: #4294ff;
   bottom: 60px;
   font-size: 18px;
@@ -91,7 +105,7 @@ input {
   right: 25px;
 }
 
-.dashboard-container button.more--down {
+.dashboard-container .button.more--down {
   bottom: 20px;
 }
 
@@ -166,12 +180,12 @@ input {
     font-size: 24px;
     margin-bottom: 10px;
   }
-  .dashboard-container button {
+  .dashboard-container .button {
     left: 0;
     right: 0;
     margin: auto;
   }
-  .dashboard-container button.more {
+  .dashboard-container .button.more {
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
@@ -183,8 +197,8 @@ input {
 
 .create-container {
   max-width: 1280px;
-  margin: 50px auto 50px auto;
-  padding: 0 32px;
+  margin: auto;
+  padding: 50px 32px;
 }
 
 .create-container .content {
@@ -217,6 +231,7 @@ input {
 
 .create-container .input-name {
   width: 500px;
+  margin-right: 40px;
 }
 
 .create-container .input-number {
@@ -226,6 +241,7 @@ input {
 
 .create-container .input-area {
   width: 75px;
+  margin-right: 10px;
 }
 
 .create-container .input-crops {
@@ -235,20 +251,28 @@ input {
 
 .create-container .input-field {
   width: 500px;
-  margin-bottom: 15px;
   display: block;
 }
 
 .create-container .input-protection {
   width: 500px;
-  margin-bottom: 15px;
   display: block;
+}
+
+.create-container .input-protection--first {
+  margin-right: 40px;
 }
 
 .create-container .input-farm {
   margin-top: 30px;
   width: 500px;
   display: block;
+}
+
+.create-container .input-data {
+  width: 500px;
+  display: block;
+  margin-right: 40px;
 }
 
 .create-container button {
@@ -267,6 +291,18 @@ input {
 
 .create-container button.submit {
   font-size: 24px;
+}
+
+.create-container button.remove-button {
+  width: auto;
+  margin: 0 !important;
+  background: none;
+}
+
+.create-container button.remove-button:hover {
+  color: red;
+  -webkit-transform: none;
+          transform: none;
 }
 
 .create-container form {
@@ -289,7 +325,43 @@ input {
 }
 
 .create-container .parcel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin-bottom: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.create-container .parcel--first {
+  margin-right: 40px;
+  margin-bottom: 35px;
+}
+
+.create-container .removable-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.create-container .removable-input-container--first svg {
+  visibility: hidden;
+}
+
+.create-container .removable-input-container--products {
+  margin-bottom: 40px;
+  display: block !important;
+}
+
+.create-container .removable-input-container svg {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  height: 40px;
+  min-width: 40px;
+  padding: 5px;
 }
 
 @media screen and (max-width: 720px) {
@@ -305,7 +377,7 @@ input {
   }
   .create-container .input-name {
     min-width: 150px;
-    width: 100%;
+    width: calc(100% - 40px);
   }
   .create-container .input-number {
     min-width: 150px;
@@ -327,10 +399,15 @@ input {
   .create-container .input-protection {
     min-width: 150px;
     width: 100%;
+    width: calc(100% - 40px) !important;
   }
   .create-container .input-farm {
     min-width: 150px;
     width: 100%;
+  }
+  .create-container .input-data {
+    min-width: 150px;
+    width: calc(100% - 40px);
   }
   .create-container button {
     width: 100%;
@@ -360,5 +437,75 @@ input {
 
 .create-container.field button.submit {
   margin-top: 40px;
+}
+
+.wrapper {
+  max-width: 1280px;
+  margin: 50px auto 50px auto;
+  padding: 0 32px;
+}
+
+.wrapper .field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.wrapper .field > * {
+  -ms-flex-preferred-size: 25%;
+      flex-basis: 25%;
+  min-width: 225px;
+}
+
+.wrapper .content {
+  -webkit-box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+          box-shadow: 10px 10px 21px -10px rgba(0, 0, 0, 0.41);
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+@media screen and (max-width: 719px) {
+  .wrapper .content {
+    padding: 30px;
+  }
+}
+
+.wrapper h1 {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper .field-icons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.wrapper .field-icons-container svg {
+  width: 40px;
+  height: 40px;
+}
+
+.wrapper .field-icons-container button:hover {
+  color: red;
+}
+
+.wrapper .field-icons-container a:hover {
+  color: #00a2ff;
 }
 /*# sourceMappingURL=styles.css.map */
