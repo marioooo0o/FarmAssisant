@@ -13,15 +13,17 @@
             {{ $product->name}} {{ $product->quantity}} {{ $product->unit }}
             <script>
                 if("{{ $product->quantity}}" < 5) {
-                    document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--red" id="product-bar-{{ $loop->iteration }}"></div>`
+                    document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--red" id="product-bar-{{ $loop->iteration }}"></div>`;
+                    document.getElementById("product-bar-{{ $loop->iteration }}").style.width = `${"{{ $product->quantity }}"*10}%`;
                 }
                 else if("{{ $product->quantity}}" < 10) {
-                    document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--orange" id="product-bar-{{ $loop->iteration }}"></div>`
+                    document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--orange" id="product-bar-{{ $loop->iteration }}"></div>`;
+                    document.getElementById("product-bar-{{ $loop->iteration }}").style.width = `${"{{ $product->quantity }}"*10}%`;
                 }
                 else {
-                    document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar-green" id="product-bar-{{ $loop->iteration }}"></div>`
+                    document.getElementById("product-{{ $loop->iteration }}").innerHTML += `<div class="bar bar--green" id="product-bar-{{ $loop->iteration }}"></div>`;
+                    document.getElementById("product-bar-{{ $loop->iteration }}").style.width = `100%`;
                 }
-                document.getElementById("product-bar-{{ $loop->iteration }}").style.width = `${"{{ $loop->iteration }}"*10}%`
             </script>
         </li>
         @endforeach
