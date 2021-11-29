@@ -45,8 +45,9 @@
   let productForm = document.getElementById("products-container");
   function addProduct() {
     productsId++;
+    const id = productsId;
     const newInput = document.createElement("div");
-    newInput.setAttribute("id", `fields-${productsId}`);
+    newInput.setAttribute("id", `fields-${id}`);
     newInput.setAttribute(
       "class",
       "removable-input-container removable-input-container--products"
@@ -54,14 +55,14 @@
     newInput.innerHTML = `
           <div class="flex">
           <select
-            name="addProtectionProduct[${productsId}][product_name]"
+            name="addProtectionProduct[${id}][product_name]"
             class="input-protection"
           >
             @foreach ($plantProtectionProducts as $product)
             <option value="{{ $product->id }}">{{ $product->name }}</option>
             @endforeach
           </select>
-          <button type="button" class="remove-button" id="fields-button-${productsId}">
+          <button type="button" class="remove-button" id="fields-button-${id}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -83,7 +84,7 @@
             >Ilość:
             <input
               type="number"
-              name="addProtectionProduct[${productsId}][quantity]"
+              name="addProtectionProduct[${id}][quantity]"
               step="0.1"
               value="1"
             />
@@ -92,9 +93,9 @@
           `;
     productForm.appendChild(newInput);
     document
-      .getElementById(`fields-button-${productsId}`)
+      .getElementById(`fields-button-${id}`)
       .addEventListener("click", () => {
-        document.getElementById(`fields-${productsId}`).remove();
+        document.getElementById(`fields-${id}`).remove();
         productsId--;
       });
   }

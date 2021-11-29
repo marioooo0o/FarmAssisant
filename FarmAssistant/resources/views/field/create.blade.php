@@ -47,8 +47,9 @@
     let fieldsId = 0;
     function addParcel() {
       fieldsId++;
+      const id = fieldsId;
       const newInput = document.createElement("div");
-      newInput.setAttribute("id", `fields-${fieldsId}`);
+      newInput.setAttribute("id", `fields-${id}`);
       newInput.setAttribute("class", "removable-input-container");
       newInput.innerHTML = `
           <div class="parcel">
@@ -67,7 +68,7 @@
               value="0"
             />
             ha
-            <button type="button" class="remove-button" id="fields-button-${fieldsId}">
+            <button type="button" class="remove-button" id="fields-button-${id}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -87,9 +88,9 @@
           `;
       fieldForm.appendChild(newInput);
       document
-        .getElementById(`fields-button-${fieldsId}`)
+        .getElementById(`fields-button-${id}`)
         .addEventListener("click", () => {
-          document.getElementById(`fields-${fieldsId}`).remove();
+          document.getElementById(`fields-${id}`).remove();
           fieldsId--;
         });
       document.querySelectorAll(".input-area").forEach((element) => {
