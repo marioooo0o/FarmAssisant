@@ -102,8 +102,9 @@
         const fieldForm = document.getElementById("fields-container");
         function addField() {
           fieldsId++;
+          const id = fieldsId;
           const newInput = document.createElement("div");
-          newInput.setAttribute("id", `fields-${fieldsId}`);
+          newInput.setAttribute("id", `fields-${id}`);
           newInput.setAttribute("class", "removable-input-container");
           newInput.innerHTML = `
           <select name="fields[]" class="input-field">
@@ -120,7 +121,7 @@
             </option>
             @endforeach
           </select>
-          <button type="button" class="remove-button" id="fields-button-${fieldsId}">
+          <button type="button" class="remove-button" id="fields-button-${id}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -139,9 +140,9 @@
           `;
           fieldForm.appendChild(newInput);
           document
-            .getElementById(`fields-button-${fieldsId}`)
+            .getElementById(`fields-button-${id}`)
             .addEventListener("click", () => {
-              document.getElementById(`fields-${fieldsId}`).remove();
+              document.getElementById(`fields-${id}`).remove();
               fieldsId--;
             });
         }
@@ -153,20 +154,21 @@
         const productsForm = document.getElementById("products-container");
         function addProduct() {
           productsId++;
+          const id = productsId;
           const newInput = document.createElement("div");
-          newInput.setAttribute("id", `products-${productsId}`);
+          newInput.setAttribute("id", `products-${id}`);
           newInput.setAttribute("class", "removable-input-container removable-input-container--products");
           newInput.innerHTML = `
 					<div class="product">
             <div class="flex">
-          <select name="protectionproduct[${productsId}][name]" class="input-protection">
+          <select name="protectionproduct[${id}][name]" class="input-protection">
             @foreach ($plantProtectionProducts as $product)
             <option value="{{ $product->id }}">
               {{ $product->name }}
             </option>
             @endforeach
           </select>
-          <button type="button" class="remove-button" id="products-button-${productsId}">
+          <button type="button" class="remove-button" id="products-button-${id}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -189,16 +191,16 @@
               class="input-quantity"
               type="number"
               min="0"
-              name="protectionproduct[${productsId}][quantity]"
+              name="protectionproduct[${id}][quantity]"
           /></label>
           l
         </div>
           `;
           productsForm.appendChild(newInput);
           document
-            .getElementById(`products-button-${productsId}`)
+            .getElementById(`products-button-${id}`)
             .addEventListener("click", () => {
-              document.getElementById(`products-${productsId}`).remove();
+              document.getElementById(`products-${id}`).remove();
               productsId--;
             });
         }
