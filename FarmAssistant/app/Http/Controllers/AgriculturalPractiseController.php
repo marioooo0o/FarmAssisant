@@ -39,6 +39,7 @@ class AgriculturalPractiseController extends Controller
         $events = $this->practiseRepository->getEvents($idFarm);
         
         $practises =  $this->practiseRepository->getAllPractisesGrouped($idFarm);
+        //dd($practises[0]->fields);
         $fields = $this->fieldRepository->getAllForId($idFarm);  
         
         return view('agriculturalpractise.index', [

@@ -108,7 +108,7 @@
             var SITEURL = "{{ url('/') }}";
 
             var NEWURL = '/api/farm/{{  $activeFarm->id }}/events';
-            //console.log(NEWURL)
+            console.log(NEWURL)
             //console.log(NEWURL.data);
             $.ajaxSetup({
                 headers: {
