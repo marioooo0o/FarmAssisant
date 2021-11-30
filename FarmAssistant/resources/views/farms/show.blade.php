@@ -1,12 +1,5 @@
-@extends('templateOLD', ['farmsName'=>$farmsName])
 
-@section('title')
-    {{ $farm->name }} <span class="material-icons">
-        mode_edit
-        </span>
-@endsection
 
-@section('content')
 <center>
 
     
@@ -35,4 +28,3 @@
                 <a href="">Dodaj pole!</a>  
                 @endif
             </center>
-@endsection 

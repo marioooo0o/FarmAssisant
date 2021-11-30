@@ -91,17 +91,24 @@
 
                         <select name="companies" class="farms-input"  onChange="redirectClick(this.options[this.options.selectedIndex].value)">
                             <option value="0">Dodaj gospodarstwo</option>
-                            @isset($activeFarm)
+                            @if (@isset($activeFarm))
                                 <option value="{{ $activeFarm->id }}" selected>{{ $activeFarm->name }}</option>
 
                                 @foreach ($farms as $farm)
                                     @if ($farm->id == $activeFarm->id)
-                                        
+                                    
                                     @else
                                         <option value="{{ $farm->id }}">{{ $farm->name }}</option>
                                     @endif
                                 @endforeach
-                            @endisset
+                            @else
+                                @foreach ($farms as $farm)
+                                    <option value="{{ $farm->id }}">{{ $farm->name }}</option>
+                                @endforeach
+                            @endif
+                               
+                                
+                            
                             
                             
 
