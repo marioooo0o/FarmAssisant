@@ -1,3 +1,7 @@
+html {
+  background-color: rgb(243, 244, 246);
+}
+
 input {
   border: #6b7280 solid 1px;
 }
@@ -446,7 +450,7 @@ button:focus {
     padding: 40px;
 
     @media screen and (max-width: 719px) {
-        padding: 30px;
+      padding: 30px;
     }
   }
 
@@ -458,24 +462,58 @@ button:focus {
   }
 
   .field-icons-container {
-      display: flex;
-      align-items: center;
-      width: fit-content;
-      gap: 40px;
-      margin-top: 20px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 40px;
+    margin-top: 20px;
+    margin: 0 auto 20px auto;
+    flex-wrap: wrap;
 
-      svg {
-          width: 40px;
-          height: 40px;
-      }
+    h1 {
+      margin: 0;
+    }
 
-      button:hover {
-          color: red;
-      }
+    svg {
+      width: 40px;
+      height: 40px;
+    }
 
-      a:hover {
-          color: rgb(0, 162, 255);
-      }
+    button:hover {
+      color: red;
+    }
+
+    a:hover {
+      color: rgb(0, 162, 255);
+    }
   }
+}
 
+.welcome {
+  font-size: 20px;
+  text-align: center;
+  img {
+    margin: auto;
+  }
+  .button {
+    background-color: rgb(71, 126, 0);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    flex-grow: 1;
+    transition: 0.5s all;
+
+    &:hover {
+      background-color: rgb(91, 146, 0);
+    }
+  }
+  p {
+    margin-bottom: 40px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    margin: 20px 0;
+  }
 }

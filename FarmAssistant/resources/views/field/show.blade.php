@@ -3,33 +3,15 @@
 
 <div class="wrapper">
   <div class="content">
-    <h1>
-      {{ $field->field_name }}
-    </h1>
-
-    Powierzchnia: {{ $field->field_area }} ha @isset($field->cadastralParcels)
-    <br />
-    Działki:
-    <ul>
-      @foreach ($field->cadastralParcels as $parcel)
-      <li>
-        <a
-          href="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}"
-          >{{ $parcel->parcel_number }}</a
-        >
-      </li>
-      @endforeach
-    </ul>
-    @endisset @forelse ($field->crops as $crop) Uprawa: {{ $crop->name }}
-    <br />
-    @empty Dadaj nazwe uprawy @endforelse
-
     <form
       action="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}"
       method="POST"
     >
+    <div class="field-icons-container">
+    <h1>
+      {{ $field->field_name }}
+    </h1>
       @csrf @method('delete')
-      <div class="field-icons-container">
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +46,24 @@
         </a>
       </div>
     </form>
+
+    Powierzchnia: {{ $field->field_area }} ha @isset($field->cadastralParcels)
+    <br />
+    Działki:
+    <ul>
+      @foreach ($field->cadastralParcels as $parcel)
+      <li>
+        <a
+          href="/farm/{{ $activeFarm->id }}/field/{{ $field->id }}/parcel/{{ $parcel->id }}"
+          >{{ $parcel->parcel_number }}</a
+        >
+      </li>
+      @endforeach
+    </ul>
+    @endisset @forelse ($field->crops as $crop) Uprawa: {{ $crop->name }}
+    <br />
+    @empty Dadaj nazwe uprawy @endforelse
+
   </div>
 </div>
 @endsection
