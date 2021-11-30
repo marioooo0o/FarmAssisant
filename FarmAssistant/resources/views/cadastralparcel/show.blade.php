@@ -1,17 +1,43 @@
 @extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
-
 @section('content')
+<div class="wrapper">
+  <div class="content">
+    <div class="field-icons-container">
+      <h1>Działka {{ $parcel->parcel_number }}</h1>
+      <a
+        href="{{ route('parcel.edit', [$farm->id, $field->id, $parcel->id]) }}"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          class="bi bi-pencil-square"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+          />
+        </svg>
+      </a>
+    </div>
+    <h4>Całkowita powierzchnia działki: {{ $sum }} ha</h4>
+    Działka należy do pól:
 
-<h1>{{ $parcel->parcel_number }}
-<a href="{{ route('parcel.edit', [$farm->id, $field->id, $parcel->id]) }}"><i class="material-icons">mode_edit</i></a> </h1>
-<h4>Całkowita powierzchnia działki: {{ $sum }} ha</h4>
-Działka należy do pól: 
+    <ol>
+      @foreach ($fields as $field)
+      <li>
+        <a
+          href="/farm/{{ $farm->id }}/field/{{ $field->field_id }}"
+          >{{ $field->field_name }}</a
+        >
+         - Powierzchnia: {{ $field->parcel_area }}ha
+      </li>
+      @endforeach
+    </ol>
+  </div>
+</div>
 
-
-<ul>
-    @foreach ($fields as $field)
-        <li>
-            <a href="/farm/{{ $farm->id }}/field/{{ $field->field_id }}">{{ $field->field_name }}</a> Powierzchnia: {{ $field->parcel_area }}ha
-    @endforeach
-</ul>
 @endsection
