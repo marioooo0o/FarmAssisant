@@ -62,6 +62,7 @@ class AgriculturalPractiseController extends Controller
         $fields = $activeFarm->fields;
         //only products available from magazine
         $plantProtectionProducts = $activeFarm->magazine->first()->products;
+       
         
         return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'farms'=> $farms, 'activeFarm'=>$activeFarm, 'plantProtectionProducts' => $plantProtectionProducts]);
     }
@@ -106,9 +107,23 @@ class AgriculturalPractiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idFarm, $id)
     {
-        //
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+        $practise = $this->practiseRepository->find($id);
+        $fields = $activeFarm->fields;
+//only products available from magazine
+        $plantProtectionProducts = $activeFarm->magazine->first()->products;
+       
+
+        return view('agriculturalpractise.edit',[
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'practise' => $practise,
+            'fields' => $fields,
+            'plantProtectionProducts' => $plantProtectionProducts,            
+        ]);
     }
 
     /**
