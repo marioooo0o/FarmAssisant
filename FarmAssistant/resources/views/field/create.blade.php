@@ -10,6 +10,8 @@
         name="field_name"
         placeholder="Nazwa pola"
         class="input-name"
+        value="{{ old('field_name') }}"
+        
       />
       <div class="info-text">Dodaj działki, na których znajduje się pole:</div>
       <div id="parcels">
