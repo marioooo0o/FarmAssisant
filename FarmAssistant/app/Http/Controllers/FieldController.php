@@ -140,9 +140,11 @@ class FieldController extends Controller
      */
     public function update(UpdateField $request, $idFarm, $id)
     {
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
         $data = $request->all();
         $this->fieldRepository->update($data, $idFarm, $id);
-        return redirect('farm');
+        return redirect('home');
     }
 
     /**
@@ -153,9 +155,12 @@ class FieldController extends Controller
      */
     public function destroy($idFarm, $id)
     {
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
         $this->fieldRepository->delete($id);
         
-        return redirect('farm');
+        return redirect('home');
+        //return redirect('farm');
     }
 
     

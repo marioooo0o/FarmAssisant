@@ -81,6 +81,7 @@
               class="input-quantity"
               type="number"
               min="0"
+              max="150"
               name="protectionproduct[0][quantity]"
           /></label>
           l
