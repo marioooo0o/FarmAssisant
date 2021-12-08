@@ -77,7 +77,6 @@
                         />
                       </svg>
                       </button>
-
                     </div>
                     @endforeach
                 </div>
