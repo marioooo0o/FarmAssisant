@@ -135,7 +135,8 @@ class AgriculturalPractiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->all();
+        dd($request->all());
     }
 
     /**
