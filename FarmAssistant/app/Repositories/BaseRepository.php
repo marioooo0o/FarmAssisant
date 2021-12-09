@@ -25,7 +25,7 @@ abstract class BaseRepository implements RepositoryInterface{
         return $this->model->create($data);
     }
 
-    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise = null)
     {
         return $this->model->where("id", '=', $idFarm)->update($data);
     }
