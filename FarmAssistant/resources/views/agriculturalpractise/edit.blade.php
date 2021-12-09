@@ -44,10 +44,10 @@
                 
                 <div id="fields-container">
                   @foreach ($practise->fields as $selectedField)
-                    <div class="removable-input-container removable-input-container--first">
+                    <div class="removable-input-container" id="fields-{{ $loop->index  }}">
                       
                     
-                      <select name="fields[]" class="input-field">
+                      <select name="fields[]" class="input-field" >
                         @foreach ($fields as $field)
                         
                         
@@ -61,7 +61,7 @@
                         @endforeach
                     </select>
                    
-                    <button type="button" class="remove-button" id="fields-button-{{ $loop->index  }}s">
+                    <button type="button" class="remove-button" id="fields-button-{{ $loop->index  }}">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor"
@@ -118,9 +118,22 @@
                 l
                 <button type="submit" class="submit">Dodaj zabieg</button>
                 <script>
-                    let fieldsId = JSON.parse("{{ json_encode($practise->plantProtectionProducts->count()-1) }}")
+                    let fieldsId = 0;
                     
                     const fieldForm = document.getElementById("fields-container");
+
+                    const fieldInputs = Array.from(document.getElementsByClassName("removable-input-container"))
+
+                    fieldInputs.forEach((e) => {
+                      const id = fieldsId;
+                      fieldsId++;
+                      document
+                            .getElementById(`fields-button-${id}`)
+                            .addEventListener("click", () => {
+                                document.getElementById(`fields-${id}`).remove();
+                               
+                            });
+                    })
 
                     function addField() {
                         fieldsId++;
@@ -158,7 +171,7 @@
                             .getElementById(`fields-button-${id}`)
                             .addEventListener("click", () => {
                                 document.getElementById(`fields-${id}`).remove();
-                                fieldsId--;
+                               
                             });
                     }
                     document.getElementById("addField").addEventListener("click", addField);
@@ -217,7 +230,7 @@
                             .getElementById(`products-button-${id}`)
                             .addEventListener("click", () => {
                                 document.getElementById(`products-${id}`).remove();
-                                productsId--;
+                                
                             });
                     }
                     document
