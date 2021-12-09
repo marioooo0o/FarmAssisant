@@ -79,6 +79,9 @@ class PractiseRepository extends BaseRepository{
 
     public function delete($id)
     {
+        $practise = $this->model->find($id);
+        //dd($practise);
+        $practise->delete();
         /*
         $field = $this->find($id);
         //save id farm before delete

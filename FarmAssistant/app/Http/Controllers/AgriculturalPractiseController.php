@@ -145,8 +145,10 @@ class AgriculturalPractiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idFarm, $id)
     {
-        //
+        //dd($id);
+        $this->practiseRepository->delete($id);
+        return redirect('home');
     }
 }
