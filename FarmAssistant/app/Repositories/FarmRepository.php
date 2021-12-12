@@ -51,9 +51,9 @@ class FarmRepository extends BaseRepository{
         return $fieldsList;
     }
 
-    public function getCrops($id)
+    public function getCrops($id, $limit = null)
     {
-        $result = $this->model->getSumCrops($id, 5, 'desc');
+        $result = $this->model->getSumCrops($id, $limit, 'desc');
         return $result;
     }
 

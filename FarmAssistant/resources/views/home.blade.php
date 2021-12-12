@@ -88,7 +88,7 @@
                     <li>{{ $crop->name }} {{ $crop->crop_area }} ha</li>
                 @endforeach
 
-                <a href="#"><button class="more more--down button">Pokaż wszystkie</button></a>
+                <a href="{{ route('list-crops', ['idFarm' => $activeFarm->id]) }}"><button class="more more--down button">Pokaż wszystkie</button></a>
             @else
                 Nie posiadasz żadnych upraw!
             @endif
