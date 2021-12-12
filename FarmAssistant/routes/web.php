@@ -23,6 +23,7 @@ Route::get('/', function () {
 //Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 //Route::resource('dashboard', 'App\Http\Controllers\DashboardController')->middleware(['auth']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
+Route::get('farm/{idFarm}/crops', [App\Http\Controllers\HomeController::class, 'allMyCrops'])->middleware('auth')->name('list-crops');
 Route::get('/home/{idFarm}', [App\Http\Controllers\HomeController::class, 'show'])->middleware('auth');
 Route::resource('farm/{idFarm}/practise', 'App\Http\Controllers\AgriculturalPractiseController')->middleware('auth');
 Route::resource('home/{idFarm}/magazine', 'App\Http\Controllers\MagazineController')->middleware('auth');

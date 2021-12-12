@@ -66,7 +66,7 @@ class Farm extends Model
             ->leftJoin('crop_field', 'crops.id', '=', 'crop_field.crop_id')
             ->leftJoin('fields', 'fields.id', '=', 'crop_field.field_id')
             ->where('fields.farm_id', '=', $id)
-            ->select('name', DB::raw('SUM(fields.field_area) as crop_area'))
+            ->select('name', 'fields.id as field_id', DB::raw('SUM(fields.field_area) as crop_area'))
             ->groupBy('name')
             ->orderBy('crop_area', 'desc')
             ->limit($limit)
@@ -78,13 +78,12 @@ class Farm extends Model
             ->leftJoin('crop_field', 'crops.id', '=', 'crop_field.crop_id')
             ->leftJoin('fields', 'fields.id', '=', 'crop_field.field_id')
             ->where('fields.farm_id', '=', $id)
-            ->select('name', DB::raw('SUM(fields.field_area) as crop_area'))
+            ->select('name', 'fields.id as field_id', DB::raw('SUM(fields.field_area) as crop_area'))
             ->groupBy('name')
             ->orderByDesc('crop_area')
             ->limit($limit)
             ->get();
         }
-     
         return $query;
     }
 

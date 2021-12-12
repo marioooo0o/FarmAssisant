@@ -42,6 +42,7 @@ class StorePractise extends FormRequest
     {
         return [
             'practise_name.required' => 'Nazwa zabiegu jest wymagana',
+            'start.required' => 'Data zabiegu jest wymagana',
             'fields.*.distinct' => 'Pola nie mogą się powtarzać',
             'protectionproduct.*.name.required' => 'Nazwa środka :value jest wymagana',
             'protectionproduct.*.name.distinct' => 'Nie możesz kilka  :value razy wybrać ten sam środek',
