@@ -92,7 +92,7 @@
         </ol>
         
     </div>
-    <div class="calendar">
+    <div class="calendar wide">
         <h2><a href="/home/{{ $activeFarm->id }}/calender">Kalendarz</a> </h2>
         
         <div id="calendar">
