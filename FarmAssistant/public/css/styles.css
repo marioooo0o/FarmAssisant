@@ -342,6 +342,10 @@ button:focus {
   margin-bottom: 15px;
 }
 
+.create-container .removable-input-container .parcel {
+  margin: 0;
+}
+
 .create-container .removable-input-container--first svg {
   visibility: hidden;
 }

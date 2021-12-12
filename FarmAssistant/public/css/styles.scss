@@ -315,6 +315,10 @@ button:focus {
     display: flex;
     margin-bottom: 15px;
 
+    .parcel {
+      margin: 0;
+    }
+
     &--first {
       svg {
         visibility: hidden;
