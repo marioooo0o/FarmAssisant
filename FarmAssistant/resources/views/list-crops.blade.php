@@ -1,10 +1,18 @@
 @extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm])
 @section('content')
 
-Lista upraw
-@foreach ($crops as $crop)
-    Uprawy: {{ $crop->name }}
-    Powierzchnia: {{ $crop->crop_area }} ha
-    <br>
-@endforeach
+<div class="create-container practise">
+    <div class="content">
+        <h1>Ranking upraw</h1>
+        <ol class="list-inside list-decimal">
+            @if (!$crops->isEmpty())
+                @foreach ($crops as $crop)
+                <li>{{ $crop->name }} {{ $crop->crop_area }} ha</li>
+                @endforeach 
+            @else Nie posiadasz żadnych upraw! 
+            @endif
+        </ol>
+    </div>
+</div>
+
 @endsection
