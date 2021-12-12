@@ -11,8 +11,9 @@
     <div class="welcome">
       <div class="wrapper">
         <div class="content">
-            Jakieś logo podjebane z neta xD
-          <img src="logo.png" alt="logo" />
+          <div class="logo-farm" style="width: 150px; height: 150px;">
+            <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+        </div>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Et illum
             enim cupiditate consequuntur, officiis vitae, temporibus doloremque
