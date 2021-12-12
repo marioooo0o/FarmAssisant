@@ -84,7 +84,8 @@ button:focus {
 
 .dashboard-container .button {
   width: calc(100% - 50px);
-  background-color: #f3f4f6;
+  background-color: #477e00;
+  color: white;
   border-radius: 20px;
   position: absolute;
   bottom: 20px;
@@ -94,8 +95,7 @@ button:focus {
 }
 
 .dashboard-container .button:hover {
-  -webkit-transform: scale(102%);
-          transform: scale(102%);
+  background-color: #5b9200;
 }
 
 .dashboard-container .button.more {
@@ -111,6 +111,10 @@ button:focus {
 
 .dashboard-container .button.more--down {
   bottom: 20px;
+}
+
+.dashboard-container .button.more:hover {
+  background-color: #56a8ff;
 }
 
 .dashboard-container ol {
@@ -281,7 +285,8 @@ button:focus {
 
 .create-container button {
   width: 500px;
-  background-color: #f3f4f6;
+  background-color: #477e00;
+  color: white;
   border-radius: 20px;
   font-size: 20px;
   display: block;
@@ -289,8 +294,7 @@ button:focus {
 }
 
 .create-container button:hover {
-  -webkit-transform: scale(105%);
-          transform: scale(105%);
+  background-color: #5b9200;
 }
 
 .create-container button.submit {
