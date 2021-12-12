@@ -301,12 +301,6 @@ button:focus {
   background: none;
 }
 
-.create-container button.remove-button:hover {
-  color: red;
-  -webkit-transform: none;
-          transform: none;
-}
-
 .create-container form {
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -364,6 +358,13 @@ button:focus {
   height: 40px;
   min-width: 40px;
   padding: 5px;
+  color: black;
+}
+
+.create-container .removable-input-container svg:hover {
+  color: red;
+  -webkit-transform: none;
+          transform: none;
 }
 
 @media screen and (max-width: 720px) {
