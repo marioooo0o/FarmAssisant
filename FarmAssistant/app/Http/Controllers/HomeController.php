@@ -54,7 +54,7 @@ class HomeController extends Controller
         {
             $activeFarm = $this->farmRepository->find($farms->first()->id);
             
-            $crops = $this->farmRepository->getCrops($activeFarm->id);
+            $crops = $this->farmRepository->getCrops($activeFarm->id, 5);
             $fields = $this->fieldRepository->getFields($activeFarm->id, 'desc', 5);
             $productsInMagazine = $this->magazineRepository->getProductsInMagazine($activeFarm->id);
             $practises =  $this->practiseRepository->getAllPractises($activeFarm->id);
@@ -71,6 +71,19 @@ class HomeController extends Controller
         
     }
 
+    public function allMyCrops($idFarm)
+    {
+        $farms = auth()->user()->farms;
+        $activeFarm = $this->farmRepository->find($idFarm);
+
+        $crops = $this->farmRepository->getCrops($activeFarm->id);
+
+        return view('list-crops', [
+            'farms' => $farms,
+            'activeFarm' => $activeFarm,
+            'crops' => $crops,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
