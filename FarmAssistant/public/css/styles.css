@@ -152,7 +152,7 @@ button:focus {
   background-color: red;
 }
 
-.dashboard-container .calendar {
+.dashboard-container .wide {
   -ms-grid-column: 1;
       grid-column-start: 1;
   grid-column-end: 3;
@@ -482,6 +482,18 @@ button:focus {
   font-weight: 700;
   text-align: center;
   margin-bottom: 30px;
+}
+
+@media screen and (max-width: 719px) {
+  .wrapper h1 {
+    font-size: 30px;
+  }
+}
+
+.wrapper h2 {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .wrapper .field-icons-container {

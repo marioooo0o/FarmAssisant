@@ -137,7 +137,7 @@ button:focus {
     }
   }
 
-  .calendar {
+  .wide {
     grid-column-start: 1;
     grid-column-end: 3;
   }
@@ -463,6 +463,16 @@ button:focus {
     font-weight: 700;
     text-align: center;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 719px) {
+      font-size: 30px;
+    }
+  }
+
+  h2 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
   }
 
   .field-icons-container {
