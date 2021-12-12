@@ -47,7 +47,10 @@
                             <div class="flex-shrink-0 flex items-center">
                                 @if (@isset($activeFarm))
                                     <a href="/home/{{ $activeFarm->id }}">
-                                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                                        <div class="logo-farm" style="width: 50px; height: 50px;">
+                                            <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                                        </div>
+                                        
                                     </a>
                                     <a href="/home/{{ $activeFarm->id }}" class="nav-name">
                                     {{ config('app.name')}}

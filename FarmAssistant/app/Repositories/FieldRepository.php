@@ -44,7 +44,7 @@ class FieldRepository extends BaseRepository{
         return $field;
     }
 
-    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise = null)
     {
         $field = Field::find($idField);
         $field->field_name = $data['field_name'];

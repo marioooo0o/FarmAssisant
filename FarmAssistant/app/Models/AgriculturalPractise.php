@@ -12,7 +12,7 @@ class AgriculturalPractise extends Model
     protected $table = 'agricultural_practices';
 
     protected $fillable = [
-        'name', 'start', 'end'
+        'name', 'start', 'end', 'start_all_date',
     ];
 
     public function fields()

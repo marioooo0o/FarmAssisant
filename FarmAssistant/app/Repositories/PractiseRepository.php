@@ -57,8 +57,25 @@ class PractiseRepository extends BaseRepository{
         return $practise;
     }
 
-    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise=null)
     {
+        //dd($data['fields']);
+        $practise = $this->model->find($idPractise);
+        $practise->name = $data['practise_name'];
+        $practise->start = str_replace(' ', 'T', $data['start']);
+        $practise->end = str_replace('T', ' ', $data['start']);
+        $practise->water = $data['water'];
+       // $practise->save();
+        //$newFields = array();
+        // foreach ($data['fields'] as $field) {
+        //     $newFields[] = $field;
+        // }
+        //dd($newFields);
+        $practise->fields()->sync($data['fields']);
+        $practise->save();
+        return $practise;
+        //dd($practise->fields);
+        //dd($practise);
         /*
 
         $field = Field::find($idField);
@@ -79,6 +96,9 @@ class PractiseRepository extends BaseRepository{
 
     public function delete($id)
     {
+        $practise = $this->model->find($id);
+        //dd($practise);
+        $practise->delete();
         /*
         $field = $this->find($id);
         //save id farm before delete

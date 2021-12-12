@@ -25,8 +25,8 @@
       @if (old('start')) value="{{ old("start") }}" 
       @else
       {{-- Dodać date z bazy --}}
-      value="{{ $practise->start . 'T08:45' }}" 
-      @endif /> @dump($practise->plantProtectionProducts->count())
+      value="{{ $practise->start_all_date }}" 
+      @endif />
 
       <h2>Wybrane pola:</h2>
       <div id="fields-container">

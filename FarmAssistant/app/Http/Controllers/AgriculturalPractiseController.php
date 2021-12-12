@@ -133,10 +133,11 @@ class AgriculturalPractiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idFarm, $id)
     {
-        $request->all();
-        dd($request->all());
+        $data = $request->all();
+        $this->practiseRepository->update($data, $idFarm, null, null, $id);
+        return redirect('home');
     }
 
     /**
@@ -145,8 +146,10 @@ class AgriculturalPractiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idFarm, $id)
     {
-        //
+        //dd($id);
+        $this->practiseRepository->delete($id);
+        return redirect('home');
     }
 }

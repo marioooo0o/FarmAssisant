@@ -20,7 +20,7 @@ class FarmRepository extends BaseRepository{
         return $farm;
     }
 
-    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise = null)
     {
         $farm = Farm::find($idFarm);
         //dd($id);
