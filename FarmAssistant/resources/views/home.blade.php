@@ -77,9 +77,6 @@
 
         @endif
     </div>
-    <div class="weather">
-        <h2>Pogoda</h2>
-    </div>
     <div class="ranking">
         <h2>Ranking upraw</h2>
         <ol>

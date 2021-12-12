@@ -132,12 +132,6 @@ button:focus {
   opacity: 0.8;
 }
 
-.dashboard-container .magazine {
-  -ms-grid-column: 1;
-      grid-column-start: 1;
-  grid-column-end: 3;
-}
-
 .dashboard-container .magazine li {
   margin-top: 20px;
 }
