@@ -34,7 +34,7 @@
         <div class="removable-input-container removable-input-container--fields" id="fields-{{ $loop->index }}">
           <select name="fields[]" class="input-field">
             @foreach ($fields as $field)
-            <option value="{{ $loop->index }}" 
+            <option value="{{ $field->id }}" 
               @if ($field->
               id == $selectedField->id) selected 
               @endif> {{ $field->field_name }} {{ $field->field_area }} ha
@@ -65,7 +65,7 @@
             <div class="flex">
               <select name="protectionproduct[{{ $loop->index }}][name]" class="input-protection">
                 @foreach ($plantProtectionProducts as $product)
-                <option value="{{ $loop->index }}" 
+                <option value="{{ $product->id }}" 
                   @if ($product->
                   id == $productSelected->id) selected 
                   @endif>
@@ -131,7 +131,7 @@
           `
           <select name="fields[]" class="input-field">
             @foreach ($fields as $field)
-            <option value="{{ $loop->index }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
+            <option value="{{ $field->id }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
             @endforeach
           </select>
           <button type="button" class="remove-button" id="fields-button-${id}">
@@ -181,7 +181,7 @@
             <div class="flex">
               <select name="protectionproduct[${id}][name]" class="input-protection">
                 @foreach ($plantProtectionProducts as $product)
-                <option value="{{ $loop->index }}">{{ $product->name }}</option>
+                <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
               </select>
               <button type="button" class="remove-button" id="products-button-${id}">

@@ -25,14 +25,9 @@
       <h2>Wybrane pola:</h2>
       <div id="fields-container">
         <div class="removable-input-container removable-input-container--first">
-          <select name="fields[]" class="input-field">
-            {{-- Do zrobienia w przyszłości @if (old('fields') != null) @foreach (old('fields') as $fieldOld)
-            <option value="{{ $loop->index }}" selected>
-              {{ $fields[$fieldOld]->field_name }}
-              {{ $fields[$fieldOld]->field_area }} ha
-            </option>
-            @endforeach @else @dump('nie ma mnie') @endif --}} @foreach ($fields as $field)
-            <option value="{{ $loop->index }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
+          <select name="fields[]" class="input-field"> 
+            @foreach ($fields as $field)
+            <option value="{{ $field->id}}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
             @endforeach
           </select>
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -52,7 +47,7 @@
         <div class="product">
           <select name="protectionproduct[0][name]" class="input-protection input-protection--first">
             @foreach ($plantProtectionProducts as $product)
-            <option value="{{ $loop->index }}">
+            <option value="{{ $product->id }}">
               {{ $product->name }}
             </option>
             @endforeach
@@ -85,7 +80,7 @@
           `
           <select name="fields[]" class="input-field">
             @foreach ($fields as $field)
-            <option value="{{ $loop->index }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
+            <option value="{{ $field->id }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
             @endforeach
           </select>
           <button type="button" class="remove-button" id="fields-button-${id}">
@@ -125,7 +120,7 @@
             <div class="flex">
               <select name="protectionproduct[${id}][name]" class="input-protection">
                 @foreach ($plantProtectionProducts as $product)
-                <option value="{{ $loop->index }}">{{ $product->name }}</option>
+                <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
               </select>
               <button type="button" class="remove-button" id="products-button-${id}">
@@ -161,6 +156,7 @@
         {
           const inputFields = Array.from(document.getElementsByClassName("input-field"));
           let sum = 0;
+          console.log(fieldsData);
           inputFields.forEach((e) => {
             sum += fieldsData[e.value].field_area;
           })

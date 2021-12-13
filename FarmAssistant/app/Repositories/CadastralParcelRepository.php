@@ -21,7 +21,7 @@ class CadastralParcelRepository extends BaseRepository{
         //
     }
 
-    public function update(array $data, $idFarm, $idField=null, $idParcel=null)
+    public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise=null)
     {
         foreach ($data['parcel_area'] as $key => $value) {
             $parcel = CadastralParcel::find($key);
