@@ -2,32 +2,26 @@
 <div class="create-container practise">
   <div class="content">
     <h1>Dodaj zabieg</h1>
-
-    @if ($errors->any())
-    <div class="alert alert-danger" style="color: red">
-      <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
     <form action="{{ route('practise.store', [$idFarm]) }}" method="POST">
       @csrf
       <input type="text" name="practise_name" placeholder="Nazwa zabiegu" value="{{ old('practise_name') }}" class="input-name" id="field-name"/>
       @error('practise_name')
-      <div id="error">{{ $message }}</div>
+      <div id="error-name" style="color: red">{{ $message }}</div>
       @enderror
       <br />
       <h2>Data zabiegu:</h2>
-      <input type="datetime-local" name="start" class="input-data" />
-
+      <input type="datetime-local" name="start" class="input-data" id="start-data"/>
+      @error('start')
+        <div id="error-start" style="color: red">{{ $message }}</div>
+      @enderror
       <h2>Wybrane pola:</h2>
       <div id="fields-container">
         <div class="removable-input-container removable-input-container--first">
           <select name="fields[]" class="input-field"> 
             @foreach ($fields as $field)
-            <option value="{{ $field->id}}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
+            <option value="{{ $field->id}}">
+              {{ $field->field_name }} {{ $field->field_area }} ha
+            </option>
             @endforeach
           </select>
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -53,8 +47,11 @@
             @endforeach
           </select>
           <div class="info-text">Maksymalna dawka środka: <span class="max">0</span></div>
-          <label>Ilość środka:<input class="input-quantity" type="number" min="0" max="150" name="protectionproduct[0][quantity]" /></label>
+          <label>Ilość środka:<input class="input-quantity" type="number" min="0" max="150" name="protectionproduct[0][quantity]" id="protectionproduct[0][quantity]"/></label>
           l
+          @error('protectionproduct.0.quantity')
+          <div id="error-quantity" style="color: red"> {{ $message }}</div>
+          @enderror
         </div>
       </div>
       <button type="button" name="addProductButton" id="addProduct">Dodaj środek</button>
@@ -67,9 +64,18 @@
       l
       <button type="submit" class="submit">Dodaj zabieg</button>
       <script>
-        const errorEl = document.getElementById("error");
+        const errorEl = document.getElementById("error-name");
         const fieldNameEl = document.getElementById("field-name");
         fieldNameEl.addEventListener("focus", () => errorEl.classList.add("hidden"));
+
+        const errorStartEl = document.getElementById("error-start");
+        const startEl = document.getElementById("start-data");
+        startEl.addEventListener("focus", () => errorStartEl.classList.add("hidden"));
+
+        const errorQuantityEl = document.getElementById("error-quantity");
+        const quantityEl = document.getElementById("protectionproduct[0][quantity]");
+        quantityEl.addEventListener("focus", () => errorQuantityEl.classList.add("hidden"));
+
 
         let fieldsId = 0;
         const fieldForm = document.getElementById("fields-container");
@@ -140,6 +146,9 @@
             <div class="info-text">Maksymalna dawka środka: <span class="max">0</span></div>
             <label>Ilość środka:<input class="input-quantity" type="number" min="0" name="protectionproduct[${id}][quantity]" /></label>
             l
+            @error('protectionproduct.${id}.quantity')
+            <div>{{ $message }}</div>
+            @enderror
           </div>
           `;
           productsForm.appendChild(newInput);
