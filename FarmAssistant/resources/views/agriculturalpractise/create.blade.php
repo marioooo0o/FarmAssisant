@@ -160,13 +160,22 @@
         {
           const inputFields = Array.from(document.getElementsByClassName("input-field"));
           let sum = 0;
-          console.log(fieldsData);
           inputFields.forEach((e) => {
-            sum += fieldsData[e.value].field_area;
+            for(let i = 0; i < fieldsData.length; i++)
+            {
+              if(e.value == fieldsData[i].id){
+                sum += fieldsData[i].field_area;
+              } 
+            }
           })
           const products = Array.from(document.getElementsByClassName("product"));
           products.forEach((e) => {
-            e.querySelector(".max").innerHTML = (plantProtectionProductsData[e.querySelector(".input-protection").value].maximum_dose * sum).toFixed(0);
+            for(let i = 0; i < plantProtectionProductsData.length; i++)
+            {
+              if(e.querySelector(".input-protection").value == plantProtectionProductsData[i].id){
+                e.querySelector(".max").innerHTML = (plantProtectionProductsData[i].maximum_dose * sum).toFixed(0);
+              } 
+            }
           })
         }
 
