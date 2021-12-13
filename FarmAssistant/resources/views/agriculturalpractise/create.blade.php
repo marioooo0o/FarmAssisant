@@ -14,9 +14,9 @@
     @endif
     <form action="{{ route('practise.store', [$idFarm]) }}" method="POST">
       @csrf
-      <input type="text" name="practise_name" placeholder="Nazwa zabiegu" value="{{ old('practise_name') }}" class="input-name" />
+      <input type="text" name="practise_name" placeholder="Nazwa zabiegu" value="{{ old('practise_name') }}" class="input-name" id="field-name"/>
       @error('practise_name')
-      <div>{{ $message }}</div>
+      <div id="error">{{ $message }}</div>
       @enderror
       <br />
       <h2>Data zabiegu:</h2>
@@ -67,6 +67,10 @@
       l
       <button type="submit" class="submit">Dodaj zabieg</button>
       <script>
+        const errorEl = document.getElementById("error");
+        const fieldNameEl = document.getElementById("field-name");
+        fieldNameEl.addEventListener("focus", () => errorEl.classList.add("hidden"));
+
         let fieldsId = 0;
         const fieldForm = document.getElementById("fields-container");
 
