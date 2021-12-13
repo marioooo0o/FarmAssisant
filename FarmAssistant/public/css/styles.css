@@ -84,7 +84,8 @@ button:focus {
 
 .dashboard-container .button {
   width: calc(100% - 50px);
-  background-color: #f3f4f6;
+  background-color: #477e00;
+  color: white;
   border-radius: 20px;
   position: absolute;
   bottom: 20px;
@@ -94,8 +95,7 @@ button:focus {
 }
 
 .dashboard-container .button:hover {
-  -webkit-transform: scale(102%);
-          transform: scale(102%);
+  background-color: #5b9200;
 }
 
 .dashboard-container .button.more {
@@ -113,6 +113,10 @@ button:focus {
   bottom: 20px;
 }
 
+.dashboard-container .button.more:hover {
+  background-color: #56a8ff;
+}
+
 .dashboard-container ol {
   list-style: decimal;
   list-style-position: inside;
@@ -126,12 +130,6 @@ button:focus {
 .dashboard-container .date {
   float: right;
   opacity: 0.8;
-}
-
-.dashboard-container .magazine {
-  -ms-grid-column: 1;
-      grid-column-start: 1;
-  grid-column-end: 3;
 }
 
 .dashboard-container .magazine li {
@@ -154,7 +152,7 @@ button:focus {
   background-color: red;
 }
 
-.dashboard-container .calendar {
+.dashboard-container .wide {
   -ms-grid-column: 1;
       grid-column-start: 1;
   grid-column-end: 3;
@@ -281,7 +279,8 @@ button:focus {
 
 .create-container button {
   width: 500px;
-  background-color: #f3f4f6;
+  background-color: #477e00;
+  color: white;
   border-radius: 20px;
   font-size: 20px;
   display: block;
@@ -289,8 +288,7 @@ button:focus {
 }
 
 .create-container button:hover {
-  -webkit-transform: scale(105%);
-          transform: scale(105%);
+  background-color: #5b9200;
 }
 
 .create-container button.submit {
@@ -301,12 +299,6 @@ button:focus {
   width: auto;
   margin: 0 !important;
   background: none;
-}
-
-.create-container button.remove-button:hover {
-  color: red;
-  -webkit-transform: none;
-          transform: none;
 }
 
 .create-container form {
@@ -350,6 +342,10 @@ button:focus {
   margin-bottom: 15px;
 }
 
+.create-container .removable-input-container .parcel {
+  margin: 0;
+}
+
 .create-container .removable-input-container--first svg {
   visibility: hidden;
 }
@@ -366,6 +362,13 @@ button:focus {
   height: 40px;
   min-width: 40px;
   padding: 5px;
+  color: black;
+}
+
+.create-container .removable-input-container svg:hover {
+  color: red;
+  -webkit-transform: none;
+          transform: none;
 }
 
 @media screen and (max-width: 720px) {
@@ -484,6 +487,18 @@ button:focus {
   font-weight: 700;
   text-align: center;
   margin-bottom: 30px;
+}
+
+@media screen and (max-width: 719px) {
+  .wrapper h1 {
+    font-size: 30px;
+  }
+}
+
+.wrapper h2 {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .wrapper .field-icons-container {

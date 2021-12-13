@@ -77,9 +77,6 @@
 
         @endif
     </div>
-    <div class="weather">
-        <h2>Pogoda</h2>
-    </div>
     <div class="ranking">
         <h2>Ranking upraw</h2>
         <ol>
@@ -95,7 +92,7 @@
         </ol>
         
     </div>
-    <div class="calendar">
+    <div class="calendar wide">
         <h2><a href="/home/{{ $activeFarm->id }}/calender">Kalendarz</a> </h2>
         
         <div id="calendar">

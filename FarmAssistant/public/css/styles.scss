@@ -66,7 +66,8 @@ button:focus {
 
   .button {
     width: calc(100% - 50px);
-    background-color: rgb(243, 244, 246);
+    background-color: rgb(71, 126, 0);
+    color: white;
     border-radius: 20px;
     position: absolute;
     bottom: 20px;
@@ -75,7 +76,7 @@ button:focus {
     display: block;
 
     &:hover {
-      transform: scale(102%);
+      background-color: rgb(91, 146, 0);
     }
 
     &.more {
@@ -90,6 +91,10 @@ button:focus {
 
       &--down {
         bottom: 20px;
+      }
+
+      &:hover {
+        background-color: rgb(86, 168, 255);
       }
     }
   }
@@ -110,8 +115,6 @@ button:focus {
   }
 
   .magazine {
-    grid-column-start: 1;
-    grid-column-end: 3;
 
     li {
       margin-top: 20px;
@@ -134,7 +137,7 @@ button:focus {
     }
   }
 
-  .calendar {
+  .wide {
     grid-column-start: 1;
     grid-column-end: 3;
   }
@@ -259,14 +262,15 @@ button:focus {
 
   button {
     width: 500px;
-    background-color: rgb(243, 244, 246);
+    background-color: rgb(71, 126, 0);
+    color: white;
     border-radius: 20px;
     font-size: 20px;
     display: block;
     margin-top: 30px;
 
     &:hover {
-      transform: scale(105%);
+      background-color: rgb(91, 146, 0);
     }
 
     &.submit {
@@ -277,11 +281,6 @@ button:focus {
       width: auto;
       margin: 0 !important;
       background: none;
-
-      &:hover {
-        color: red;
-        transform: none;
-      }
     }
   }
 
@@ -316,6 +315,10 @@ button:focus {
     display: flex;
     margin-bottom: 15px;
 
+    .parcel {
+      margin: 0;
+    }
+
     &--first {
       svg {
         visibility: hidden;
@@ -332,6 +335,11 @@ button:focus {
       height: 40px;
       min-width: 40px;
       padding: 5px;
+      color: black;
+      &:hover {
+        color: red;
+        transform: none;
+      }
     }
   }
 
@@ -459,6 +467,16 @@ button:focus {
     font-weight: 700;
     text-align: center;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 719px) {
+      font-size: 30px;
+    }
+  }
+
+  h2 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
   }
 
   .field-icons-container {

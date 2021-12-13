@@ -50,9 +50,10 @@
       </div>
     
 
-    Powierzchnia: {{ $field->field_area }} ha @isset($field->cadastralParcels)
+    <h2>Powierzchnia:</h2> 
+    {{ $field->field_area }} ha @isset($field->cadastralParcels)
     <br />
-    Działki:
+    <h2>Działki:</h2>
     <ul>
       @foreach ($field->cadastralParcels as $parcel)
       <li>
@@ -63,7 +64,8 @@
       </li>
       @endforeach
     </ul>
-    @endisset @forelse ($field->crops as $crop) Uprawa: {{ $crop->name }}
+    @endisset @forelse ($field->crops as $crop) <h2>Uprawa:</h2>
+     {{ $crop->name }}
     <br />
     @empty Dadaj nazwe uprawy @endforelse
 

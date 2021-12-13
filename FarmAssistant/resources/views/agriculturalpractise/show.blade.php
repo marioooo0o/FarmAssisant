@@ -31,15 +31,17 @@
           </svg>
         </a>
       </div>
-    Data zabiegu: {{ $practise->start }}
+    <h2>Data zabiegu:</h2> 
+    {{ $practise->start }}
     <ul>
-      Zabieg na polach: @foreach ($practise->fields as $field)
+      <h2>Zabieg na polach:</h2> 
+      @foreach ($practise->fields as $field)
       <li>
         <a href="{{ route('field.show', [$activeFarm->id, $field->id]) }}">{{ $field->field_name }}</a> {{ $field->field_area }}ha
       </li>
       @endforeach
     </ul>
-    Środki użyte do zabiegu:
+    <h2>Środki użyte do zabiegu:</h2>
     <ul>
       @foreach ($practise->plantProtectionProducts as $product)
       <li>{{ $product->name }} {{ $product->pivot->quantity }}{{ $product->unit }}</li>

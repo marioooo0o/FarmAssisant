@@ -188571,3 +188571,10 @@ select {
   }
 }
 
+.green {
+  background-color: #477e00;
+}
+
+.green:hover {
+  background-color: #5b9200;
+}

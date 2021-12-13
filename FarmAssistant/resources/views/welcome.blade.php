@@ -11,8 +11,9 @@
     <div class="welcome">
       <div class="wrapper">
         <div class="content">
-          <div class="logo-farm" style="width: 150px; height: 150px;">
-            <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+          <div class="logo-farm">
+            <x-application-logo class="block h-40 w-auto mx-auto" />
+            <h1>Farm Assistant</h1>
         </div>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Et illum

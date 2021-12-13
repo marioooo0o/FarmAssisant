@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="dashboard-container">
-<div class="magazine">
+<div class="magazine wide">
     <h2>Magazyn</h2>
 
     @if (!$productsInMagazine->isEmpty())

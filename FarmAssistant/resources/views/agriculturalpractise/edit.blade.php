@@ -34,7 +34,7 @@
         <div class="removable-input-container removable-input-container--fields" id="fields-{{ $loop->index }}">
           <select name="fields[]" class="input-field">
             @foreach ($fields as $field)
-            <option value="{{ $field->id }}" 
+            <option value="{{ $loop->index }}" 
               @if ($field->
               id == $selectedField->id) selected 
               @endif> {{ $field->field_name }} {{ $field->field_area }} ha
@@ -60,12 +60,12 @@
       <h2>Wybrane środki:</h2>
       <div id="products-container">
         @foreach ($practise->plantProtectionProducts as $productSelected)
-        <div class="removable-input-container removable-input-container--product" id="products-{{ $loop->index }}">
+        <div class="removable-input-container removable-input-container--products" id="products-{{ $loop->index }}">
           <div class="product">
             <div class="flex">
               <select name="protectionproduct[{{ $loop->index }}][name]" class="input-protection">
                 @foreach ($plantProtectionProducts as $product)
-                <option value="{{ $product->id }}" 
+                <option value="{{ $loop->index }}" 
                   @if ($product->
                   id == $productSelected->id) selected 
                   @endif>
@@ -85,7 +85,7 @@
                 </svg>
               </button>
             </div>
-            <div class="info-text">Maksymalna dawka środka: 0</div>
+            <div class="info-text">Maksymalna dawka środka: <span class="max"> 0</span></div>
             <label
               >Ilość środka:<input
                 class="input-quantity"
@@ -94,6 +94,7 @@
                 max="150"
                 name="protectionproduct[{{ $loop->index }}][quantity]"
                 value="{{ $productSelected->pivot->quantity }}"
+                id="input-quantity-{{ $loop->index }}"
             /></label>
             l
           </div>
@@ -130,7 +131,7 @@
           `
           <select name="fields[]" class="input-field">
             @foreach ($fields as $field)
-            <option value="{{ $field->id }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
+            <option value="{{ $loop->index }}">{{ $field->field_name }} {{ $field->field_area }} ha</option>
             @endforeach
           </select>
           <button type="button" class="remove-button" id="fields-button-${id}">
@@ -146,16 +147,21 @@
           fieldForm.appendChild(newInput);
           document.getElementById(`fields-button-${id}`).addEventListener("click", () => {
             document.getElementById(`fields-${id}`).remove();
+            updateMaximumDoses();
           });
         }
 
-        document.getElementById("addField").addEventListener("click", addField);
+        document.getElementById("addField").addEventListener("click", () => {
+          addField();
+          addInputListeners();
+          updateMaximumDoses();
+        });
 
         let productsId = 0;
         const productsForm = document.getElementById("products-container");
         const productInputs = Array.from(document.getElementsByClassName("removable-input-container--products"));
 
-        fieldInputs.forEach((e) => {
+        productInputs.forEach((e) => {
           const id = productsId;
           productsId++;
           document.getElementById(`products-button-${id}`).addEventListener("click", () => {
@@ -175,7 +181,7 @@
             <div class="flex">
               <select name="protectionproduct[${id}][name]" class="input-protection">
                 @foreach ($plantProtectionProducts as $product)
-                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                <option value="{{ $loop->index }}">{{ $product->name }}</option>
                 @endforeach
               </select>
               <button type="button" class="remove-button" id="products-button-${id}">
@@ -188,7 +194,7 @@
                 </svg>
               </button>
             </div>
-            <div class="info-text">Maksymalna dawka środka: 0</div>
+            <div class="info-text">Maksymalna dawka środka: <span class="max">0</span></div>
             <label>Ilość środka:<input class="input-quantity" type="number" min="0" name="protectionproduct[${id}][quantity]" /></label>
             l
           </div>
@@ -199,7 +205,41 @@
           });
         }
         
-        document.getElementById("addProduct").addEventListener("click", addProduct);
+        document.getElementById("addProduct").addEventListener("click", () => {
+          addProduct();
+          addInputListeners()
+          updateMaximumDoses();
+        });
+
+        const fieldsData = {!! json_encode($fields->toArray()) !!}
+        const plantProtectionProductsData = {!! json_encode($plantProtectionProducts->toArray()) !!}
+
+        function updateMaximumDoses()
+        {
+          const inputFields = Array.from(document.getElementsByClassName("input-field"));
+          let sum = 0;
+          inputFields.forEach((e) => {
+            sum += fieldsData[e.value].field_area;
+          })
+          const products = Array.from(document.getElementsByClassName("product"));
+          products.forEach((e) => {
+            e.querySelector(".max").innerHTML = (plantProtectionProductsData[e.querySelector(".input-protection").value].maximum_dose * sum).toFixed(0);
+          })
+        }
+
+        function addInputListeners() {
+          const inputFields = Array.from(document.getElementsByClassName("input-field"));
+          inputFields.forEach((e) => {
+            e.addEventListener("change", updateMaximumDoses)
+          })
+          const inputProtections = Array.from(document.getElementsByClassName("input-protection"));
+          inputProtections.forEach((e) => {
+            e.addEventListener("change", updateMaximumDoses)
+          })
+        }
+
+        updateMaximumDoses()
+        addInputListeners()
       </script>
     </form>
   </div>

@@ -93,7 +93,6 @@
         .getElementById(`fields-button-${id}`)
         .addEventListener("click", () => {
           document.getElementById(`fields-${id}`).remove();
-          fieldsId--;
         });
       document.querySelectorAll(".input-area").forEach((element) => {
         element.addEventListener("change", evaluateArea);
