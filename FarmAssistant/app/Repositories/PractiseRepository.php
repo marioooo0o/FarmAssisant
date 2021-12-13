@@ -27,7 +27,6 @@ class PractiseRepository extends BaseRepository{
         $practise = AgriculturalPractise::create(['name' => $data['practise_name'], 'water' => $data['water'], 'start' => str_replace(' ', 'T', $data['start']), 'end' => str_replace('T', ' ', $data['start'])]);
         $practise->water = $data['water'];
         $practise->save();
-        
         foreach($data['fields'] as $field)
         {
             $practise->fields()->attach($field);
@@ -149,8 +148,9 @@ class PractiseRepository extends BaseRepository{
             {
                 $data->push($practise);
                 $data[$i]->push($practise->fields);
+                $i++;
             }
-           $i++;
+           
         }
         return $data;
     }
