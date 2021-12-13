@@ -13,21 +13,25 @@
     </div>
     @endif
     <form action="{{ route('practise.update', [$activeFarm->id, $practise->id]) }}" method="POST">
-      @csrf @method('PUT') <input type="text" name="practise_name" placeholder="Nazwa zabiegu" 
+      @dump(old('practise_name'))
+      @csrf @method('PUT') <input type="text" name="practise_name" placeholder="Nazwa zabiegu" id="field-name"
       @if (old('practise_name')) value="{{ old("practise_name") }}"
       @else value="{{ $practise->name }}" @endif class="input-name" /> 
       @error('practise_name')
-      <div>{{ $message }}</div>
+      <div id="error-name" style="color: red">{{ $message }}</div>
       @enderror
       <br />
+      
       <h2>Data zabiegu:</h2>
-      <input type="datetime-local" name="start" class="input-data" 
-      @if (old('start')) value="{{ old("start") }}" 
+      <input type="datetime-local" name="start" class="input-data"  id="start-data"
+      @if (old('start'))  value="{{ old("start") }}"
       @else
-      {{-- Dodać date z bazy --}}
-      value="{{ $practise->start_all_date }}" 
+      value="{{ $practise->start_all_date }}"
       @endif />
-
+      @error('start')
+        <div id="error-start" style="color: red">{{ $message }}</div>
+      @enderror
+      
       <h2>Wybrane pola:</h2>
       <div id="fields-container">
         @foreach ($practise->fields as $selectedField)
@@ -97,6 +101,9 @@
                 id="input-quantity-{{ $loop->index }}"
             /></label>
             l
+            @error('protectionproduct.0.quantity')
+            <div id="error-quantity" style="color: red"> {{ $message }}</div>
+            @enderror
           </div>
         </div>
         @endforeach
@@ -109,6 +116,18 @@
       l
       <button type="submit" class="submit">Dodaj zabieg</button>
       <script>
+        const errorEl = document.getElementById("error-name");
+        const fieldNameEl = document.getElementById("field-name");
+        fieldNameEl.addEventListener("focus", () => errorEl.classList.add("hidden"));
+
+        const errorStartEl = document.getElementById("error-start");
+        const startEl = document.getElementById("start-data");
+        startEl.addEventListener("focus", () => errorStartEl.classList.add("hidden"));
+
+
+
+
+
         let fieldsId = 0;
         const fieldForm = document.getElementById("fields-container");
         const fieldInputs = Array.from(document.getElementsByClassName("removable-input-container--fields"));

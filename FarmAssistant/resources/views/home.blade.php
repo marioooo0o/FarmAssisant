@@ -103,16 +103,15 @@
             $(document).ready(function () {
                
             var SITEURL = "{{ url('/') }}";
-
+            console.log(SITEURL);
             var NEWURL = '/api/farm/{{  $activeFarm->id }}/events';
-            console.log(NEWURL)
+            console.log(NEWURL) 
             //console.log(NEWURL.data);
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            console.log(NEWURL.data);
             var calendar = $('#calendar').fullCalendar({
                                 monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
                                 monthNamesShort: ['St', 'Lut', 'Mrz', 'Kw', 'Maj', 'Cz', 'Lip', 'Sier', 'Wrz', 'Paź', 'Lis', 'Gr'],
@@ -146,6 +145,7 @@
                                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
                                         $.ajax({
                                             url: SITEURL + "/fullcalenderAjax",
+                                            textColor: 'yellow',  
                                             data: {
                                                 title: title,
                                                 start: start,

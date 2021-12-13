@@ -19,13 +19,20 @@ class FieldRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
+        //dd($data);
         $farm = Farm::find($idFarm);
         $field = $farm->fields()->create($data);
-        $dataParcel = [
-                   'parcel_number' => $data['parcel_number'],
-                    'parcel_area' => $data['parcel_area'],
-             ];
-        $parcel = $field->cadastralParcels()->create($dataParcel);
+        foreach ($data['parcel_numbers'] as $parcel) {
+            $dataParcel = [
+                'parcel_number'=> $parcel['name'],
+                'parcel_area'=> $parcel['parcel_area']
+            ];
+            $field->cadastralParcels()->create($dataParcel);
+            $dataParcel = array();
+
+        }
+       // $dataParcel = ['parcel_number' => $data['parcel_number'], 'parcel_area' => $data['parcel_area'],];
+        
 
         $dataCrop = [
             'name' => $data['crops'],

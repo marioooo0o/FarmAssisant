@@ -133,7 +133,7 @@ class AgriculturalPractiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idFarm, $id)
+    public function update(StorePractise $request, $idFarm, $id)
     {
         $data = $request->all();
         $this->practiseRepository->update($data, $idFarm, null, null, $id);

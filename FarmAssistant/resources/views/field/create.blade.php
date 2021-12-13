@@ -18,13 +18,13 @@
         <div class="parcel parcel--first">
           <input
             type="text"
-            name="parcel_number"
+            name="parcel_numbers[0][name]"
             placeholder="Numer działki ewidencyjnej"
             class="input-number"
           />
           <input
             type="number"
-            name="parcel_area"
+            name="parcel_numbers[0][parcel_area]"
             step="0.1"
             min="0"
             class="input-area"
@@ -57,13 +57,13 @@
           <div class="parcel">
           <input
               type="text"
-              name="parcel_number"
+              name="parcel_numbers[${id}][name]"
               placeholder="Numer działki ewidencyjnej"
               class="input-number"
             />
             <input
               type="number"
-              name="parcel_area"
+              name="parcel_numbers[${id}][parcel_area]"
               step="0.1"
               min="0"
               class="input-area"
