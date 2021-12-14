@@ -160,7 +160,6 @@ class FieldController extends Controller
         $this->fieldRepository->delete($id);
         
         return redirect('home');
-        //return redirect('farm');
     }
 
     

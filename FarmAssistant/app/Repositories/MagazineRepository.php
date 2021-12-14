@@ -21,11 +21,10 @@ class MagazineRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
-        //dd($data);
         $farm = Farm::find($idFarm);
 
         $magazine = Magazine::find($farm->magazine->id);
-        //dd($magazine->products);
+        
       
         foreach($data['addProtectionProduct'] as $protectionProduct)
         {
@@ -49,35 +48,12 @@ class MagazineRepository extends BaseRepository{
 
     public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise=null)
     {
-        /*
-        $field = Field::find($idField);
-        $field->field_name = $data['field_name'];
-
-        $field->crops()->sync($data['crops']);
-        $field->save();
-        
-        $farm = Farm::find($idFarm);
-
-        $farm->updateFarmArea($idFarm);
-        
-        $farm->save();
-       
-        return $field;
-        */
+        //
     }
 
     public function delete($id)
     {
-        /*
-        $field = $this->find($id);
-        //save id farm before delete
-        $idFarm = $field->farm_id;   
-        $farm = Farm::find($field->farm_id);
-        $field->delete();
-        //update farm area after delete a field
-        $farm->updateFarmArea($idFarm);
-        $farm->save();
-       */
+        //
 
     }
 
@@ -94,22 +70,5 @@ class MagazineRepository extends BaseRepository{
         return $query;
     }
 
-    public function cheapest()
-    {
-        $fieldsList = $this->model->orderBy('price', 'asc')->limit(3)->get();
-        return $fieldsList;
-    }
-
-    public function longest()
-    {
-        $fieldsList = $this->model->orderBy('pages', 'desc')->limit(3)->get();
-        return $fieldsList;
-    }
-
-    public function search(String $q)
-    {
-        $fieldsList = $this->model->where('name', 'like', "%" . $q . "%")->get();
-        return $fieldsList;
-    }
 }
 ?>

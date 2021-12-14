@@ -59,14 +59,7 @@ class PractiseRepository extends BaseRepository{
 
     public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise=null)
     {
-        //dd($data['protectionproduct'][0]['quantity']);
         
-    //  for ($i=0; $i < count($data['protectionproduct']); $i++) { 
-    //         $newProducts[$i]['name'] = $data['protectionproduct'][$i]['name'];
-    //         $newProducts[$i]['quantity'] = 5;
-    //         //$newProducts[$i]['quantity'] = 'siema';
-    //     }
-       // dd($data['fields']);
         $farm = Farm::find($idFarm);
         $magazine = Magazine::find($farm->magazine->id);
         $practise = $this->model->find($idPractise);
@@ -75,14 +68,7 @@ class PractiseRepository extends BaseRepository{
         $practise->end = str_replace('T', ' ', $data['start']);
         $practise->water = $data['water'];
         $practise->start_all_date = $data['start'];
-       // $practise->save();
-        //$newFields = array();
-        // foreach ($data['fields'] as $field) {
-        //     $newFields[] = $field;
-        // }
-        
-        
-        //dd($newFields);
+       
         $practise->fields()->sync($data['fields']);
 
         $practise->plantProtectionProducts()->detach();
@@ -115,19 +101,9 @@ class PractiseRepository extends BaseRepository{
     public function delete($id)
     {
         $practise = $this->model->find($id);
-        //dd($practise);
+        
         $practise->delete();
-        /*
-        $field = $this->find($id);
-        //save id farm before delete
-        $idFarm = $field->farm_id;   
-        $farm = Farm::find($field->farm_id);
-        $field->delete();
-        //update farm area after delete a field
-        $farm->updateFarmArea($idFarm);
-        $farm->save();
-       
-*/
+        
     }
 
     public function getAllPractises($idFarm, $sorting='desc')

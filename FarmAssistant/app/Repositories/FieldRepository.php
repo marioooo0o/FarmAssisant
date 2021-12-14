@@ -19,7 +19,6 @@ class FieldRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
-        //dd($data);
         $farm = Farm::find($idFarm);
         $field = $farm->fields()->create($data);
         foreach ($data['parcel_numbers'] as $parcel) {
@@ -31,9 +30,7 @@ class FieldRepository extends BaseRepository{
             $dataParcel = array();
 
         }
-       // $dataParcel = ['parcel_number' => $data['parcel_number'], 'parcel_area' => $data['parcel_area'],];
-        
-
+    
         $dataCrop = [
             'name' => $data['crops'],
         ];
@@ -55,6 +52,15 @@ class FieldRepository extends BaseRepository{
     {
         $field = Field::find($idField);
         $field->field_name = $data['field_name'];
+
+        foreach ($data['parcel_numbers'] as $parcel) {
+            $dataParcel = [
+                'parcel_number'=> $parcel['name'],
+                'parcel_area'=> $parcel['parcel_area']
+            ];
+            $field->cadastralParcels()->update($dataParcel);
+            $dataParcel = array();
+        }
 
         $field->crops()->sync($data['crops']);
         $field->save();

@@ -68,7 +68,6 @@ class MagazineController extends Controller
     public function store(StoreMagazine $request, $idFarm)
     {
         $data = $request->all();
-        //dd($data);
         $magazine = $this->magazineRepository->create($data, $idFarm);
         return redirect('home');
     }

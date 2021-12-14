@@ -6,11 +6,8 @@
 
     <form action="/farm/{{ $activeFarm->id}}/field/{{ $field->id }}" method="POST">
       @csrf @method('PUT')
-      @dump(old())
-      <input type="text" name="field_name" placeholder="Nazwa pola" class="input-name" value="{{ $field->field_name }}" id="field-name"/>
-      @error('field_name')
-      <div id="error-name" style="color: red">{{ $message }} (uzupełniono wartość sprzed edycji)</div>
-      @enderror
+      <input type="text" name="field_name" placeholder="Nazwa pola" class="input-name" value="{{ $field->field_name }}" />
+
       <!-- <label for="field_area_label">Powierzchnia pola: </label>
       <label for="field_area">{{ $field->field_area }} ha</label> -->
 
@@ -21,8 +18,8 @@
       <div id="parcels">
         @foreach ($field->cadastralParcels as $parcel)
         <div class="parcel removable-input-container" id="parcels-{{ $loop->index }}">
-          <input type="text" name="parcel_number" placeholder="Numer działki ewidencyjnej" class="input-number" value="{{ $parcel->parcel_number }}" />
-          <input type="number" name="parcel_area" step="0.1" min="0" class="input-area" value="{{ $parcel->parcel_area }}" />
+          <input type="text" name="parcel_numbers[0][name]" placeholder="Numer działki ewidencyjnej" class="input-number" value="{{ $parcel->parcel_number }}" />
+          <input type="number" name="parcel_numbers[0][parcel_area]" step="0.1" min="0" class="input-area" value="{{ $parcel->parcel_area }}" />
           ha
           <button type="button" class="remove-button" id="parcels-button-{{ $loop->index }}">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -55,12 +52,6 @@
 </div>
 
 <script>
-const errorEl = document.getElementById("error-name");
-        const fieldNameEl = document.getElementById("field-name");
-        fieldNameEl.addEventListener("focus", () => errorEl.classList.add("hidden"));
-
-
-
   let parcelForm = document.getElementById("parcels");
   let parcelsId = 0;
 
@@ -84,8 +75,8 @@ const errorEl = document.getElementById("error-name");
     newInput.innerHTML = 
     `
     <div class="parcel">
-      <input type="text" name="parcel_number" placeholder="Numer działki ewidencyjnej" class="input-number" />
-      <input type="number" name="parcel_area" step="0.1" min="0" class="input-area" value="0" />
+      <input type="text" name="parcel_numbers[0][name]" placeholder="Numer działki ewidencyjnej" class="input-number" />
+      <input type="number" name="parcel_numbers[0][parcel_area]" step="0.1" min="0" class="input-area" value="0" />
       ha
       <button type="button" class="remove-button" id="parcels-button-${id}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

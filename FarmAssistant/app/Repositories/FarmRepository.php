@@ -14,24 +14,17 @@ class FarmRepository extends BaseRepository{
         dd($data);
         $farm = Farm::create($data);
 
-       //if(isset($data['author_id']))
-       //{
-       //    $field->authors()->sync($data['author_id']);
-       //}
         return $farm;
     }
 
     public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise = null)
     {
         $farm = Farm::find($idFarm);
-        //dd($id);
+        
         $farm->fill($data);
         $farm->save();
 
-        //if(isset($data['author_id']))
-        //{
-        //    $farm->authors()->sync($data['author_id']);
-        //}
+        
         return $farm;
     }
     public function cheapest()
