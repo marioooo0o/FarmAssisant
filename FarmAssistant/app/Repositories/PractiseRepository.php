@@ -59,39 +59,57 @@ class PractiseRepository extends BaseRepository{
 
     public function update(array $data, $idFarm, $idField=null, $idParcel=null, $idPractise=null)
     {
-        //dd($data['fields']);
+        //dd($data['protectionproduct'][0]['quantity']);
+        
+    //  for ($i=0; $i < count($data['protectionproduct']); $i++) { 
+    //         $newProducts[$i]['name'] = $data['protectionproduct'][$i]['name'];
+    //         $newProducts[$i]['quantity'] = 5;
+    //         //$newProducts[$i]['quantity'] = 'siema';
+    //     }
+       // dd($data['fields']);
+        $farm = Farm::find($idFarm);
+        $magazine = Magazine::find($farm->magazine->id);
         $practise = $this->model->find($idPractise);
         $practise->name = $data['practise_name'];
         $practise->start = str_replace(' ', 'T', $data['start']);
         $practise->end = str_replace('T', ' ', $data['start']);
         $practise->water = $data['water'];
+        $practise->start_all_date = $data['start'];
        // $practise->save();
         //$newFields = array();
         // foreach ($data['fields'] as $field) {
         //     $newFields[] = $field;
         // }
+        
+        
         //dd($newFields);
         $practise->fields()->sync($data['fields']);
+
+        $practise->plantProtectionProducts()->detach();
+        foreach($data['protectionproduct'] as $protectionProduct)
+        {
+            $productInMagazine = $magazine->products->where('id', "=", $protectionProduct["name"])->first()->pivot;
+            if($productInMagazine->quantity >= $protectionProduct["quantity"])
+            {
+                $productId = $protectionProduct['name'];
+
+                $quantityOld = $productInMagazine->quantity;
+                $quantityNew = $protectionProduct["quantity"];
+                $finalQuantity = $quantityOld - $quantityNew;
+
+                $magazine->products()->updateExistingPivot($protectionProduct["name"], ['quantity' => $finalQuantity,]);
+                $practise->plantProtectionProducts()->attach($productId, array('quantity' => $protectionProduct["quantity"]));
+            }
+            else
+            {
+                return "Chcesz użyć więcej środka niż posiadasz w magazynie";
+            }
+            
+        }
         $practise->save();
         return $practise;
-        //dd($practise->fields);
-        //dd($practise);
-        /*
-
-        $field = Field::find($idField);
-        $field->field_name = $data['field_name'];
-
-        $field->crops()->sync($data['crops']);
-        $field->save();
         
-        $farm = Farm::find($idFarm);
-
-        $farm->updateFarmArea($idFarm);
         
-        $farm->save();
-       
-        return $field;
-        */
     }
 
     public function delete($id)

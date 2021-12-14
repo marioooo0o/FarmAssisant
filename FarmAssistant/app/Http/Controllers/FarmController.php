@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFarm;
 use Illuminate\Http\Request;
 use App\Models\Farm;
 use Illuminate\Support\Facades\Schema;
@@ -52,9 +53,10 @@ class FarmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFarm $request)
     {
         $data = $request->all();
+     //dd($data);
         $user = User::find(Auth::id());
         
         $farm = $user->farms()->create($data);

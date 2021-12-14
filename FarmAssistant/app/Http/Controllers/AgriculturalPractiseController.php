@@ -92,8 +92,8 @@ class AgriculturalPractiseController extends Controller
     {
         $farms = auth()->user()->farms;
         $activeFarm = $this->farmRepository->find($idFarm);
-        
-        $practise = $this->practiseRepository->find($id);
+        $practise = AgriculturalPractise::find($id);
+        //$practise = $this->practiseRepository->find($id);
         return view('agriculturalpractise.show', [
             'farms' => $farms,
             'activeFarm' => $activeFarm,

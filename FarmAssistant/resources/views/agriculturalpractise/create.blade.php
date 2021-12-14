@@ -46,7 +46,7 @@
             </option>
             @endforeach
           </select>
-          <div class="info-text">Maksymalna dawka środka: <span class="max">0</span></div>
+          <div class="info-text">Sugerowana dawka środka: <span class="max">0</span></div>
           <label>Ilość środka:<input class="input-quantity" type="number" min="0" max="150" name="protectionproduct[0][quantity]" id="protectionproduct[0][quantity]"/></label>
           l
           @error('protectionproduct.0.quantity')
@@ -143,7 +143,7 @@
                 </svg>
               </button>
             </div>
-            <div class="info-text">Maksymalna dawka środka: <span class="max">0</span></div>
+            <div class="info-text">Sugerowana dawka środka: <span class="max">0</span></div>
             <label>Ilość środka:<input class="input-quantity" type="number" min="0" name="protectionproduct[${id}][quantity]" /></label>
             l
             @error('protectionproduct.${id}.quantity')
@@ -182,7 +182,9 @@
             for(let i = 0; i < plantProtectionProductsData.length; i++)
             {
               if(e.querySelector(".input-protection").value == plantProtectionProductsData[i].id){
-                e.querySelector(".max").innerHTML = (plantProtectionProductsData[i].maximum_dose * sum).toFixed(2);
+                e.querySelector(".max").innerHTML = (plantProtectionProductsData[i].maximum_dose * sum).toFixed(2) + "l";
+
+
               } 
             }
           })
