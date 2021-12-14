@@ -5,7 +5,6 @@
     <h1>Utwórz pole:</h1>
     <form action="{{ route('field.store', [$activeFarm->id]) }}" method="POST">
       @csrf
-      @dump($errors)
       <input
         type="text"
         name="field_name"

@@ -16,14 +16,15 @@
             <h1>Farm Assistant</h1>
         </div>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et illum
-            enim cupiditate consequuntur, officiis vitae, temporibus doloremque
-            saepe harum impedit rem sequi porro consequatur explicabo
-            perspiciatis asperiores nam quae minus? Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Non veritatis quia nam facilis
-            quibusdam. Recusandae, doloribus esse, blanditiis, reiciendis
-            quisquam quas illum nam autem dolorem repudiandae iure consequatur
-            rerum quae?
+            
+Farm Assistant to aplikacja której celem jest pomoc w ewidencji oraz zarządzaniu gospodarstwem rolnym. 
+Każdy użytkownik może stworzyć swoje gospodarstwo rolne, gdzie będzie mógł dodać działki ewidencyjne
+ składające się na pola oraz uprawę która na tych polach się znajduje.
+Następnie może posiadać magazyn swoich środków ochrony roślin, aby szybko upewnić się czy jest jego 
+wystarczająca ilość. Klient aplikacji może też dodać zabieg ochrony roślin, który wykonuje na swoich 
+polach na podstawie środków dostępnych w swoim magazynie. Zabiegi te oprócz prezentacji w tabeli zostają
+ też uwględnione w kalendarzu, aby rolnik mógł szybko przypomnieć sobie datę zabiegu jak i zaplanować 
+ kolejny zabieg.
           </p>
           <div class="buttons">
             <a href="{{ route('login') }}" class="button">Logowanie</a>

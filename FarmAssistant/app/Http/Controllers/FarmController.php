@@ -38,12 +38,10 @@ class FarmController extends Controller
         $id = Auth::id();
         $user = User::find($id);
         $farms = $user->farms;
-        //$activeFarm = $farms->first();
-
-        //dd($farms);
+        
         return view('farms.create', [
             'farms' => $farms,
-            //'activeFarm' => $activeFarm
+            
         ]);
     }
 
@@ -56,7 +54,7 @@ class FarmController extends Controller
     public function store(StoreFarm $request)
     {
         $data = $request->all();
-     //dd($data);
+    
         $user = User::find(Auth::id());
         
         $farm = $user->farms()->create($data);

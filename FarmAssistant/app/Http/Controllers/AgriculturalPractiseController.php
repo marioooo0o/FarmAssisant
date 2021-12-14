@@ -148,7 +148,6 @@ class AgriculturalPractiseController extends Controller
      */
     public function destroy($idFarm, $id)
     {
-        //dd($id);
         $this->practiseRepository->delete($id);
         return redirect('home');
     }

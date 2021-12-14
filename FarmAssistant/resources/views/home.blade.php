@@ -103,10 +103,9 @@
             $(document).ready(function () {
                
             var SITEURL = "{{ url('/') }}";
-            console.log(SITEURL);
+            
             var NEWURL = '/api/farm/{{  $activeFarm->id }}/events';
-            console.log(NEWURL) 
-            //console.log(NEWURL.data);
+            
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -118,7 +117,7 @@
                                 dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
                                 dayNamesShort: ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Niedz'],
                                 editable: true,
-                                //events: NEWURL,
+                                
                                 eventSources: [
                                     {
                                         url: NEWURL,

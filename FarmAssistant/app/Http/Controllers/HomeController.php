@@ -175,15 +175,3 @@ class HomeController extends Controller
         //
     }
 }
-/*
-$id = Auth::id();
-        $user = User::find($id);
-        $farms = $user->farms;
-        $firstFarm = $user->farms->first();
-
-        $data = $request->get('companies');
-        //dd($_POST);
-        //dd($request->all());
-        //view('layouts.app', ['farms' => $farms]);
-        return view('home', ['farms' => $farms, 'firstFarm' => $firstFarm, 'data' => $data]);
-        */
