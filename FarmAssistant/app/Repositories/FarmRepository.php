@@ -11,6 +11,7 @@ class FarmRepository extends BaseRepository{
 
     public function create(array $data, $idFarm=null, $idField=null, $idParcel=null)
     {
+        dd($data);
         $farm = Farm::create($data);
 
        //if(isset($data['author_id']))

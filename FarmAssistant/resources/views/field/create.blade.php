@@ -5,14 +5,19 @@
     <h1>Utwórz pole:</h1>
     <form action="{{ route('field.store', [$activeFarm->id]) }}" method="POST">
       @csrf
+      @dump($errors)
       <input
         type="text"
         name="field_name"
         placeholder="Nazwa pola"
         class="input-name"
         value="{{ old('field_name') }}"
+        id="field-name"
         
       />
+      @error('field_name')
+      <div id="error-name" style="color: red">{{ $message }}</div>
+      @enderror
       <div class="info-text">Dodaj działki, na których znajduje się pole:</div>
       <div id="parcels">
         <div class="parcel parcel--first">
@@ -21,6 +26,7 @@
             name="parcel_numbers[0][name]"
             placeholder="Numer działki ewidencyjnej"
             class="input-number"
+            id="parcel_numbers[0][name]"
           />
           <input
             type="number"
@@ -29,14 +35,22 @@
             min="0"
             class="input-area"
             value="0"
+            id="parcel_numbers[0][parcel_area]"
           />
           ha
+          
+          
         </div>
+        @error('parcel_numbers.0.name')
+          <div id="error-parcel-name" style="color: red">{{ $message }}</div><br>
+          @enderror
+          @error('parcel_numbers.0.parcel_area')
+          <div id="error-parcel-area" style="color: red">{{ $message }}</div>
+          @enderror 
       </div>
       Całkowity rozmiar pola: <span id="field-area">0 ha</span>
       <button type="button" id="addParcel">Dodaj działkę</button>
       <select name="crops" id="crops" class="input-crops">
-        <option value="" selected disabled hidden>Wybierz uprawę</option>
         @foreach ($crops as $crop)
         <option value="{{ $crop->id }}">{{ $crop->name }}</option>
         @endforeach
@@ -45,6 +59,25 @@
     </form>
   </div>
   <script>
+        const errorEl = document.getElementById("error-name");
+        const fieldNameEl = document.getElementById("field-name");
+        fieldNameEl.addEventListener("focus", () => errorEl.classList.add("hidden"));
+
+
+
+
+
+    const errorParcelNameEl = document.getElementById("error-parcel-name");
+    const parcelNameEl = document.getElementById("parcel_numbers[0][name]");
+    parcelNameEl.addEventListener("focus", () => errorParcelNameEl.classList.add("hidden"));
+
+
+    const errorParcelAreaEl = document.getElementById("error-parcel-area");
+    const parcelAreaEl = document.getElementById("parcel_numbers[0][parcel_area]");
+    parcelAreaEl.addEventListener("focus", () => errorParcelAreaEl.classList.add("hidden"));
+
+
+
     let fieldForm = document.getElementById("parcels");
     let fieldsId = 0;
     function addParcel() {

@@ -6,8 +6,11 @@
 
     <form action="/farm/{{ $activeFarm->id}}/field/{{ $field->id }}" method="POST">
       @csrf @method('PUT')
-      <input type="text" name="field_name" placeholder="Nazwa pola" class="input-name" value="{{ $field->field_name }}" />
-
+      @dump(old())
+      <input type="text" name="field_name" placeholder="Nazwa pola" class="input-name" value="{{ $field->field_name }}" id="field-name"/>
+      @error('field_name')
+      <div id="error-name" style="color: red">{{ $message }} (uzupełniono wartość sprzed edycji)</div>
+      @enderror
       <!-- <label for="field_area_label">Powierzchnia pola: </label>
       <label for="field_area">{{ $field->field_area }} ha</label> -->
 
@@ -40,10 +43,10 @@
       @endisset
       <select name="crops" id="crops" class="input-crops">
         @foreach ($crops as $crop) 
-        @isset($cropActive) @if ($cropActive->id == $crop->id ))
-        <option value="{{ $crop->id}}" selected>{{ $crop->name }}</option>
-        @endif @endisset
-        <option value="{{ $crop->id }}">{{ $crop->name }}</option>
+        <option value="{{ $crop->id }}"
+          @if ($cropActive->id == $crop->id)
+            selected
+          @endif>{{ $crop->name }}</option>
         @endforeach
       </select>
       <button type="submit">Zapisz</button>
@@ -52,6 +55,12 @@
 </div>
 
 <script>
+const errorEl = document.getElementById("error-name");
+        const fieldNameEl = document.getElementById("field-name");
+        fieldNameEl.addEventListener("focus", () => errorEl.classList.add("hidden"));
+
+
+
   let parcelForm = document.getElementById("parcels");
   let parcelsId = 0;
 

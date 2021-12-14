@@ -21,7 +21,7 @@ class CropsTableSeeder extends Seeder
         ]);
 
         DB::table('crops')->insert([
-            'name' => "Przeczka czarna",
+            'name' => "Porzeczka czarna",
         ]);
 
         DB::table('crops')->insert([

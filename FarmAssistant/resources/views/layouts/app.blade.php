@@ -176,7 +176,7 @@
                                 <x-responsive-nav-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Wyloguj') }}
                                 </x-responsive-nav-link>
                             </form>
                         </div>
@@ -184,15 +184,7 @@
                 </div>
             </nav>
             
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                </div>    
-            @endif
+           
             @yield('content')
             
         </div>

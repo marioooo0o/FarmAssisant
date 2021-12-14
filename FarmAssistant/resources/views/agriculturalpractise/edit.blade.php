@@ -13,7 +13,6 @@
     </div>
     @endif
     <form action="{{ route('practise.update', [$activeFarm->id, $practise->id]) }}" method="POST">
-      @dump(old('practise_name'))
       @csrf @method('PUT') <input type="text" name="practise_name" placeholder="Nazwa zabiegu" id="field-name"
       @if (old('practise_name')) value="{{ old("practise_name") }}"
       @else value="{{ $practise->name }}" @endif class="input-name" /> 
@@ -89,7 +88,7 @@
                 </svg>
               </button>
             </div>
-            <div class="info-text">Maksymalna dawka środka: <span class="max"> 0</span></div>
+            <div class="info-text">Sugerowana dawka środka: <span class="max"> 0</span></div>
             <label
               >Ilość środka:<input
                 class="input-quantity"
@@ -213,7 +212,7 @@
                 </svg>
               </button>
             </div>
-            <div class="info-text">Maksymalna dawka środka: <span class="max">0</span></div>
+            <div class="info-text">Sugerowana dawka środka: <span class="max">0</span></div>
             <label>Ilość środka:<input class="input-quantity" type="number" min="0" name="protectionproduct[${id}][quantity]" /></label>
             l
           </div>
@@ -250,7 +249,7 @@
             for(let i = 0; i < plantProtectionProductsData.length; i++)
             {
               if(e.querySelector(".input-protection").value == plantProtectionProductsData[i].id){
-                e.querySelector(".max").innerHTML = (plantProtectionProductsData[i].maximum_dose * sum).toFixed(0);
+                e.querySelector(".max").innerHTML = (plantProtectionProductsData[i].maximum_dose * sum).toFixed(2)+"l";
               } 
             }
           })

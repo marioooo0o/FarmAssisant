@@ -1,6 +1,5 @@
 @extends('layouts.app', ['farms' => $farms, 'activeFarm' => $activeFarm]) @section('content')
-{{--
-@dump($practise->plantProtectionProducts)--}}
+
 <div class="wrapper">
   <div class="content">
       <div class="field-icons-container">
