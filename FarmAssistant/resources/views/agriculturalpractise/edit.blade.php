@@ -249,7 +249,9 @@
             for(let i = 0; i < plantProtectionProductsData.length; i++)
             {
               if(e.querySelector(".input-protection").value == plantProtectionProductsData[i].id){
+
                 e.querySelector(".max").innerHTML = (plantProtectionProductsData[i].maximum_dose * sum).toFixed(2)+"l";
+
               } 
             }
           })
