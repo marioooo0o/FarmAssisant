@@ -64,7 +64,13 @@ class AgriculturalPractiseController extends Controller
         $plantProtectionProducts = $activeFarm->magazine->first()->products;
        
         
-        return view('agriculturalpractise.create', ['idFarm' => $idFarm, 'fields' => $fields, 'farms'=> $farms, 'activeFarm'=>$activeFarm, 'plantProtectionProducts' => $plantProtectionProducts]);
+        return view('agriculturalpractise.create', [
+            'idFarm' => $idFarm, 
+            'fields' => $fields, 
+            'farms'=> $farms, 
+            'activeFarm'=>$activeFarm, 
+            'plantProtectionProducts' => $plantProtectionProducts
+        ]);
     }
 
     /**

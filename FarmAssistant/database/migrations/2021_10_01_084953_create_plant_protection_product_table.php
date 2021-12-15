@@ -15,18 +15,18 @@ class CreatePlantProtectionProductTable extends Migration
     {
         Schema::create('plant_protection_products', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('name');
+            $table->string('name');                     //nazwa środka
             $table->date('sale_deadline');              //termin do sprzedaży
             $table->date('term_for_use');               //termin do użytku
-            $table->string('type');                       //rodzaj
-            $table->string('active_substance');          //substancja czynna
-            $table->string('plant')->nullable();         //uprawa
-            $table->string('pest')->nullable();          //agrofag
+            $table->string('type');                     //rodzaj
+            $table->string('active_substance');         //substancja czynna
+            $table->string('plant')->nullable();        //uprawa
+            $table->string('pest')->nullable();         //agrofag
             $table->string('dose')->nullable();         //dawka
-            $table->string('unit', 2);
+            $table->string('unit', 2);                  //jednostka [l/kg]
             $table->string('deadline')->nullable();     //termin
-            $table->string('group_name');                //nazwa grupy
-            $table->string('small_area')->nullable();  //mało obszarowe
+            $table->string('group_name');               //nazwa grupy
+            $table->string('small_area')->nullable();   //mało obszarowe
             $table->string('application')->nullable();  //zastosowanie/użytkownik
         });
 
