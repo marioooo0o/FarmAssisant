@@ -23,7 +23,6 @@ class StorePractise extends FormRequest
      */
     public function rules()
     {
-        //dd($request);
         return [
             'practise_name' => 'required|max:255',
             'fields.*' => 'required|distinct',
