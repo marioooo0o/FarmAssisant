@@ -41,11 +41,12 @@ Lista zrealizowanych funkcjonalnosci:
 - Przeglądanie oraz dodawanie środków ochrony roślin do magazynu
 - Kalendarz z wykonanymi zabiegami oraz z możliwością planowania kolejnych
 
-
 ## Zrzuty ekranu
-![Example screenshot](./img/screenshot.png)
-<!-- If you have screenshots you'd like to share, include them here. -->
-
+![Okno powitalne](./img/okno-glowne.png)
+![Dashboard](./img/home.png)
+![Kalendarz](./img/kalendarz.png)
+![Lista zabiegów](./img/zabiegi.png)
+![Inormacje o polu](./img/pole.png)
 
 ## Konfiguracja
 Do uruchomenia potrzebny jest serwer aplikacyjny, interpreter PHP, baza danych oraz Composer. 3 pierwsze elementy oferuje XAMPP a Composer otrzymamy ze strony https://getcomposer.org/ 
@@ -68,9 +69,10 @@ Została zakończona wersja 1.0 projektu oprata na blade Laravela. Następna wer
 
 
 ## Kontakt
-Aplikacja stworzona przez 
+Aplikacja stworzona przez:
+- [Maksymilian Dendura](https://github.com/Noniv)  frontend
 - [Mariusz Dąbrowski](https://github.com/marioooo0o) frontend, backend  
-- [Maksymilian Dendura](https://github.com/Noniv)
+
 
 
 
