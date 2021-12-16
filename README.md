@@ -2,7 +2,7 @@
 
 
 ## Spis treści
-* [Ogólne informacje](#general-information)
+* [Ogólne informacje](#informacje-ogólne)
 * [Użyte technologie](#użyte-technologie)
 * [Zrealizowane funkcjonalności](#zrealizowane-funkcjonalności)
 * [Zrzuty ekranu](#screenshots)
