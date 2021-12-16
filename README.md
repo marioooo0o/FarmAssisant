@@ -68,7 +68,9 @@ Została zakończona wersja 1.0 projektu oprata na blade Laravela. Następna wer
 
 
 ## Kontakt
-Stworzone przez [Mariusz Dąbrowski](https://github.com/marioooo0o) i [Maksymilian Dendura](https://github.com/Noniv)
+Aplikacja stworzona przez 
+- [Mariusz Dąbrowski](https://github.com/marioooo0o) frontend, backend  
+- [Maksymilian Dendura](https://github.com/Noniv)
 
 
 
