@@ -5,7 +5,7 @@
 * [Ogólne informacje](#informacje-ogólne)
 * [Użyte technologie](#użyte-technologie)
 * [Zrealizowane funkcjonalności](#zrealizowane-funkcjonalności)
-* [Zrzuty ekranu](#screenshots)
+* [Zrzuty ekranu](#zrzuty-ekranu)
 * [Konfiguracja](#konfiguracja)
 * [Status projektu](#status-projektu)
 * [Podziękowania](#podziękowania)
