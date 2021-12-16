@@ -2,7 +2,7 @@
 
 
 ## Spis treści
-* [Ogólne informacje](#informacje-ogólne)
+* [Informacje ogólne](#informacje-ogólne)
 * [Użyte technologie](#użyte-technologie)
 * [Zrealizowane funkcjonalności](#zrealizowane-funkcjonalności)
 * [Zrzuty ekranu](#zrzuty-ekranu)
@@ -65,7 +65,7 @@ Do uruchomenia potrzebny jest serwer aplikacyjny, interpreter PHP, baza danych o
 7. Uruchomienie serwera `php artisan serve`
 
 ## Status projektu
-Została zakończona wersja 1.0 projektu oprata na blade Laravela. Następna wersja będzie stworzona w oparciu o framework Vue.js po stronie frontendu i kontynuacja Laravela po stronie backendu.
+Została zakończona wersja 1.0 projektu oparta na blade Laravela. Następna wersja będzie stworzona w oparciu o framework Vue.js po stronie frontendu i kontynuacja Laravela po stronie backendu.
 
 
 ## Kontakt
